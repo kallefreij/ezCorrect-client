@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     content: {
         height: 200,
         color: 'white',
-        marginTop: 100
+        marginTop: 50
     },
     circle: {
         height: 150,

@@ -9,11 +9,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import '../common/common.scss';
 import { Grid } from '@material-ui/core';
 import profilbild from '../resources/profil.jpg';
+import { NavLink } from 'react-router-dom';
+import { relative } from 'path';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      position: 'relative',
+      [theme.breakpoints.up('sm')]: {
+        position: 'absolute'
+      },
     },
     menuButton: {
       display: 'block',
@@ -73,17 +79,27 @@ const Navbar: React.FC = () => {
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
               <MenuIcon />
             </IconButton>
+            
+            <Typography className={classes.button} >
+              <NavLink to="/home" style={{textDecoration:'none', color:'white'}}>
+                <Button color="inherit">Hem</Button>
+              </NavLink>  
+            </Typography>
+                     
             <Typography className={classes.button}>
-              <Button color="inherit">Hem</Button>
+              <NavLink to="/tests" style={{textDecoration:'none', color:'white'}}>
+                <Button color="inherit">Uppgifter</Button>
+              </NavLink>
             </Typography>
             <Typography className={classes.button}>
-              <Button color="inherit">Uppgifter</Button>
+              <NavLink to="/groups" style={{textDecoration:'none', color:'white'}}>
+                <Button color="inherit">Klasser</Button>
+              </NavLink>
             </Typography>
             <Typography className={classes.button}>
-              <Button color="inherit">Klasser</Button>
-            </Typography>
-            <Typography className={classes.button}>
-              <Button color="inherit">statistik</Button>
+              <NavLink to="/statistics" style={{textDecoration:'none', color:'white'}}>
+                <Button color="inherit">Statistik</Button>
+              </NavLink>           
             </Typography>
             <Typography className={classes.flex}></Typography>
             <Typography className={classes.account}>
