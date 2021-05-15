@@ -7,7 +7,6 @@ const useStyles = makeStyles({
     root: {
       maxWidth: 400,
       backgroundColor: '#A1D0A5',
-      fontFamily: '"Roboto"',
       margin: 'auto',
       marginTop: 50,
       borderRadius: 10
@@ -18,7 +17,6 @@ const useStyles = makeStyles({
     content: {
         height: 200,
         color: 'white',
-        fontFamily: 'Roboto',
         marginTop: 100
     },
     circle: {
@@ -53,12 +51,10 @@ const InfoCard:React.FC<IInfoCardProps> = (props) => {
                     </SvgIcon>                    
                 </div>
                 <CardContent className={classes.content}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <h1>
                         {props.title}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {props.text}
-                    </Typography>
+                    </h1>
+                    <p style={{color: 'black'}}>{props.text}</p>
                 </CardContent>
         </Card>
     )
