@@ -1,4 +1,4 @@
-$primary: red;
+$primary: #a1d0a5;
 
 .test {
   background-color: $primary;
@@ -19,4 +19,10 @@ $primary: red;
   left: 150px;
   top: 120px;
   position: absolute;
+}
+
+//Info card
+
+.card {
+  background-color: $primary;
 }

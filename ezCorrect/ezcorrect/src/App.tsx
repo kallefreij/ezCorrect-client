@@ -5,7 +5,7 @@ import HomeTeacher from './teacher/home/components/home';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <HomeTeacher/>
     </div>
   );
