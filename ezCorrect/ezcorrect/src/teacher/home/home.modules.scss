@@ -1,0 +1,22 @@
+$primary: red;
+
+.test {
+  background-color: $primary;
+}
+
+.pictureHeader {
+  height: 40vh;
+  background-image: url("../../resources/header.jpeg");
+  background-size: cover;
+  background-position: 0px -300px;
+}
+
+.card {
+  height: 60vh;
+}
+
+.iconPosition {
+  left: 150px;
+  top: 120px;
+  position: absolute;
+}
