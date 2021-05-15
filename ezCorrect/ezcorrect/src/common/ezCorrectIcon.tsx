@@ -1,5 +1,5 @@
 import * as React from 'react';
-import img from '../../resources/ezCorrectIcon.png';
+import img from '../resources/ezCorrectIcon.png';
 
 export interface IIconStuff{
     width: number;
@@ -7,7 +7,7 @@ export interface IIconStuff{
 }
 
 const EzCorrectIcon: React.FC<IIconStuff> = (props) => {
-    return <img src={img} width={props.width} height={props.height}/> 
+    return <img src={img} width={props.width} height={props.height} alt="company logo"/> 
 }
 
 export default EzCorrectIcon;

@@ -3,7 +3,8 @@ import { Height } from '@material-ui/icons';
 import * as React from 'react';
 import '../home.modules.scss';
 import img from '../../../resources/ezCorrectIcon.png';
-import EzCorrectIcon from '../../../resources/common/ezCorrectIcon';
+import EzCorrectIcon from '../../../common/ezCorrectIcon';
+import Navbar from '../../../common/navbar';
 
 const Home: React.FC = () => {
     return(
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
             <Grid container>
                 <Grid item xs={12}>
                     <div className="pictureHeader">
+                        <Navbar/>
                         <div className="iconPosition">
                             <EzCorrectIcon height={250} width={250}/>
                         </div>
