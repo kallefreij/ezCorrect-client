@@ -5,6 +5,16 @@ import '../home.modules.scss';
 import img from '../../../resources/ezCorrectIcon.png';
 import EzCorrectIcon from '../../../common/ezCorrectIcon';
 import Navbar from '../../../common/navbar';
+import InfoCard from './infoCard';
+import cardImg from '../../../resources/cardPhoto.jpeg';
+import cardImg2 from '../../../resources/cardPhoto2.jpeg';
+import cardIcon from '../../../resources/group.svg';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import StatsIcon from '@material-ui/icons/Equalizer';
+import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
+import DoneIcon from '@material-ui/icons/Done';
+import ButtonCard from './buttonCard';
+
 
 const Home: React.FC = () => {
     return(
@@ -20,16 +30,17 @@ const Home: React.FC = () => {
                     </div>
                 </Grid>
                 <Grid item md={4} xs={12}>
-                    <div className="card">
-                        <h1>hej</h1>
-                        <Button color="primary" variant="contained">Tryck</Button>
-                    </div>
+                    <InfoCard title="Easy learning" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " image={cardImg} icon={<SchoolOutlinedIcon />}/>
                 </Grid>
                 <Grid item md={4} xs={12}>
-                     <div className="card"></div>
+                    <InfoCard title="Easy doing" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " image={cardImg2} icon={<DoneIcon/>}/>
                 </Grid>
                 <Grid item md={4} xs={12}>
-                    <div className="card"></div>
+                    <div style={{marginTop:50}}>
+                        <ButtonCard icon={<EventNoteIcon/>} text="Uppgifter" color='#A3A1D0'/>
+                        <ButtonCard icon={<SchoolOutlinedIcon />} text="Klasser" color='#D0A1A1'/>
+                        <ButtonCard icon={<StatsIcon/>} text="Statistik" color='#D0B9A1'/>
+                    </div>                   
                 </Grid>
             </Grid>
 

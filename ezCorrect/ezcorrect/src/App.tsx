@@ -6,7 +6,7 @@ import Navbar from './common/navbar';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <HomeTeacher/>
     </div>
   );
