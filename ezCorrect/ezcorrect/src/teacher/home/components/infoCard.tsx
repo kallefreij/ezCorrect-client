@@ -45,6 +45,9 @@ const InfoCard:React.FC<IInfoCardProps> = (props) => {
                 className={classes.media}
                 image={props.image}
                 />
+                {/* Fixa gradient dynamiskt, finns css för hur man gör det med en bild */}
+                {/* <div className="imageGradient">
+                </div> */}
                 <div className={classes.circle}>
                     <SvgIcon style={{fontSize: 50, marginTop: 50, marginLeft: 50}}>
                         {props.icon}
