@@ -21,10 +21,30 @@ router.post('',(req, res, next) =>{
     });
 })
 router.get('', (req, res, next) => {
+    
     Task.find().then(documents => {
+        console.log(documents);
         res.status(200).json({
             message: 'Data is fetched!',
             tasks: documents
+        });
+    });
+});
+router.get('/metaData', (req, res, next) => {
+    Task.find().then(documents => {        
+        let result = [];
+        documents.forEach((d)=>{
+            result.push({
+                id: d._id,
+                title: d.title,
+                datestamp: d.dateStamp,
+                subject: d.subjects[0].title,
+                questions: d.questions.length
+            })
+        })
+        res.status(200).json({
+            message: 'Data is fetched!',
+            tasks: result
         });
     });
 });
