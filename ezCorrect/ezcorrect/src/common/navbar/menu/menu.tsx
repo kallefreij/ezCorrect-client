@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,7 +13,17 @@ const useStyles = makeStyles((theme: Theme) =>
         [theme.breakpoints.up('sm')]: {
           display: 'none',
         },
-      },
+    },
+    navlink: {
+        textDecoration: 'none',
+        color: '#f4f6f8',
+    },
+    menu: {
+        "& .MuiPaper-root": {
+            backgroundColor: '#A1D0A5',
+            padding: '5px',
+        },
+    },
   }),
 );
 
@@ -39,13 +50,26 @@ const NavbarMenu: React.FC = () => {
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
+            className={classes.menu}
             open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Hem</MenuItem>
-            <MenuItem onClick={handleClose}>Uppgifter</MenuItem>
-            <MenuItem onClick={handleClose}>Klasser</MenuItem>
-            <MenuItem onClick={handleClose}>Statistik</MenuItem>
+            onClose={handleClose}>
+
+            <NavLink to="/home" className={classes.navlink}>
+                <MenuItem onClick={handleClose}>Hem</MenuItem>
+            </NavLink>  
+
+            <NavLink to="/tests" className={classes.navlink}>
+                <MenuItem onClick={handleClose}>Uppgifter</MenuItem>
+            </NavLink>  
+
+            <NavLink to="/groups" className={classes.navlink}>
+                <MenuItem onClick={handleClose}>Klasser</MenuItem>
+            </NavLink>  
+            
+            <NavLink to="/statistics" className={classes.navlink}>
+                <MenuItem onClick={handleClose}>Statistik</MenuItem>
+            </NavLink>  
+
           </Menu>
         </div>
       );
