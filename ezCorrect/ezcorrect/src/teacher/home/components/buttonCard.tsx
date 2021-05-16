@@ -28,7 +28,7 @@ const ButtonCard:React.FC<IButtonCardProps> = (props) => {
             <CardContent>
                 <Grid container spacing={4}>
                     <Grid item>
-                        <SvgIcon style={{fontSize: 40, marginTop: 18}}>
+                        <SvgIcon style={{fontSize: 40, marginTop: 22}}>
                             {props.icon}
                         </SvgIcon>
                     </Grid>

@@ -4,15 +4,23 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import '../../common/common.scss';
-import { Grid, Menu, Slide } from '@material-ui/core';
-import profilbild from '../../resources/profil.jpg';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import '../common/common.scss';
+import { Grid } from '@material-ui/core';
+import profilbild from '../resources/profil.jpg';
+import { NavLink } from 'react-router-dom';
+import { relative } from 'path';
 import NavbarMenu from './menu/menu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      position: 'relative',
+      [theme.breakpoints.up('sm')]: {
+        position: 'absolute'
+      },
     },
     menuButton: {
       display: 'block',
@@ -68,30 +76,40 @@ const Navbar: React.FC = () => {
 
     return (
         <div className={classes.root}>
-          <AppBar position="sticky" className={classes.bar} >
-            <Toolbar>
-              <NavbarMenu/>
-              <Typography className={classes.button}>
+        <AppBar position="sticky" className={classes.bar} >
+          <Toolbar>
+            <NavbarMenu/>
+            
+            <Typography className={classes.button} >
+              <NavLink to="/home" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Hem</Button>
-              </Typography>
-              <Typography className={classes.button}>
+              </NavLink>  
+            </Typography>
+                     
+            <Typography className={classes.button}>
+              <NavLink to="/tests" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Uppgifter</Button>
-              </Typography>
-              <Typography className={classes.button}>
+              </NavLink>
+            </Typography>
+            <Typography className={classes.button}>
+              <NavLink to="/groups" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Klasser</Button>
-              </Typography>
-              <Typography className={classes.button}>
-                <Button color="inherit">statistik</Button>
-              </Typography>
-              <Typography className={classes.flex}></Typography>
-              <Typography className={classes.account}>
-                <Button color="inherit">Abdullah</Button>
-              </Typography>
-              <Typography className={classes.account}>
-                <img src={profilbild} alt="profilbild" className={classes.image}/>
-              </Typography>
-            </Toolbar>
-          </AppBar>
+              </NavLink>
+            </Typography>
+            <Typography className={classes.button}>
+              <NavLink to="/statistics" style={{textDecoration:'none', color:'white'}}>
+                <Button color="inherit">Statistik</Button>
+              </NavLink>           
+            </Typography>
+            <Typography className={classes.flex}></Typography>
+            <Typography className={classes.account}>
+              <Button color="inherit">Abdullah</Button>
+            </Typography>
+            <Typography className={classes.account}>
+              <img src={profilbild} alt="profilbild" className={classes.image}/>
+            </Typography>
+          </Toolbar>
+        </AppBar>
       </div>
     );
     
