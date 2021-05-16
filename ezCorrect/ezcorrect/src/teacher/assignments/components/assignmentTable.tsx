@@ -3,6 +3,8 @@ import * as React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import clsx from 'clsx';
+import CreateIcon from '@material-ui/icons/Create';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 
 interface Data {
     calories: number;
@@ -132,23 +134,23 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           </TableCell>
           {headCells.map((headCell) => (
             <TableCell
-              key={headCell.id}
-              align={headCell.numeric ? 'right' : 'left'}
-              padding={headCell.disablePadding ? 'none' : 'default'}
-              sortDirection={orderBy === headCell.id ? order : false}
+                key={headCell.id}
+                align={headCell.numeric ? 'right' : 'left'}
+                padding={headCell.disablePadding ? 'none' : 'default'}
+                sortDirection={orderBy === headCell.id ? order : false}
             >
-              <TableSortLabel
+                <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : 'asc'}
                 onClick={createSortHandler(headCell.id)}
-              >
+                >
                 {headCell.label}
                 {orderBy === headCell.id ? (
-                  <span className={classes.visuallyHidden}>
+                    <span className={classes.visuallyHidden}>
                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </span>
+                    </span>
                 ) : null}
-              </TableSortLabel>
+                </TableSortLabel>
             </TableCell>
           ))}
         </TableRow>
@@ -165,8 +167,8 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
         highlight:
             theme.palette.type === 'light'
             ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+                color: 'white',
+                backgroundColor: '#A3A1D0',
                 }
             : {
                 color: theme.palette.text.primary,
@@ -195,9 +197,7 @@ const { numSelected } = props;
 
     return (
         <Toolbar
-        className={clsx(classes.root, {
-            [classes.highlight]: numSelected > 0,
-        })}
+        className={classes.highlight}
         >
         {numSelected > 0 ? (
             <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
@@ -208,11 +208,21 @@ const { numSelected } = props;
                 Uppgifter
             </Typography>
         )}
-            <Tooltip title="Delete">
+            <Tooltip title="Förhandsgranska">
                 <IconButton aria-label="delete">
-                    <DeleteIcon />
+                    <FindInPageIcon style={{color:'white'}}/>
                 </IconButton>
             </Tooltip>
+            <Tooltip title="Redigera">
+                <IconButton aria-label="delete">
+                    <CreateIcon style={{color:'white'}}/>
+                </IconButton>
+            </Tooltip>           
+            <Tooltip title="Ta bort">
+                <IconButton aria-label="delete">
+                    <DeleteIcon style={{color:'white'}}/>
+                </IconButton>
+            </Tooltip>        
         </Toolbar>
     );
 };
@@ -310,7 +320,7 @@ const AssignmentTable = () => {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return(
-        <div style={{padding:40, paddingTop:0}}>
+        <div style={{padding:40, paddingTop:20}}>
                 <div className={classes.root}>
                     <Paper className={classes.paper}>
                         <EnhancedTableToolbar numSelected={selected.length} />
