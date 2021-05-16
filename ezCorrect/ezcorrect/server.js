@@ -21,7 +21,7 @@ const onError = error => {
     if(error.syscall !== 'listen') {
         throw error;
     }
-
+    const addr = server.address(); 
     const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + port;
 
     switch (error.code) {
@@ -45,7 +45,7 @@ const onListening = () => {
     debug('Listening on ' + bind);
 }
 
-const port = normalizePort(process.env.PORT || 3000);
+const port = normalizePort(process.env.PORT || 4000);
 app.set('port', port)
 
 const server = http.createServer(app);
