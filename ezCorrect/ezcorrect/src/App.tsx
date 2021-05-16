@@ -10,6 +10,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import Assignments from './teacher/assignments/components/assignments';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Navbar/>
         <Switch>
           <Route exact path="/home" component={HomeTeacher}></Route>
-          <Route exact path="/tests" component={Statistics}></Route>
+          <Route exact path="/assignments" component={Assignments}></Route>
           <Route exact path="/groups" component={Statistics}></Route>
           <Route exact path="/statistics" component={Statistics}></Route>
           <Route path="/">

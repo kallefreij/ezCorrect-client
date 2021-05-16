@@ -35,7 +35,9 @@ const Home: React.FC = () => {
                 </Grid>
                 <Grid item md={4} xs={12}>
                     <div style={{marginTop:50}}>
-                        <ButtonCard icon={<EventNoteIcon/>} text="Uppgifter" color='#A3A1D0'/>
+                        <NavLink to="/assignments" style={{textDecoration:'none'}}>
+                            <ButtonCard icon={<EventNoteIcon/>} text="Uppgifter" color='#A3A1D0'/>
+                        </NavLink>                   
                         <ButtonCard icon={<GroupIcon />} text="Klasser" color='#D0A1A1'/>
                         <NavLink to="/statistics" style={{textDecoration:'none'}}>
                             <ButtonCard icon={<StatsIcon/>} text="Statistik" color='#D0B9A1'/>

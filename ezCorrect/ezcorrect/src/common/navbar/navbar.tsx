@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
             </Typography>
                      
             <Typography className={classes.button}>
-              <NavLink to="/tests" style={{textDecoration:'none', color:'white'}}>
+              <NavLink to="/assignments" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Uppgifter</Button>
               </NavLink>
             </Typography>
