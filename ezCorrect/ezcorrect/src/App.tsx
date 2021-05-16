@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import HomeTeacher from './teacher/home/components/home';
-import Navbar from './common/navbar';
+import Navbar from './common/navbar/navbar';
 import Statistics from './teacher/statistics/components/statistics';
 import {
   HashRouter as Router,

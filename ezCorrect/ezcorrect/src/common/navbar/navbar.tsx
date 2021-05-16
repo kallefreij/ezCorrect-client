@@ -6,11 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import '../common/common.scss';
+import '../common.scss';
 import { Grid } from '@material-ui/core';
-import profilbild from '../resources/profil.jpg';
+import profilbild from '../../resources/profil.jpg';
 import { NavLink } from 'react-router-dom';
 import { relative } from 'path';
+import NavbarMenu from './menu/menu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     account: {
-
+      paddingRight: '15px',
     },
     image: {
       height: '45px',
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
+
 const Navbar: React.FC = () => {
 
     const classes = useStyles();
@@ -76,9 +78,7 @@ const Navbar: React.FC = () => {
         <div className={classes.root}>
         <AppBar position="sticky" className={classes.bar} >
           <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
+            <NavbarMenu/>
             
             <Typography className={classes.button} >
               <NavLink to="/home" style={{textDecoration:'none', color:'white'}}>

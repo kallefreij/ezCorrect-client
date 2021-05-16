@@ -2,7 +2,7 @@ import { Button, Grid } from '@material-ui/core';
 import * as React from 'react';
 import '../home.modules.scss';
 import EzCorrectIcon from '../../../common/ezCorrectIcon';
-import Navbar from '../../../common/navbar';
+import Navbar from '../../../common/navbar/navbar';
 import InfoCard from './infoCard';
 import cardImg from '../../../resources/cardPhoto.jpeg';
 import cardImg2 from '../../../resources/cardPhoto2.jpeg';
