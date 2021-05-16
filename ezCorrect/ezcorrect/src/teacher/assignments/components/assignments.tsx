@@ -6,9 +6,19 @@ import DoneIcon from '@material-ui/icons/Done';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import AssignmentTable from './assignmentTable';
+import { useDispatch } from 'react-redux';
+import { fetchAssignmentsNow } from '../assignments.actions';
 
 
 const Assignments:React.FC = () => {
+    const dispatch = useDispatch();
+    //const roster = useSelector(getRoster);
+
+    React.useEffect(() => {
+        console.log("FETCHING");
+        dispatch(fetchAssignmentsNow());
+      }, []);
+
     return(
         <div>
             <div style={{height:100}}/>
