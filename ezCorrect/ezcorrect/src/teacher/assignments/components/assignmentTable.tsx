@@ -257,7 +257,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
     root: {
       '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
+        backgroundColor: lighten('#A3A1D0', 0.85),
       },
     },
   }),

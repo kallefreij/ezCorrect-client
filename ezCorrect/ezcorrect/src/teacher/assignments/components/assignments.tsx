@@ -27,8 +27,8 @@ const Assignments:React.FC = () => {
                     <div>
                         <ButtonCard text="Skapa uppgift" icon={<CreateIcon/>} color='#A3A1D0' to='/home'/>
                         <ButtonCard text="Rätta uppgift" icon={<DoneIcon/>} color='#A3A1D0' to='/home'/>
-                        <ButtonCard text="Hitta uppgift" icon={<FindInPageIcon/>} color='#A3A1D0' to='/home'/>
                         <ButtonCard text="Schemalagda uppgifter" icon={<ScheduleIcon/>} color='#A3A1D0' to='/home'/>
+                        <ButtonCard text="Hitta uppgift" icon={<FindInPageIcon/>} color='#A3A1D0' to='/home'/>               
                     </div>
                 </Grid>
                 <Grid item xs={8}>
