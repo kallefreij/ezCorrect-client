@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import * as React from 'react';
 import ButtonCard from '../../../common/buttons/buttonCard';
 import CreateIcon from '@material-ui/icons/Create';
@@ -6,13 +6,26 @@ import DoneIcon from '@material-ui/icons/Done';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import AssignmentTable from './assignmentTable';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchAssignmentsNow } from '../assignments.actions';
+import { createSelector } from 'reselect';
+import { IStateTree } from '../../../redux/rootReducer';
+import { IAssignmentState } from '../assignments.reducer';
+import { IAssignmentMetaData } from '../assignments.interfaces';
 
+const getAssignmentMetaData = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData[]>(
+    (state) => state.assignments,
+    (a) => a.assignmentMetadata
+);
 
 const Assignments:React.FC = () => {
     const dispatch = useDispatch();
-    //const roster = useSelector(getRoster);
+    const assignmentMetaData = useSelector(getAssignmentMetaData);
+
+    const test = () => {
+        debugger;
+        console.log(assignmentMetaData)
+    }
 
     React.useEffect(() => {
         console.log("FETCHING");
@@ -33,7 +46,7 @@ const Assignments:React.FC = () => {
                 </Grid>
                 <Grid item xs={8}>
                     <div>
-                        <AssignmentTable/>
+                        {assignmentMetaData != undefined ? <AssignmentTable data={assignmentMetaData}/> : ""}
                     </div>
                 </Grid>
             </Grid>

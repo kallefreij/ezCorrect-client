@@ -5,40 +5,41 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import clsx from 'clsx';
 import CreateIcon from '@material-ui/icons/Create';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
+import { IAssignmentMetaData } from '../assignments.interfaces';
 
 interface Data {
-    calories: number;
-    carbs: number;
-    fat: number;
-    name: string;
-    protein: number;
+    datestamp: string;
+    id: string;
+    questions: number;
+    subject: string;
+    title: string;
   }
   
-  function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-  ): Data {
-    return { name, calories, fat, carbs, protein };
-  }
+  // function createData(
+  //   name: string,
+  //   calories: number,
+  //   fat: number,
+  //   carbs: number,
+  //   protein: number,
+  // ): Data {
+  //   return { name, calories, fat, carbs, protein };
+  // }
   
-  const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Donut', 452, 25.0, 51, 4.9),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Honeycomb', 408, 3.2, 87, 6.5),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    createData('KitKat', 518, 26.0, 65, 7.0),
-    createData('Lollipop', 392, 0.2, 98, 0.0),
-    createData('Marshmallow', 318, 0, 81, 2.0),
-    createData('Nougat', 360, 19.0, 9, 37.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-  ];
+  // const rows = [
+  //   createData('Cupcake', 305, 3.7, 67, 4.3),
+  //   createData('Donut', 452, 25.0, 51, 4.9),
+  //   createData('Eclair', 262, 16.0, 24, 6.0),
+  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  //   createData('Gingerbread', 356, 16.0, 49, 3.9),
+  //   createData('Honeycomb', 408, 3.2, 87, 6.5),
+  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  //   createData('Jelly Bean', 375, 0.0, 94, 0.0),
+  //   createData('KitKat', 518, 26.0, 65, 7.0),
+  //   createData('Lollipop', 392, 0.2, 98, 0.0),
+  //   createData('Marshmallow', 318, 0, 81, 2.0),
+  //   createData('Nougat', 360, 19.0, 9, 37.0),
+  //   createData('Oreo', 437, 18.0, 63, 4.0),
+  // ];
   
 
 // const useStyles = makeStyles({
@@ -90,7 +91,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
   interface HeadCell {
     disablePadding: boolean;
-    id: keyof Data;
+    id: keyof IAssignmentMetaData;
     label: string;
     numeric: boolean;
   }
@@ -106,11 +107,11 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   }
 
   const headCells: HeadCell[] = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-    { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-    { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-    { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-    { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+    { id: 'id', numeric: false, disablePadding: true, label: 'Id' },
+    { id: 'title', numeric: false, disablePadding: false, label: 'Titel' },
+    { id: 'subject', numeric: false, disablePadding: false, label: 'Ämne' },
+    { id: 'questions', numeric: false, disablePadding: false, label: 'Frågor' },  
+    { id: 'datestamp', numeric: false, disablePadding: false, label: 'Skapad' },
   ];
 
 type Order = 'asc' | 'desc';
@@ -263,10 +264,13 @@ const StyledTableRow = withStyles((theme: Theme) =>
   }),
 )(TableRow);
 
-const AssignmentTable = () => {
+interface AssignmentTableProps{
+  data: IAssignmentMetaData[]
+}
+const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     const classes = useStyles();
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('title');
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -279,7 +283,7 @@ const AssignmentTable = () => {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
+            const newSelecteds = props.data.map((n) => n.id);
             setSelected(newSelecteds);
             return;
         }
@@ -317,7 +321,7 @@ const AssignmentTable = () => {
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
 
     return(
         <div style={{padding:40, paddingTop:20}}>
@@ -337,23 +341,23 @@ const AssignmentTable = () => {
                             orderBy={orderBy}
                             onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
+                            rowCount={props.data.length}
                             />
                             <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
+                            {stableSort(props.data, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                const isItemSelected = isSelected(row.name);
+                                const isItemSelected = isSelected(row.id);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                 return (
                                     <StyledTableRow
                                     hover
-                                    onClick={(event) => handleClick(event, row.name)}
+                                    onClick={(event) => handleClick(event, row.id)}
                                     role="checkbox"
                                     aria-checked={isItemSelected}
                                     tabIndex={-1}
-                                    key={row.name}
+                                    key={row.id}
                                     selected={isItemSelected}
                                     >
                                         <TableCell padding="checkbox">
@@ -363,12 +367,12 @@ const AssignmentTable = () => {
                                             />
                                         </TableCell>
                                         <TableCell component="th" id={labelId} scope="row" padding="none">
-                                            {row.name}
+                                            {row.id}
                                         </TableCell>
-                                        <TableCell align="right">{row.calories}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.carbs}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
+                                        <TableCell>{row.title}</TableCell>
+                                        <TableCell>{row.subject}</TableCell>
+                                        <TableCell>{row.questions}</TableCell>                                       
+                                        <TableCell>{row.datestamp}</TableCell>
                                     </StyledTableRow>
                                 );
                                 })}
@@ -383,7 +387,7 @@ const AssignmentTable = () => {
                         <TablePagination
                         rowsPerPageOptions={[5, 10]}
                         component="div"
-                        count={rows.length}
+                        count={props.data.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onChangePage={handleChangePage}

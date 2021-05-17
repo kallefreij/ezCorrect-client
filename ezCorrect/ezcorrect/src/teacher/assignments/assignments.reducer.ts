@@ -1,3 +1,5 @@
+import { IAssignmentMetaData } from "./assignments.interfaces";
+
 export const assignmentsActions = {
     fetchAssignmentMetaData: "AssignmentAction/fetchAssignmentMetaData",
     fetchAssignmentMetaDataSuccessful: "AssignmentAction/fetchAssignmentMetaDataSuccessful",
@@ -8,14 +10,14 @@ export interface IAssignmentState {
     fetchingAssignmentMetaData: boolean;
     fetchingAssignmentMetaDataSuccessful: boolean;
     fetchingAssignmentMetaDataFailed: boolean;
-    AssignmentMetaData: []
+    assignmentMetadata: IAssignmentMetaData[]
 }
 
 const intitialState: IAssignmentState = {
     fetchingAssignmentMetaData: false,
     fetchingAssignmentMetaDataSuccessful: false,
     fetchingAssignmentMetaDataFailed: false,
-    AssignmentMetaData: []
+    assignmentMetadata: []
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -26,14 +28,14 @@ const assignmentReducer = (state = intitialState, action: any) => {
                 fetchingAssignmentMetaDataSuccessful: false,
                 fetchingAssignmentMetaDataFailed: false,
             };
-        case assignmentsActions.fetchAssignmentMetaData:
+        case assignmentsActions.fetchAssignmentMetaDataSuccessful:
             return{
                 fetchingAssignmentMetaData: false,
                 fetchingAssignmentMetaDataSuccessful: true,
                 fetchingAssignmentMetaDataFailed: false,
-                AssignmentMetaData: action.payload,
+                assignmentMetadata: action.payload,
             };
-        case assignmentsActions.fetchAssignmentMetaData:
+        case assignmentsActions.fetchAssignmentMetaDataFailed:
             return{
                 fetchingAssignmentMetaData: false,
                 fetchingAssignmentMetaDataSuccessful: false,
