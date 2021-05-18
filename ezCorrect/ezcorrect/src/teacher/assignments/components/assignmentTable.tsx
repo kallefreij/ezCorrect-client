@@ -109,7 +109,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   }
 
   const headCells: HeadCell[] = [
-    { id: 'id', numeric: false, disablePadding: true, label: 'Id' },
+    // { id: 'id', numeric: false, disablePadding: true, label: 'Id' },
     { id: 'title', numeric: false, disablePadding: false, label: 'Titel' },
     { id: 'subject', numeric: false, disablePadding: false, label: 'Ämne' },
     { id: 'questions', numeric: false, disablePadding: false, label: 'Frågor' },  
@@ -376,9 +376,9 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
                                             inputProps={{ 'aria-labelledby': labelId }}
                                             />
                                         </TableCell>
-                                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                                        {/* <TableCell component="th" id={labelId} scope="row" padding="none">
                                             {row.id}
-                                        </TableCell>
+                                        </TableCell> */}
                                         <TableCell>{row.title}</TableCell>
                                         <TableCell>{row.subject}</TableCell>
                                         <TableCell>{row.questions}</TableCell>                                       
