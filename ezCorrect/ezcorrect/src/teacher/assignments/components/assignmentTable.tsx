@@ -6,6 +6,8 @@ import clsx from 'clsx';
 import CreateIcon from '@material-ui/icons/Create';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import { IAssignmentMetaData } from '../assignments.interfaces';
+import { useDispatch } from 'react-redux';
+import { deleteAssignments } from '../assignments.actions';
 
 interface Data {
     datestamp: string;
@@ -190,7 +192,8 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 
 interface EnhancedTableToolbarProps {
     numSelected: number;
-  }
+    delete: () => void;
+}
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 const classes = useToolbarStyles();
@@ -210,17 +213,17 @@ const { numSelected } = props;
             </Typography>
         )}
             <Tooltip title="Förhandsgranska">
-                <IconButton aria-label="delete">
+                <IconButton aria-label="preview">
                     <FindInPageIcon style={{color:'white'}}/>
                 </IconButton>
             </Tooltip>
             <Tooltip title="Redigera">
-                <IconButton aria-label="delete">
+                <IconButton aria-label="edit">
                     <CreateIcon style={{color:'white'}}/>
                 </IconButton>
             </Tooltip>           
             <Tooltip title="Ta bort">
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={props.delete}>
                     <DeleteIcon style={{color:'white'}}/>
                 </IconButton>
             </Tooltip>        
@@ -269,6 +272,7 @@ interface AssignmentTableProps{
 }
 const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('title');
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -319,6 +323,12 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
         setPage(0);
     };
 
+    const handleRemoveItem = () => {
+        console.log(selected);
+        dispatch(deleteAssignments(selected))
+        setSelected([]);
+    }
+
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
@@ -327,7 +337,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
         <div style={{padding:40, paddingTop:20}}>
                 <div className={classes.root}>
                     <Paper className={classes.paper}>
-                        <EnhancedTableToolbar numSelected={selected.length} />
+                        <EnhancedTableToolbar numSelected={selected.length} delete={handleRemoveItem}/>
                         <TableContainer>
                         <Table
                             className={classes.table}
