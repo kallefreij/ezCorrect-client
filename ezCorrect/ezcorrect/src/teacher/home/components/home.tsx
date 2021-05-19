@@ -36,7 +36,7 @@ const Home: React.FC = () => {
                 <Grid item md={4} xs={12}>
                     <div style={{marginTop:50}}>
                         <ButtonCard icon={<EventNoteIcon/>} text="Uppgifter" color='#A3A1D0' to='/assignments'/>               
-                        <ButtonCard icon={<GroupIcon />} text="Klasser" color='#D0A1A1' to='/home'/>
+                        <ButtonCard icon={<GroupIcon />} text="Klasser" color='#D0A1A1' to='/groups'/>
                         <ButtonCard icon={<StatsIcon/>} text="Statistik" color='#D0B9A1' to='/statistics'/>                       
                     </div>                   
                 </Grid>
