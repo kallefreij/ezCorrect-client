@@ -11,6 +11,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Assignments from './teacher/assignments/components/assignments';
+import CreateAssignment from './teacher/assignments/components/create-assignment/createAssignment';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Switch>
           <Route exact path="/home" component={HomeTeacher}></Route>
           <Route exact path="/assignments" component={Assignments}></Route>
+          <Route exact path="/assignments/create" component={CreateAssignment}></Route>
           <Route exact path="/groups" component={Statistics}></Route>
           <Route exact path="/statistics" component={Statistics}></Route>
           <Route path="/">

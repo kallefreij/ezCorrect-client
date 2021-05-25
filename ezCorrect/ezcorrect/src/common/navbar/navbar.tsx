@@ -103,7 +103,11 @@ const Navbar: React.FC = () => {
             </Typography>
             <Typography className={classes.flex}></Typography>
             <Typography className={classes.account}>
-              <Button color="inherit">Abdullah</Button>
+
+              <NavLink to="/assignments/create" style={{textDecoration:'none', color:'white'}}>
+                <Button color="inherit">Abdullah</Button>
+              </NavLink> 
+              
             </Typography>
             <Typography className={classes.account}>
               <img src={profilbild} alt="profilbild" className={classes.image}/>
