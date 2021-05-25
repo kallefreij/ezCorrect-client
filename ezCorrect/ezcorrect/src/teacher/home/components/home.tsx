@@ -10,7 +10,7 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import StatsIcon from '@material-ui/icons/Equalizer';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import DoneIcon from '@material-ui/icons/Done';
-import ButtonCard from './buttonCard';
+import ButtonCard from '../../../common/buttons/buttonCard';
 import GroupIcon from '@material-ui/icons/Group';
 import { NavLink } from 'react-router-dom';
 
@@ -35,14 +35,9 @@ const Home: React.FC = () => {
                 </Grid>
                 <Grid item md={4} xs={12}>
                     <div style={{marginTop:50}}>
-                        <NavLink to="/assignments" style={{textDecoration:'none'}}>
-                            <ButtonCard icon={<EventNoteIcon/>} text="Uppgifter" color='#A3A1D0'/>
-                        </NavLink>                   
-                        <ButtonCard icon={<GroupIcon />} text="Klasser" color='#D0A1A1'/>
-                        <NavLink to="/statistics" style={{textDecoration:'none'}}>
-                            <ButtonCard icon={<StatsIcon/>} text="Statistik" color='#D0B9A1'/>
-                        </NavLink>
-                        
+                        <ButtonCard icon={<EventNoteIcon/>} text="Uppgifter" color='#A3A1D0' to='/assignments'/>               
+                        <ButtonCard icon={<GroupIcon />} text="Klasser" color='#D0A1A1' to='/groups'/>
+                        <ButtonCard icon={<StatsIcon/>} text="Statistik" color='#D0B9A1' to='/statistics'/>                       
                     </div>                   
                 </Grid>
             </Grid>

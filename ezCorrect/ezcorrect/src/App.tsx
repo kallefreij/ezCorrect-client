@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import Assignments from './teacher/assignments/components/assignments';
 import CreateAssignment from './teacher/assignments/components/create-assignment/createAssignment';
+import Groups from './teacher/groups/components/groups';
+import Group from './teacher/groups/components/group';
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
           <Route exact path="/assignments" component={Assignments}></Route>
           <Route exact path="/assignments/create" component={CreateAssignment}></Route>
           <Route exact path="/groups" component={Statistics}></Route>
+          <Route exact path="/groups" component={Groups}></Route>
+          <Route exact path="/group" component={Group}></Route>
           <Route exact path="/statistics" component={Statistics}></Route>
           <Route path="/">
               <Redirect to="/home" />
