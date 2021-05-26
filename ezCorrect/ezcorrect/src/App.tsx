@@ -25,7 +25,6 @@ function App() {
           <Route exact path="/home" component={HomeTeacher}></Route>
           <Route exact path="/assignments" component={Assignments}></Route>
           <Route exact path="/assignments/create" component={CreateAssignment}></Route>
-          <Route exact path="/groups" component={Statistics}></Route>
           <Route exact path="/groups" component={Groups}></Route>
           <Route exact path="/group" component={Group}></Route>
           <Route exact path="/statistics" component={Statistics}></Route>
