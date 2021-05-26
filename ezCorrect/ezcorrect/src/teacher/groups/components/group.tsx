@@ -1,6 +1,7 @@
 import { Grid } from '@material-ui/core';
 import * as React from 'react';
 import ActivityBox from './activityBox';
+import Calender from './calender';
 
 const Group:React.FC = () => {
 
@@ -28,6 +29,7 @@ const Group:React.FC = () => {
                     </div>
                 </Grid>
                 <Grid item xs={8}>
+                    <Calender/>
                 </Grid>
             </Grid>
         </div>
