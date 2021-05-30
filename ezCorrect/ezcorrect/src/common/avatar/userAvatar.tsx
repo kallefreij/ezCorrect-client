@@ -1,6 +1,7 @@
 import { Avatar, createStyles, IconButton, makeStyles, Theme, Tooltip } from '@material-ui/core';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import * as React from 'react';
+import {randomColor} from '../utility/utility';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,19 +25,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IUserAvatarProps{
   firstName: string;
-  lastName: string;
-  image?: string;
+  lastName: string;  
   size: number;
+  image?: string;
   disableTooltip?: boolean;
+  onClick?: () => void;
 }
 
 const UserAvatar:React.FC<IUserAvatarProps> = (props) => {
     const classes = useStyles();
 
     return (
-      <IconButton size="small">
+      <IconButton size="small" onClick={props.onClick}>
         <Tooltip title={props.firstName + " " + props.lastName} arrow disableHoverListener={props.disableTooltip}>
-          <Avatar src={props.image} className={classes.orange} style={{height:props.size, width: props.size}}>{props.firstName.substr(0,1)}{props.lastName.substr(0,1)}</Avatar>
+          <Avatar src={props.image} style={{height:props.size, width: props.size, backgroundColor: randomColor(props.firstName)}}>{props.firstName.substr(0,1)}{props.lastName.substr(0,1)}</Avatar>
         </Tooltip>        
       </IconButton>
     )
