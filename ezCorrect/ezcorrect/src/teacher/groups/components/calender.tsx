@@ -17,7 +17,7 @@ const Calender:React.FC = () => {
         { startDate: '2018-11-20T12:00', endDate: '2018-11-20T20:30', title: 'Go to a gym' },
     ];
     return(
-        <Paper style={{margin:50}}>
+        <Paper>
             <Scheduler
             data={schedulerData}
             >
