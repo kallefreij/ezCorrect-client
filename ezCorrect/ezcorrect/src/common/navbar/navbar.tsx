@@ -12,6 +12,7 @@ import profilbild from '../../resources/profil.jpg';
 import { NavLink } from 'react-router-dom';
 import { relative } from 'path';
 import NavbarMenu from './menu/menu';
+import UserAvatar from '../avatar/userAvatar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,11 +54,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     account: {
       paddingRight: '15px',
-    },
-    image: {
-      height: '45px',
-      width: '45px',
-      borderRadius: '50%',
     },
     flex: {
       flex: 1,
@@ -103,15 +99,11 @@ const Navbar: React.FC = () => {
             </Typography>
             <Typography className={classes.flex}></Typography>
             <Typography className={classes.account}>
-
               <NavLink to="/assignments/create" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Abdullah</Button>
-              </NavLink> 
-              
+              </NavLink>              
             </Typography>
-            <Typography className={classes.account}>
-              <img src={profilbild} alt="profilbild" className={classes.image}/>
-            </Typography>
+            <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
           </Toolbar>
         </AppBar>
       </div>
