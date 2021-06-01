@@ -15,6 +15,7 @@ import CreateAssignment from './teacher/assignments/components/create-assignment
 import Groups from './teacher/groups/components/groups';
 import Group from './teacher/groups/components/group';
 import Student from './teacher/student/components/student';
+import CorrectAssignment from './teacher/assignments/components/correct-assignment/correctAssignment';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/home" component={HomeTeacher}></Route>
           <Route exact path="/assignments" component={Assignments}></Route>
           <Route exact path="/assignments/create" component={CreateAssignment}></Route>
+          <Route exact path="/assignments/correct" component={CorrectAssignment}></Route>
           <Route exact path="/groups" component={Groups}></Route>
           <Route exact path="/group" component={Group}></Route>
           <Route exact path="/statistics" component={Statistics}></Route>

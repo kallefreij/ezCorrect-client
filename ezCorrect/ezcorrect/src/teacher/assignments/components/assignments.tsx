@@ -22,11 +22,6 @@ const Assignments:React.FC = () => {
     const dispatch = useDispatch();
     const assignmentMetaData = useSelector(getAssignmentMetaData);
 
-    const test = () => {
-        debugger;
-        console.log(assignmentMetaData)
-    }
-
     React.useEffect(() => {
         console.log("FETCHING");
         dispatch(fetchAssignmentsNow());
@@ -39,7 +34,7 @@ const Assignments:React.FC = () => {
                 <Grid item xs={4}>
                     <div>
                         <ButtonCard text="Skapa uppgift" icon={<CreateIcon/>} color='#A3A1D0' to='/assignments/create'/>
-                        <ButtonCard text="Rätta uppgift" icon={<DoneIcon/>} color='#A3A1D0' to='/home'/>
+                        <ButtonCard text="Rätta uppgift" icon={<DoneIcon/>} color='#A3A1D0' to='/assignments/correct'/>
                         <ButtonCard text="Schemalagda uppgifter" icon={<ScheduleIcon/>} color='#A3A1D0' to='/home'/>
                         <ButtonCard text="Hitta uppgift" icon={<FindInPageIcon/>} color='#A3A1D0' to='/home'/>               
                     </div>
