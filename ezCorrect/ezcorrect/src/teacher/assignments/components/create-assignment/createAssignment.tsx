@@ -12,6 +12,7 @@ const CreateAssignment: React.FC = () => {
                 <Grid item sm={3} md={2} lg={2}></Grid>
                 <Grid item sm={6} md={8} lg={8}>
                     <HeaderTitleAndDescription/>
+                    <CreateQuestionCard/>
                     <CreateQuestionCard/>    
                 </Grid>
  

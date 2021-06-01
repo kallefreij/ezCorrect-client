@@ -1,8 +1,11 @@
 import { Card, CardActions, CardContent, FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToolSidebar from './toolSidebar';
-import MultiChoiceQuestion from './multiCoiceQuestion';
+import MultiChoiceQuestion from './multiChoiceQuestion/multiCoiceQuestion';
+import SingleChoiceQuestion from './singleChoiceQuestion/singleChoiceQuestion';
+import TextAnswer from './textAnswer/textAnswer';
+import { isBreakStatement } from 'typescript';
 
 const useStyles = makeStyles({
     main: {
@@ -33,22 +36,30 @@ const useStyles = makeStyles({
     }
 });
 
-const CreateQuestionCard: React.FC = () => {
+const CreateQuestionCard: React.FC = ({ }) => {
 
     const classes = useStyles();
 
-    const [age, setAge] = useState<string | number>('');
+    const [qType, setQType] = useState('');
     const [isSelected, setSelected] = useState(true);
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setAge(event.target.value as string);
+    const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
+        setQType(event.target.value);
+        renderSwitch(event.target.value);
     };
+
     const handleFocus = () => {
-        if(isSelected){
-            setSelected(false);
-        }
-        else {
-            setSelected(true);
+
+    }
+
+    const renderSwitch = (qType: string) =>{
+        switch (qType) {
+            case 'textAnswer': 
+                return (<TextAnswer/>)
+            case 'multiChoiceAnswer': 
+                return (<MultiChoiceQuestion/>)
+            case 'singleChoceAnswer':
+                return (<SingleChoiceQuestion/>)
         }
     }
 
@@ -70,21 +81,24 @@ const CreateQuestionCard: React.FC = () => {
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel>Svarstyp</InputLabel>
                                         <Select onChange={handleChange}
-                                                label="Age">
-                                            <MenuItem value="">
+                                                label="Svarstyp"
+                                                value={qType}>
+                                            <MenuItem value={qType}>
                                                 <em>None</em>
                                             </MenuItem>
-                                            <MenuItem value={0}>Textsvar</MenuItem>
-                                            <MenuItem value={1}>Alternativ flera svar</MenuItem>
-                                            <MenuItem value={2}>Alternativ ett svar</MenuItem>
+                                            <MenuItem value={'textAnswer'}>Fritextsvar</MenuItem>
+                                            <MenuItem value={'multiChoiceAnswer'}>Flervalsalternativ</MenuItem>
+                                            <MenuItem value={'singleChoceAnswer'}>Enkelvalsalternativ</MenuItem>
                                         </Select>
                                 </FormControl>
                             </Grid>
                         </Grid>
                     </form>
 
-                    <MultiChoiceQuestion/>
-
+                    {
+                        renderSwitch(qType)
+                    }
+                    
                 </CardContent>
                 <CardActions>
                 
