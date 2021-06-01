@@ -76,7 +76,7 @@ const HeaderTitleAndDescription: React.FC = () => {
                                 <InputLabel>Kategori</InputLabel>
                                     <Select value={age}
                                             onChange={handleChange}
-                                            label="Age">
+                                            label="Kategori">
                                         <MenuItem value="">
                                             <em>None</em>
                                         </MenuItem>
@@ -100,7 +100,7 @@ const HeaderTitleAndDescription: React.FC = () => {
                                     <InputLabel>Centralt innehåll</InputLabel>
                                         <Select value={age}
                                                 onChange={handleChange}
-                                                label="Age">
+                                                label="Centralt innehåll">
                                             <MenuItem value="">
                                                 <em>None</em>
                                             </MenuItem>

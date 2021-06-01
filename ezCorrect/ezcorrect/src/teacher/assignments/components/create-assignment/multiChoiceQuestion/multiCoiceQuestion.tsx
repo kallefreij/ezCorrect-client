@@ -1,16 +1,23 @@
-import { Avatar, Checkbox, Grid, IconButton, Input, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText, TextField } from '@material-ui/core';
+import { Avatar, Checkbox, Grid, IconButton, Input, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, TextField } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import ClearIcon from '@material-ui/icons/Clear';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckboxInput from './multiChoiceQuestion/checkboxInput';
+import CheckboxInput from './checkboxInput';
 import React, { useState } from 'react';
+
+const useStyles = makeStyles({
+    root: {
+        width: '100%'
+    }
+});
 
 const MultiCoiceQuestion: React.FC  = () => {
     let tmp_inputs = [
         {id: 1, value: '', isSelected: false}, 
     ]
 
+    const classes = useStyles();
     const [alts, setAlts] = useState(tmp_inputs);
     const deleteInput = (id: any) => {
         const newList = alts.filter((item) => item.id !== id);
@@ -49,9 +56,15 @@ const MultiCoiceQuestion: React.FC  = () => {
     return (
         <List >
             {
-                alts.map(item => <CheckboxInput id={item.id} isSelected={item.isSelected} inputValue={item.value}/>)
+                alts.map(item => <CheckboxInput id={item.id} 
+                                                isSelected={item.isSelected} 
+                                                inputValue={item.value}
+                                                handleCheckbox={handleCheckbox}
+                                                handleInput={handleInput}
+                                                deleteInput={deleteInput}
+                                                />)
             }
-            <Input style={{width: '100%'}} onClick={addInput}/>
+            <Input className={classes.root} onClick={addInput}/>
         </List>
     );
 };
