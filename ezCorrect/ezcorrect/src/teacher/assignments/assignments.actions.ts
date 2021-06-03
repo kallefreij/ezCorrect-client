@@ -1,3 +1,4 @@
+import { IQuestion } from "./assignments.interfaces";
 import { assignmentsActions } from "./assignments.reducer"
 
  
@@ -11,10 +12,13 @@ export const fetchAssignmentsNow = () => async (dispatch: any) => {
 }
 
 export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
-    debugger;
     dispatch({type: assignmentsActions.deleteAssignments});
     // const res = await axios.delete('dasdasda');
     // if(res.status == 200) dispatch({type: assignmentsActions.deleteAssignmentsSuccessful, payload: ids})
     //else dispatch({type: assignmentsActions.deleteAssignmentsFailed});
     dispatch({type: assignmentsActions.deleteAssignmentsSuccessful, payload: ids});
+}
+
+export const setSelectedQuestion = (question: IQuestion) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.setSelectedQuestion, payload: question});
 }

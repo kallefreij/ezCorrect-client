@@ -5,3 +5,11 @@ export interface IAssignmentMetaData{
     subject: string;
     title: string;
 }
+
+export interface IQuestion{
+    id: string;
+    question: string;
+    answer: string;
+    number: number;
+    color: string;
+}

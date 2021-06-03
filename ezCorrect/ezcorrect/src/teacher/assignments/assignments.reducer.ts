@@ -1,4 +1,4 @@
-import { IAssignmentMetaData } from "./assignments.interfaces";
+import { IAssignmentMetaData, IQuestion } from "./assignments.interfaces";
 
 export const assignmentsActions = {
     fetchAssignmentMetaData: "AssignmentAction/fetchAssignmentMetaData",
@@ -6,7 +6,8 @@ export const assignmentsActions = {
     fetchAssignmentMetaDataFailed: "AssignmentAction/fetchAssignmentMetaDataFailed",
     deleteAssignments: "AssignmentAction/deleteAssignments",
     deleteAssignmentsSuccessful: "AssignmentAction/deleteAssignmentsSuccessful",
-    deleteAssignmentsFailed: "AssignmentAction/deleteAssignmentsFailed"
+    deleteAssignmentsFailed: "AssignmentAction/deleteAssignmentsFailed",
+    setSelectedQuestion: "AssignmentAction/setSelectedQuestion"
 }
 
 export interface IAssignmentState {
@@ -16,7 +17,9 @@ export interface IAssignmentState {
     deleteAssignments: boolean;
     deleteAssignmentsSuccessful: boolean;
     deleteAssignmentsFailed: boolean;
-    assignmentMetadata: IAssignmentMetaData[]
+    assignmentMetadata: IAssignmentMetaData[];
+    questions: IQuestion[];
+    selectedQuestion: IQuestion;
 }
 
 const intitialState: IAssignmentState = {
@@ -26,7 +29,24 @@ const intitialState: IAssignmentState = {
     deleteAssignments: false,
     deleteAssignmentsSuccessful: false,
     deleteAssignmentsFailed: false,
-    assignmentMetadata: []
+    assignmentMetadata: [],
+    questions: [
+        {id: "1", question: "Hur mycket hår har Roger?", answer: "", number: 1, color: "#D0A1A1"},
+        {id: "2", question: "Vem vann minigolfen?", answer: "", number: 2, color: "#A1D0A5"},
+        {id: "3", question: "1 + 1?", answer: "", number: 3, color: "#D0A1A1"},
+        {id: "4", question: "Vem vill bli miljonär?", answer: "", number: 4, color: "#A1D0A5"},
+        {id: "5", question: "Vad heter Karlsson på taket i förnamn?", answer: "", number: 5, color: "#A1D0A5"},
+        {id: "6", question: "Vem var Sveriges först president?", answer: "", number: 6, color: "#A1D0A5"},
+        {id: "7", question: "1 * 500?", answer: "", number: 7, color: "#A1D0A5"},
+        {id: "8", question: "Hur mycket hår har Roger?", answer: "", number: 8, color: "#D0A1A1"},
+        {id: "9", question: "Vem vann minigolfen?", answer: "", number: 9, color: "#A1D0A5"},
+        {id: "10", question: "1 + 1?", answer: "", number: 10, color: "#D0A1A1"},
+        {id: "11", question: "Vem vill bli miljonär?", answer: "", number: 11, color: "#A1D0A5"},
+        {id: "12", question: "Vad heter Karlsson på taket i förnamn?", answer: "", number: 12, color: "#A1D0A5"},
+        {id: "13", question: "Vem var Sveriges först president?", answer: "", number: 13, color: "#A1D0A5"},
+        {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
+    ],
+    selectedQuestion: {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -75,6 +95,11 @@ const assignmentReducer = (state = intitialState, action: any) => {
                 deleteAssignmentsSuccessful: false,
                 deleteAssignmentsFailed: true
             };
+        case assignmentsActions.setSelectedQuestion:
+            return{
+                ...state,
+                selectedQuestion: action.payload
+            }
         default:
             return state;
     }

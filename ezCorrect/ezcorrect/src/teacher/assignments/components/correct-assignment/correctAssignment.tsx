@@ -1,5 +1,10 @@
 import { makeStyles, Theme, createStyles, Grid, Card } from '@material-ui/core';
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+import { IStateTree } from '../../../../redux/rootReducer';
+import { IQuestion } from '../../assignments.interfaces';
+import { IAssignmentState } from '../../assignments.reducer';
 import CorrectionBox from './correctionBox';
 import Header from './header';
 import Question from './question';
@@ -35,24 +40,22 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+const getQuestionsFromState = createSelector<IStateTree, IAssignmentState, IQuestion[]>(
+    (state) => state.assignments,
+    (q) => q.questions
+)
+
+const getSelectedQuestionFromState = createSelector<IStateTree, IAssignmentState, IQuestion>(
+    (state) => state.assignments,
+    (q) => q.selectedQuestion
+)
+
 const CorrectAssignment:React.FC = () => {
     const classes = useStyles();
-    const questions = [
-        {question: "Hur mycket hår har Roger?", number: 1, color: "#D0A1A1"},
-        {question: "Vem vann minigolfen?", number: 2, color: "#A1D0A5"},
-        {question: "1 + 1?", number: 3, color: "#D0A1A1"},
-        {question: "Vem vill bli miljonär?", number: 4, color: "#A1D0A5"},
-        {question: "Vad heter Karlsson på taket i förnamn?", number: 5, color: "#A1D0A5"},
-        {question: "Vem var Sveriges först president?", number: 6, color: "#A1D0A5"},
-        {question: "1 * 500?", number: 7, color: "#A1D0A5"},
-        {question: "Hur mycket hår har Roger?", number: 8, color: "#D0A1A1"},
-        {question: "Vem vann minigolfen?", number: 9, color: "#A1D0A5"},
-        {question: "1 + 1?", number: 10, color: "#D0A1A1"},
-        {question: "Vem vill bli miljonär?", number: 11, color: "#A1D0A5"},
-        {question: "Vad heter Karlsson på taket i förnamn?", number: 12, color: "#A1D0A5"},
-        {question: "Vem var Sveriges först president?", number: 13, color: "#A1D0A5"},
-        {question: "1 * 500?", number: 14, color: "#A1D0A5"},
-    ]
+
+    const questions = useSelector(getQuestionsFromState);
+    const selectedQuestion = useSelector(getSelectedQuestionFromState);
+
     return (
         <div>
             <div className={classes.top}/>
@@ -60,11 +63,11 @@ const CorrectAssignment:React.FC = () => {
                 <Grid container>
                     <Grid item sm={9}>
                         <Header/>
-                        <CorrectionBox/>
+                        <CorrectionBox question={selectedQuestion}/>
                     </Grid>
                     <Grid item sm={3}>
                         <div className={classes.questionBox}>
-                            {questions.map((x, i) => <Question key={i} question={x.question} number={x.number} color={x.color}/>)}
+                            {questions.map((x, i) => <Question key={x.id} id={x.id} question={x.question} answer={x.answer} number={x.number} color={x.color}/>)}
                         </div>                     
                     </Grid>
                 </Grid>
