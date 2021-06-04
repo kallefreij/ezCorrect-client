@@ -1,25 +1,55 @@
-import { Card, CardActions, CardContent, FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
+import { Card, CardActions, CardContent, FormControl, Grid, Hidden, IconButton, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import React, { useEffect, useState } from 'react';
 import ToolSidebar from './toolSidebar';
 import MultiChoiceQuestion from './multiChoiceQuestion/multiCoiceQuestion';
 import SingleChoiceQuestion from './singleChoiceQuestion/singleChoiceQuestion';
 import TextAnswer from './textAnswer/textAnswer';
-import { isBreakStatement } from 'typescript';
+import { ThemeProvider } from '@material-ui/styles';
+import { theme } from '../../../../common/ezTheme';
+
+
+export interface IInputProps{
+    id: string;
+    isSelected: boolean;
+    handleSelect: (id: any) => void;
+}
 
 const useStyles = makeStyles({
     main: {
         marginTop: '15px',
     },
     root: {
-      width: '800px',
-      borderStyle: 'solid',
-      borderColor:  '#A1D0A5',
-      boxSizing: 'border-box',
-      margin: 'auto',
+        boxSizing: 'border-box',
+        [theme.breakpoints.up('sm')]: {
+            width: '100%',
+            boxSizing: 'border-box',
+            margin: 'auto',
+        },
+        [theme.breakpoints.up(800)]: {
+                width: '800px',
+                boxSizing: 'border-box',
+                margin: 'auto',
+        },
     },
-    form: {
-
+    rootSelect: {
+        borderStyle: 'solid',
+        borderColor:  '#A1D0A5',
+        boxSizing: 'border-box',
+        [theme.breakpoints.up('sm')]: {
+            width: '100%',
+            borderStyle: 'solid',
+            borderColor:  '#A1D0A5',
+            boxSizing: 'border-box',
+            margin: 'auto',
+        },
+        [theme.breakpoints.up(800)]: {
+                width: '800px',
+                borderStyle: 'solid',
+                borderColor:  '#A1D0A5',
+                boxSizing: 'border-box',
+                margin: 'auto',
+        },
     },
     titleField: {
         width: '100%',
@@ -29,28 +59,22 @@ const useStyles = makeStyles({
     },
     icon: {
         fontSize: 'xx-large',
-        
     },
     iconButton: {
         marginLeft: '2px',
     }
 });
 
-const CreateQuestionCard: React.FC = ({ }) => {
+const CreateQuestionCard: React.FC<IInputProps> = (props) => {
 
     const classes = useStyles();
 
     const [qType, setQType] = useState('');
-    const [isSelected, setSelected] = useState(true);
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
         setQType(event.target.value);
         renderSwitch(event.target.value);
     };
-
-    const handleFocus = () => {
-
-    }
 
     const renderSwitch = (qType: string) =>{
         switch (qType) {
@@ -65,46 +89,50 @@ const CreateQuestionCard: React.FC = ({ }) => {
 
     return (
         <div className={classes.main}>
-            <Card className={classes.root} onClick={handleFocus}>
-                <CardContent>
-                    <form className={classes.form} noValidate autoComplete="off">
-                        <Grid container>
-                            <Grid item sm={8}>
-                                <TextField className={classes.titleField} id="outlined-basic" label="Fråga" variant="outlined" />
+            <Card className={(props.isSelected ? classes.rootSelect : classes.root)} onClick={() => props.handleSelect(props.id)}>
+                <ThemeProvider theme={theme}>
+                    <CardContent>
+                        <form noValidate autoComplete="off">
+                            <Grid container>
+                                <Grid item sm={8} xs={6}>
+                                    <TextField className={classes.titleField} label="Fråga" variant="outlined" />
+                                </Grid>
+                                <Hidden xsDown>
+                                    <Grid item sm={1} xs={1}>
+                                        <IconButton className={classes.iconButton} edge="start" color="inherit" aria-label="menu"> 
+                                            <ImageOutlinedIcon className={classes.icon}/>
+                                        </IconButton>
+                                    </Grid>
+                                </Hidden>
+                                <Grid item sm={3} xs={6}>
+                                    <FormControl variant="outlined" className={classes.formControl}>
+                                        <InputLabel>Svarstyp</InputLabel>
+                                            <Select onChange={handleChange}
+                                                    label="Svarstyp"
+                                                    value={qType}>
+                                                <MenuItem value={qType}>
+                                                    <em>None</em>
+                                                </MenuItem>
+                                                <MenuItem value={'textAnswer'}>Fritextsvar</MenuItem>
+                                                <MenuItem value={'multiChoiceAnswer'}>Flervalsalternativ</MenuItem>
+                                                <MenuItem value={'singleChoceAnswer'}>Enkelvalsalternativ</MenuItem>
+                                            </Select>
+                                    </FormControl>
+                                </Grid>
                             </Grid>
-                            <Grid item sm={1}>
-                                <IconButton className={classes.iconButton} edge="start" color="inherit" aria-label="menu"> 
-                                    <ImageOutlinedIcon className={classes.icon}/>
-                                </IconButton>
-                            </Grid>
-                            <Grid item sm={3}>
-                                <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel>Svarstyp</InputLabel>
-                                        <Select onChange={handleChange}
-                                                label="Svarstyp"
-                                                value={qType}>
-                                            <MenuItem value={qType}>
-                                                <em>None</em>
-                                            </MenuItem>
-                                            <MenuItem value={'textAnswer'}>Fritextsvar</MenuItem>
-                                            <MenuItem value={'multiChoiceAnswer'}>Flervalsalternativ</MenuItem>
-                                            <MenuItem value={'singleChoceAnswer'}>Enkelvalsalternativ</MenuItem>
-                                        </Select>
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-                    </form>
+                        </form>
 
-                    {
-                        renderSwitch(qType)
-                    }
+                        {
+                            renderSwitch(qType)
+                        }
+                        
+                    </CardContent>
+                    <CardActions>
                     
-                </CardContent>
-                <CardActions>
-                
-                </CardActions>
+                    </CardActions>
+                </ThemeProvider>    
             </Card>
-            {isSelected ? (<ToolSidebar/>) : null}
+            {props.isSelected ? (<ToolSidebar/>) : null}
         </div>
     );
 };

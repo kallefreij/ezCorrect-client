@@ -55,7 +55,6 @@ const SingleChoiceQuestion: React.FC = () => {
                         alts.map((item, i, a) => <RadioButtonInput  id={item.id}
                                                                     selectVal={selectVal}
                                                                     index={i}
-                                                                    txtValue={item.txtVal}
                                                                     handleInput={handleInput}
                                                                     deleteInput={deleteInput}
                                                                     handleRadioButton={handleRadioButton}/>)

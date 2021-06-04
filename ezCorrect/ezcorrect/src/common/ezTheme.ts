@@ -7,7 +7,7 @@ const options: ThemeOptions = {
       },
       secondary: {
         main: '#D0A1A1',
-      },
+      }
     },
 };
 

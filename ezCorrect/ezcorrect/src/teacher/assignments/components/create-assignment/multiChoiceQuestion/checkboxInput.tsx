@@ -5,6 +5,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import { render } from '@testing-library/react';
+import { ThemeProvider } from '@material-ui/styles';
+import { theme } from '../../../../../common/ezTheme';
 
 export interface IInputProps{
     id: any;
@@ -18,7 +20,6 @@ export interface IInputProps{
 
 const CheckboxInput: React.FC<IInputProps> = (props) => {
 
-    const ref: any = useRef(null);
     const [isSelected, setSelected] = useState(false);
     const changeSelected = () =>{
         let bool = isSelected ? false : true; 
@@ -26,31 +27,27 @@ const CheckboxInput: React.FC<IInputProps> = (props) => {
         props.handleCheckbox(props.id)
     }
     
-    useEffect(() => {
-        if(ref.current){
-            ref.current.focus()
-        }
-    }, [ref.current])
-
     return (
-        <Input  style={{width: '100%'}}
-                ref={ref}
-                onChange={(e) => props.handleInput(e, props.id)}
-                startAdornment={
-                    <InputAdornment position="start">
-                        <IconButton onClick={() => changeSelected()}>
-                            {isSelected ? (<CheckBoxIcon />) : <CheckBoxOutlineBlankIcon />}
-                        </IconButton>
-                    </InputAdornment>
-                }
-                endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton onClick={() => props.deleteInput(props.id)}>
-                          <ClearIcon/>
-                      </IconButton>
-                    </InputAdornment>
-                }
-                />
+        <ThemeProvider theme={theme}>
+            <Input  style={{width: '100%'}}
+                    autoFocus
+                    onChange={(e) => props.handleInput(e, props.id)}
+                    startAdornment={
+                        <InputAdornment position="start">
+                            <IconButton onClick={() => changeSelected()} color="primary">
+                                {isSelected ? (<CheckBoxIcon />) : <CheckBoxOutlineBlankIcon />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton onClick={() => props.deleteInput(props.id)} color="secondary">
+                                <ClearIcon/>
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    />
+        </ThemeProvider>
     );
 };
 
