@@ -22,3 +22,7 @@ export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
 export const setSelectedQuestion = (question: IQuestion) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.setSelectedQuestion, payload: question});
 }
+
+export const updateQuestion = (question: IQuestion, questions: IQuestion[]) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.updateQuestion, payload: {q: question, qs: questions}})
+}

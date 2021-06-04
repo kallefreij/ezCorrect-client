@@ -1,6 +1,7 @@
 import { makeStyles, Card, Grid } from '@material-ui/core';
 import * as React from 'react';
 import { IQuestion } from '../../assignments.interfaces';
+import Answers from './answers/answers';
 
 const useStyles = makeStyles({
     root: {
@@ -40,13 +41,11 @@ const CorrectionBox:React.FC<ICorrectionBox> = (props) => {
             <h3 className={classes.text}>{props.question.question}</h3>
             <Grid container>
                 <Grid item xs={6}>
-                    <Card className={classes.testCard}>
-                        <h3>{props.question.answer}</h3>
-                    </Card>
+                    <Answers/>
                 </Grid>
                 <Grid item xs={6}>
                     <Card className={classes.testCard}>
-                        <h3>{props.question.answer}</h3>
+                        <h3>{props.question.correctAnswer}</h3>
                     </Card>
                 </Grid>
                 <Grid xs={12}>

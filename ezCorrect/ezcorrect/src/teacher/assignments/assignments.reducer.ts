@@ -7,7 +7,8 @@ export const assignmentsActions = {
     deleteAssignments: "AssignmentAction/deleteAssignments",
     deleteAssignmentsSuccessful: "AssignmentAction/deleteAssignmentsSuccessful",
     deleteAssignmentsFailed: "AssignmentAction/deleteAssignmentsFailed",
-    setSelectedQuestion: "AssignmentAction/setSelectedQuestion"
+    setSelectedQuestion: "AssignmentAction/setSelectedQuestion",
+    updateQuestion: "AssignmentAction/updateQuestion"
 }
 
 export interface IAssignmentState {
@@ -31,22 +32,16 @@ const intitialState: IAssignmentState = {
     deleteAssignmentsFailed: false,
     assignmentMetadata: [],
     questions: [
-        {id: "1", question: "Hur mycket hår har Roger?", answer: "", number: 1, color: "#D0A1A1"},
-        {id: "2", question: "Vem vann minigolfen?", answer: "", number: 2, color: "#A1D0A5"},
-        {id: "3", question: "1 + 1?", answer: "", number: 3, color: "#D0A1A1"},
-        {id: "4", question: "Vem vill bli miljonär?", answer: "", number: 4, color: "#A1D0A5"},
-        {id: "5", question: "Vad heter Karlsson på taket i förnamn?", answer: "", number: 5, color: "#A1D0A5"},
-        {id: "6", question: "Vem var Sveriges först president?", answer: "", number: 6, color: "#A1D0A5"},
-        {id: "7", question: "1 * 500?", answer: "", number: 7, color: "#A1D0A5"},
-        {id: "8", question: "Hur mycket hår har Roger?", answer: "", number: 8, color: "#D0A1A1"},
-        {id: "9", question: "Vem vann minigolfen?", answer: "", number: 9, color: "#A1D0A5"},
-        {id: "10", question: "1 + 1?", answer: "", number: 10, color: "#D0A1A1"},
-        {id: "11", question: "Vem vill bli miljonär?", answer: "", number: 11, color: "#A1D0A5"},
-        {id: "12", question: "Vad heter Karlsson på taket i förnamn?", answer: "", number: 12, color: "#A1D0A5"},
-        {id: "13", question: "Vem var Sveriges först president?", answer: "", number: 13, color: "#A1D0A5"},
-        {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
+        {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 3, questionType: "flerval"},
+        {id: "2", question: "Vem vann minigolfen?", answer: "Jag",correctAnswer: "", number: 2, color: "#A1D0A5", status: 3, questionType: "text" },
+        {id: "3", question: "1 + 1?", answer: "", correctAnswer: "",  number: 3, color: "#D0A1A1" , status: 2 , questionType: "ettval"},
+        {id: "4", question: "Vem vill bli miljonär?", answer: "",correctAnswer: "", number: 4, color: "#A1D0A5", status: 3 , questionType: "flerval"},
+        {id: "5", question: "Vad heter Karlsson på taket i förnamn?", answer: "HAn uehfu wefhw eufhuwefh uwehf uwehfuh weufhwuehf huwefhuwehf uwehfefe efef", correctAnswer: "", number: 5, color: "#A1D0A5", status: 1 , questionType: "flerval"},
+        {id: "6", question: "Vem var Sveriges först president?", answer: "", number: 6, correctAnswer: "", color: "#A1D0A5", status: 1 , questionType: "text"},
+        {id: "7", question: "1 * 500?", answer: "", number: 7, correctAnswer: "",color: "#A1D0A5", status: 1, questionType: "flerval" },
+        {id: "8", question: "Hur mycket hår har Roger?", answer: "asd as dsd sd sd wqdwwqd wdqdssdg gsdg asd dwq dqwdwq dqwd qwd qdq wd qwdqwdqwdqwdw dw wd w", number: 8, correctAnswer: "",color: "#D0A1A1", status: 1 , questionType: "text"},
     ],
-    selectedQuestion: {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
+    selectedQuestion: {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 1 , questionType: "flerval"},
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -99,6 +94,12 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 selectedQuestion: action.payload
+            }
+        case assignmentsActions.updateQuestion:
+            return{
+                ...state,
+                selectedQuestion: action.payload.q,
+                questions: action.payload.qs
             }
         default:
             return state;
