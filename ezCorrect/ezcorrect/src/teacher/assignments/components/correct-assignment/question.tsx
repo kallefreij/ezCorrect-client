@@ -54,6 +54,8 @@ const Question:React.FC<IQuestionProps> = (props) => {
             case status = 2:
                 return "#D0A1A1"
             case status = 3:
+                return "#CFD0A1"
+            case status = 4:
                 return "#A1D0A5"
             default:
                 return "#C4C4C4"

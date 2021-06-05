@@ -32,14 +32,14 @@ const intitialState: IAssignmentState = {
     deleteAssignmentsFailed: false,
     assignmentMetadata: [],
     questions: [
-        {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 3, questionType: "flerval"},
-        {id: "2", question: "Vem vann minigolfen?", answer: "Jag",correctAnswer: "", number: 2, color: "#A1D0A5", status: 3, questionType: "text" },
+        {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
+        {id: "2", question: "Vem vann minigolfen?", answer: "Jag",correctAnswer: "", number: 2, color: "#A1D0A5", status: 4, questionType: "text", points: 0, maxPoint: 4 },
         {id: "3", question: "1 + 1?", answer: "", correctAnswer: "",  number: 3, color: "#D0A1A1" , status: 2 , questionType: "ettval"},
-        {id: "4", question: "Vem vill bli miljonär?", answer: "",correctAnswer: "", number: 4, color: "#A1D0A5", status: 3 , questionType: "flerval"},
+        {id: "4", question: "Vem vill bli miljonär?", answer: "",correctAnswer: "", number: 4, color: "#A1D0A5", status: 4 , questionType: "flerval"},
         {id: "5", question: "Vad heter Karlsson på taket i förnamn?", answer: "HAn uehfu wefhw eufhuwefh uwehf uwehfuh weufhwuehf huwefhuwehf uwehfefe efef", correctAnswer: "", number: 5, color: "#A1D0A5", status: 1 , questionType: "flerval"},
         {id: "6", question: "Vem var Sveriges först president?", answer: "", number: 6, correctAnswer: "", color: "#A1D0A5", status: 1 , questionType: "text"},
         {id: "7", question: "1 * 500?", answer: "", number: 7, correctAnswer: "",color: "#A1D0A5", status: 1, questionType: "flerval" },
-        {id: "8", question: "Hur mycket hår har Roger?", answer: "asd as dsd sd sd wqdwwqd wdqdssdg gsdg asd dwq dqwdwq dqwd qwd qdq wd qwdqwdqwdqwdw dw wd w", number: 8, correctAnswer: "",color: "#D0A1A1", status: 1 , questionType: "text"},
+        {id: "8", question: "Hur mycket hår har Roger?", answer: "asd as dsd sd sd wqdwwqd wdqdssdg gsdg asd dwq dqwdwq dqwd qwd qdq wd qwdqwdqwdqwdw dw wd w", number: 8, correctAnswer: "",color: "#D0A1A1", status: 1 , questionType: "text", points: 0, maxPoint: 6},
     ],
     selectedQuestion: {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 1 , questionType: "flerval"},
 }

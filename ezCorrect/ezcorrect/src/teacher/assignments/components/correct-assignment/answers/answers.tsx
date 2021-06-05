@@ -3,6 +3,7 @@ import * as React from 'react';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { createSelector } from 'reselect';
 import { IStateTree } from '../../../../../redux/rootReducer';
 import { IQuestion } from '../../../assignments.interfaces';
@@ -12,6 +13,8 @@ import { updateQuestion } from '../../../assignments.actions';
 import MultiChoiceQuestion from './multiChoiceQuestion';
 import TextQuestion from './textQuestion';
 import SingleChoiceQuestion from './singleChoiceQuestion';
+import { green, red, yellow } from '@material-ui/core/colors';
+import PointSelectionMenu from './pointSelectionMenu';
 
 const useStyles = makeStyles({
     testCard: {
@@ -46,13 +49,26 @@ const Answers:React.FC = () => {
     const selectedQuestion = useSelector(getSelectedQuestionFromState);
     const questions = useSelector(getQuestionsFromState);
     const dispatch = useDispatch();
+    const [pointMenuOpen, setPointMenuOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-    const setAnswerStatus = (status: number) => {
+    const setAnswerStatus = (status: number, points?:number) => {
         const index = questions.indexOf(selectedQuestion);
         const newQuestions = [...questions];
         selectedQuestion.status = status;
+        selectedQuestion.points = points;
         newQuestions.splice(index, 1, selectedQuestion);     
         dispatch(updateQuestion(selectedQuestion, newQuestions));
+    }
+
+    const handlePointMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if(selectedQuestion.maxPoint != undefined){
+            setPointMenuOpen(true);
+            setAnchorEl(event.currentTarget);
+        }
+        else{
+            setAnswerStatus(4)
+        }
     }
 
     const renderQuestionType = (questionType: string) => {
@@ -78,10 +94,11 @@ const Answers:React.FC = () => {
                     </IconButton>
                     </Grid>
                     <Grid item>
-                        <IconButton size="small" onClick={() => setAnswerStatus(3)}>
-                        <CheckIcon className={classes.icon}/>
+                        <IconButton size="small" onClick={handlePointMenuClick}>
+                        <CheckIcon className={classes.icon} style={{ color: green[800] }}/>
                         </IconButton>
-                        <IconButton size="small" onClick={() => setAnswerStatus(2)}>
+                        <PointSelectionMenu open={pointMenuOpen} anchorEl={anchorEl} setAnchorEl={setAnchorEl} setOpen={setPointMenuOpen} points={selectedQuestion.points} maxPoint={selectedQuestion.maxPoint} setStatus={setAnswerStatus}/>  
+                        <IconButton size="small" onClick={() => setAnswerStatus(2)} style={{ color: red[800] }}>
                             <CloseIcon className={classes.icon}/>
                         </IconButton>  
                     </Grid>
