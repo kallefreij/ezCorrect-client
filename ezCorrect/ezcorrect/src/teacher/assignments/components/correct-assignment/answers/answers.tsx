@@ -59,7 +59,7 @@ const Answers:React.FC = () => {
     const setAnswerStatus = (status: number, points?:number) => {
         const newQuestions = [...questions];
         let index = newQuestions.indexOf(selectedQuestion);
-        if(index == -1) index = 0; //Mega ful lösning, av någon blir index -1 när frågorna renderas första gången, om man inte byter fråga. TODO undersök närmare      
+        if(index === -1) index = 0; //Mega ful lösning, av någon blir index -1 när frågorna renderas första gången, om man inte byter fråga. TODO undersök närmare      
         selectedQuestion.status = status;
         selectedQuestion.points = points;
         newQuestions.splice(index, 1, selectedQuestion);  
@@ -67,7 +67,7 @@ const Answers:React.FC = () => {
     }
 
     const handlePointMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        if(selectedQuestion.maxPoint != undefined){
+        if(selectedQuestion.maxPoint !== undefined){
             setPointMenuOpen(true);
             setAnchorEl(event.currentTarget);             
         }

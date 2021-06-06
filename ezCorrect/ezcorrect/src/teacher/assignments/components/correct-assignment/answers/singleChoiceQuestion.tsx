@@ -60,11 +60,11 @@ const SingleChoiceQuestion:React.FC<IQuestionProps> = (props) => {
                             checked={false}
                             name="checkedB"
                             color="secondary"
-                            style={{color:'green'}}
+                            style={{color:'white'}}
                             
                         />
                         }
-                        style={{color:'green'}}
+                        style={{color:'white', backgroundColor:'#A1D0A5', width: '100%', borderRadius: 20}}
                         label="2"
                     />
                 </Grid>

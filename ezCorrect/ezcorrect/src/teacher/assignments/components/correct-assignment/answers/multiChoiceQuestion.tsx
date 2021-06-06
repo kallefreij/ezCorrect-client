@@ -23,10 +23,10 @@ const MultiChoiceQuestion:React.FC<IQuestionProps> = (props) => {
                         checked={true}
                         name="checkedB"
                         color="primary"
-                        style={{color:'green'}}
+                        style={{color:'white'}}
                     />
                     }
-                    style={{color:'green'}}
+                    style={{color:'white', backgroundColor:'#A1D0A5', width: '100%', borderRadius: 20}}
                     label="Långt"
                     />
                 </Grid>
@@ -50,10 +50,10 @@ const MultiChoiceQuestion:React.FC<IQuestionProps> = (props) => {
                         checked={false}
                         name="checkedB"
                         color="primary"
-                        style={{color:'green'}}
+                        style={{color:'white'}}
                     />
                     }
-                    style={{color:'green'}}
+                    style={{color:'white', backgroundColor:'#A1D0A5', width: '100%', borderRadius: 20}}
                     label="Mycket"
                     />
                 </Grid>
