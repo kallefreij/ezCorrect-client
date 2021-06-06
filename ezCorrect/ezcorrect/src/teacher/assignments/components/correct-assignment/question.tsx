@@ -25,6 +25,9 @@ text: {
     marginTop: -20,
     fontWeight: 'bold'
 },
+points: {
+    marginRight: 30
+}
 });
 
 const getSelectedQuestionFromState = createSelector<IStateTree, IAssignmentState, IQuestion>(
@@ -71,11 +74,30 @@ const Question:React.FC<IQuestionProps> = (props) => {
         //         setColor("#C4C4C4") 
         // }
     }
+
+    const renderPoints = () => {
+        const points = props.question.points != undefined ? props.question.points : props.question.status == 4 ? 1 : 0;
+        return points;
+    }
+
+    const renderMaxPoint = () => {
+        const maxPoint = props.question.maxPoint != undefined ? props.question.maxPoint : 1;
+        return maxPoint;
+    }
     
     return(
         <Card className={classes.root} style={{backgroundColor: props.question.id == selectedQuestion.id ? darken(colorRenderer(props.question.status), 0.3) : colorRenderer(props.question.status) }} onClick ={handleSelected}>
         {/* <Card className={classes.root} style={{backgroundColor: props.question.id == selectedQuestion.id ? darken(color, 0.3) : color }} onClick ={handleSelected}> */}
-            <h1 className={classes.title}>Fråga {props.question.number}</h1>
+            <Grid container alignItems="center" justify="space-between">
+                <Grid item>
+                    <h1 className={classes.title}>Fråga {props.question.number}</h1>
+                </Grid>
+                <Grid item>
+                    <h5 className={classes.points}>( {renderPoints()} / {renderMaxPoint()} poäng )</h5>
+                </Grid>
+            </Grid>
+            
+            
             <p className={classes.text}>{props.question.question}</p>
         </Card>
     )

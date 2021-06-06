@@ -33,7 +33,7 @@ const intitialState: IAssignmentState = {
     assignmentMetadata: [],
     questions: [
         {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
-        {id: "2", question: "Vem vann minigolfen?", answer: "Jag",correctAnswer: "", number: 2, color: "#A1D0A5", status: 4, questionType: "text", points: 0, maxPoint: 4 },
+        {id: "2", question: "Vem vann minigolfen?", answer: "Jag",correctAnswer: "Det var jadi jasidj iasjdi jsaidjasidjjd dijsd isji dijasidjsiajdis  djiwasjd ijasid jaisjd iasjdi jasdijas idjaisj diasjdiajsdij asdji saijd as asd asd qwdgewrg e erger gerg erg qdqwdwq qdw q dwq d wqd qw qw", number: 2, color: "#A1D0A5", status: 4, questionType: "text", points: 0, maxPoint: 4 },
         {id: "3", question: "1 + 1?", answer: "", correctAnswer: "",  number: 3, color: "#D0A1A1" , status: 2 , questionType: "ettval"},
         {id: "4", question: "Vem vill bli miljonär?", answer: "",correctAnswer: "", number: 4, color: "#A1D0A5", status: 4 , questionType: "flerval"},
         {id: "5", question: "Vad heter Karlsson på taket i förnamn?", answer: "HAn uehfu wefhw eufhuwefh uwehf uwehfuh weufhwuehf huwefhuwehf uwehfefe efef", correctAnswer: "", number: 5, color: "#A1D0A5", status: 1 , questionType: "flerval"},

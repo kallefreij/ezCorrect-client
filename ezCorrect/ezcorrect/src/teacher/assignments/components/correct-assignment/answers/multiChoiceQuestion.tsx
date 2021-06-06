@@ -1,55 +1,77 @@
-import { Checkbox, FormControlLabel, Radio } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Grid, makeStyles, Radio } from '@material-ui/core';
 import * as React from 'react';
 import { IQuestionProps } from '../../../assignments.interfaces';
 
+const useStyles = makeStyles({
+    answerField:{
+        marginBottom: 50,
+        borderLeft: '0.01em solid',
+        padding: 20
+    },
+});
+
 const MultiChoiceQuestion:React.FC<IQuestionProps> = (props) => {
+    const classes = useStyles();
+
     return (
-        <div>
-            <FormControlLabel
-                control={
-                <Checkbox
-                    checked={false}
-                    name="checkedB"
-                    color="primary"
-                    disabled={true}
-                />
-                }
-                label="Primary"
-            />
-            <FormControlLabel
-                control={
-                <Checkbox
-                    checked={true}
-                    name="checkedB"
-                    color="primary"
-                    disabled={true}
-                />
-                }
-                label="Primary"
-            />
-            <FormControlLabel
-                control={
-                <Checkbox
-                    checked={false}
-                    name="checkedB"
-                    color="primary"
-                    disabled={true}
-                />
-                }
-                label="Primary"
-            />
-            <FormControlLabel
-                control={
-                <Checkbox
-                    checked={false}
-                    name="checkedB"
-                    color="primary"
-                    disabled={true}
-                />
-                }
-                label="Primary"
-            />
+        <div className={classes.answerField}>
+            <Grid container direction="column">
+                <Grid item>
+                    <FormControlLabel
+                    control={
+                    <Checkbox
+                        checked={true}
+                        name="checkedB"
+                        color="primary"
+                        style={{color:'green'}}
+                    />
+                    }
+                    style={{color:'green'}}
+                    label="Långt"
+                    />
+                </Grid>
+                <Grid item>
+                    <FormControlLabel
+                    control={
+                    <Checkbox
+                        checked={true}
+                        name="checkedB"
+                        color="primary"
+                        style={{color:'red'}}
+                    />
+                    }
+                    label="Några strån"
+                    />
+                </Grid>
+                <Grid item>
+                    <FormControlLabel
+                    control={
+                    <Checkbox
+                        checked={false}
+                        name="checkedB"
+                        color="primary"
+                        style={{color:'green'}}
+                    />
+                    }
+                    style={{color:'green'}}
+                    label="Mycket"
+                    />
+                </Grid>
+                <Grid item>
+                    <FormControlLabel
+                    control={
+                    <Checkbox
+                        checked={false}
+                        name="checkedB"
+                        color="primary"
+                    />
+                    }
+                    label="Lite"
+                    />
+                </Grid>
+            </Grid>
         </div>
+        
     )
 }
 

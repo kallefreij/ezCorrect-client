@@ -34,25 +34,44 @@ interface ICorrectionBox{
 
 const CorrectionBox:React.FC<ICorrectionBox> = (props) => {
     const classes = useStyles();
+
+    const renderPoints = () => {
+        const points = props.question.points != undefined ? props.question.points : props.question.status == 4 ? 1 : 0;
+        return points;
+    }
+
+    const renderMaxPoint = () => {
+        const maxPoint = props.question.maxPoint != undefined ? props.question.maxPoint : 1;
+        return maxPoint;
+    }
     
     return(
         <Card className={classes.root}>
-            <h2 className={classes.text}>Fråga {props.question.number}</h2>
-            <h3 className={classes.text}>{props.question.question}</h3>
+           
             <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
+                    <div style={{float:'left'}}>
+                        <h2 className={classes.text}>Fråga {props.question.number}</h2>
+                        <h5 className={classes.text}>( {renderPoints()} / {renderMaxPoint()} poäng )</h5>
+                    </div>
+                    <div style={{marginLeft: 120}}>
+                        <h3 className={classes.text}>{props.question.question}</h3>
+                    </div>
+                    
+                </Grid>
+                <Grid item xs={8}>
                     <Answers/>
                 </Grid>
-                <Grid item xs={6}>
+                {/* <Grid item xs={6}>
                     <Card className={classes.testCard}>
                         <h3>{props.question.correctAnswer}</h3>
                     </Card>
-                </Grid>
-                <Grid xs={12}>
+                </Grid> */}
+                {/* <Grid xs={12}>
                     <Card className={classes.comment}>
                         <h3>Kommentar</h3>
                     </Card>
-                </Grid>
+                </Grid> */}
             </Grid>
         </Card>
     )

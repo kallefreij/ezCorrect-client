@@ -19,8 +19,8 @@ import { PinDropSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     testCard: {
-        height: 300,
-        backgroundColor: '#C4C4C4',
+        //minHeight: 300, Kanske borde ha? Fundera på det
+        backgroundColor: '#F1F1F1',
         margin: 20,
         padding: 20,
         position: 'relative'
@@ -30,10 +30,13 @@ const useStyles = makeStyles({
         position: "absolute",
         bottom: 0,
         left: 0,
-        height: 50,
+        height: 50
     },
     icon:{
         fontSize: 35
+    },
+    border:{
+        borderTop: '0.01em solid',
     }
 });
 const getSelectedQuestionFromState = createSelector<IStateTree, IAssignmentState, IQuestion>(
@@ -54,7 +57,6 @@ const Answers:React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const setAnswerStatus = (status: number, points?:number) => {
-        debugger;
         const newQuestions = [...questions];
         let index = newQuestions.indexOf(selectedQuestion);
         if(index == -1) index = 0; //Mega ful lösning, av någon blir index -1 när frågorna renderas första gången, om man inte byter fråga. TODO undersök närmare      
@@ -87,14 +89,16 @@ const Answers:React.FC = () => {
         }
     }
     return(
-        <Card className={classes.testCard}>
-            <h1>{renderQuestionType(selectedQuestion.questionType)}</h1>
+        <div className={classes.testCard}>
+            <div style={{position:'relative'}}>
+                {renderQuestionType(selectedQuestion.questionType)}
+            </div>
             <div className={classes.actionBar}>
                 <Grid container justify="space-between" alignItems="center" style={{height: 50}}>
                     <Grid item>
-                        <IconButton size="small">
-                        <ChatBubbleOutlineIcon className={classes.icon}/>
-                    </IconButton>
+                        {/* <IconButton size="small">
+                            <ChatBubbleOutlineIcon className={classes.icon}/>
+                        </IconButton> */}
                     </Grid>
                     <Grid item>
                         <IconButton size="small" onClick={handlePointMenuClick}>
@@ -103,11 +107,11 @@ const Answers:React.FC = () => {
                         <PointSelectionMenu id={selectedQuestion.id} open={pointMenuOpen} anchorEl={anchorEl} setAnchorEl={setAnchorEl} setOpen={setPointMenuOpen} points={selectedQuestion.points} maxPoint={selectedQuestion.maxPoint} setStatus={setAnswerStatus}/>
                         <IconButton size="small" onClick={() => setAnswerStatus(2)} style={{ color: red[800] }}>
                             <CloseIcon className={classes.icon}/>
-                        </IconButton>  
+                        </IconButton>                      
                     </Grid>
                 </Grid>                          
             </div>
-        </Card>
+        </div>
     )
 }
 
