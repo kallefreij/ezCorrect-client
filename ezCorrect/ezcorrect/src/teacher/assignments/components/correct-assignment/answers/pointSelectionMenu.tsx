@@ -5,6 +5,7 @@ import { NamedTupleMember } from 'typescript';
 interface PointSelectionProps{
     points?: number;
     maxPoint?: number;
+    id: string;
     open: boolean;
     anchorEl: HTMLButtonElement | null;
     setAnchorEl: (e:null) => void;
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
 
 const PointSelectionMenu:React.FC<PointSelectionProps> = (props) => {
     const classes = useStyles();
@@ -49,6 +51,17 @@ const PointSelectionMenu:React.FC<PointSelectionProps> = (props) => {
         return `${value}`;  
     }
 
+    const marks = [
+        {
+            value: 0,
+            label: '0',
+        },
+        {
+            value: props.maxPoint != undefined ? props.maxPoint : 0,
+            label: props.maxPoint != undefined ? props.maxPoint : '0'
+        }
+    ];
+
     return(
         <Popover
             open={props.open}
@@ -71,13 +84,14 @@ const PointSelectionMenu:React.FC<PointSelectionProps> = (props) => {
                     Antal poäng
                 </Typography>
                 <Slider
+                    key={props.id}
                     defaultValue={props.points}
                     getAriaValueText={valuetext}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
                     step={1}
-                    marks
                     min={0}
+                    marks={marks}
                     max={props.maxPoint}
                     className={classes.slider}
                 />

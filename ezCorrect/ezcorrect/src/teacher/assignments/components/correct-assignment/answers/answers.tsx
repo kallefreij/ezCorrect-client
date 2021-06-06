@@ -15,6 +15,7 @@ import TextQuestion from './textQuestion';
 import SingleChoiceQuestion from './singleChoiceQuestion';
 import { green, red, yellow } from '@material-ui/core/colors';
 import PointSelectionMenu from './pointSelectionMenu';
+import { PinDropSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     testCard: {
@@ -53,18 +54,20 @@ const Answers:React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const setAnswerStatus = (status: number, points?:number) => {
-        const index = questions.indexOf(selectedQuestion);
+        debugger;
         const newQuestions = [...questions];
+        let index = newQuestions.indexOf(selectedQuestion);
+        if(index == -1) index = 0; //Mega ful lösning, av någon blir index -1 när frågorna renderas första gången, om man inte byter fråga. TODO undersök närmare      
         selectedQuestion.status = status;
         selectedQuestion.points = points;
-        newQuestions.splice(index, 1, selectedQuestion);     
+        newQuestions.splice(index, 1, selectedQuestion);  
         dispatch(updateQuestion(selectedQuestion, newQuestions));
     }
 
     const handlePointMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         if(selectedQuestion.maxPoint != undefined){
             setPointMenuOpen(true);
-            setAnchorEl(event.currentTarget);
+            setAnchorEl(event.currentTarget);             
         }
         else{
             setAnswerStatus(4)
@@ -95,9 +98,9 @@ const Answers:React.FC = () => {
                     </Grid>
                     <Grid item>
                         <IconButton size="small" onClick={handlePointMenuClick}>
-                        <CheckIcon className={classes.icon} style={{ color: green[800] }}/>
+                            <CheckIcon className={classes.icon} style={{ color: green[800] }}/>
                         </IconButton>
-                        <PointSelectionMenu open={pointMenuOpen} anchorEl={anchorEl} setAnchorEl={setAnchorEl} setOpen={setPointMenuOpen} points={selectedQuestion.points} maxPoint={selectedQuestion.maxPoint} setStatus={setAnswerStatus}/>  
+                        <PointSelectionMenu id={selectedQuestion.id} open={pointMenuOpen} anchorEl={anchorEl} setAnchorEl={setAnchorEl} setOpen={setPointMenuOpen} points={selectedQuestion.points} maxPoint={selectedQuestion.maxPoint} setStatus={setAnswerStatus}/>
                         <IconButton size="small" onClick={() => setAnswerStatus(2)} style={{ color: red[800] }}>
                             <CloseIcon className={classes.icon}/>
                         </IconButton>  
