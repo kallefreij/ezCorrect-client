@@ -12,10 +12,10 @@ root: {
     maxWidth: 500,
     margin: 'auto',
     marginTop: 20,
+    marginBottom: 20,
     borderRadius: 10,
     color: 'white',
-    cursor: 'pointer'
-    
+    cursor: 'pointer',
 },
 title: {
     marginLeft: 30,
@@ -63,16 +63,6 @@ const Question:React.FC<IQuestionProps> = (props) => {
             default:
                 return "#C4C4C4"
         }
-        // switch(props.question.status){
-        //     case status = 1:
-        //         setColor("#C4C4C4") 
-        //     case status = 2:
-        //         setColor("#D0A1A1") 
-        //     case status = 3:
-        //         setColor("#A1D0A5") 
-        //     default:
-        //         setColor("#C4C4C4") 
-        // }
     }
 
     const renderPoints = () => {
@@ -87,7 +77,6 @@ const Question:React.FC<IQuestionProps> = (props) => {
     
     return(
         <Card className={classes.root} style={{backgroundColor: props.question.id == selectedQuestion.id ? darken(colorRenderer(props.question.status), 0.3) : colorRenderer(props.question.status) }} onClick ={handleSelected}>
-        {/* <Card className={classes.root} style={{backgroundColor: props.question.id == selectedQuestion.id ? darken(color, 0.3) : color }} onClick ={handleSelected}> */}
             <Grid container alignItems="center" justify="space-between">
                 <Grid item>
                     <h1 className={classes.title}>Fråga {props.question.number}</h1>
@@ -95,9 +84,7 @@ const Question:React.FC<IQuestionProps> = (props) => {
                 <Grid item>
                     <h5 className={classes.points}>( {renderPoints()} / {renderMaxPoint()} poäng )</h5>
                 </Grid>
-            </Grid>
-            
-            
+            </Grid> 
             <p className={classes.text}>{props.question.question}</p>
         </Card>
     )
