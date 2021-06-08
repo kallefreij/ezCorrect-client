@@ -8,8 +8,17 @@ export interface IAssignmentMetaData{
 
 export interface IQuestion{
     id: string;
+    questionType: string;
     question: string;
     answer: string;
+    correctAnswer: string;
     number: number;
     color: string;
+    status: number;
+    points?: number;
+    maxPoint?: number;
+}
+
+export interface IQuestionProps{
+    question: IQuestion;
 }

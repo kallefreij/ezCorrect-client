@@ -67,7 +67,7 @@ const CorrectAssignment:React.FC = () => {
                     </Grid>
                     <Grid item sm={3}>
                         <div className={classes.questionBox}>
-                            {questions.map((x, i) => <Question key={x.id} id={x.id} question={x.question} answer={x.answer} number={x.number} color={x.color}/>)}
+                            {questions.map((q, i) => <Question key={i} question={q}/>)}
                         </div>                     
                     </Grid>
                 </Grid>

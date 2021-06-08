@@ -11,7 +11,8 @@ export const assignmentsActions = {
     deleteAssignmentsFailed: "AssignmentAction/deleteAssignmentsFailed",
     setSelectedQuestion: "AssignmentAction/setSelectedQuestion",
     setMultiChoiceAlts: 'AssignmentAction/setMultiChoiceAlts',
-    setSingleChoiceAlts: 'AssignmentAction/setSingleChoiceAlts'
+    setSingleChoiceAlts: 'AssignmentAction/setSingleChoiceAlts',
+    updateQuestion: "AssignmentAction/updateQuestion"
 }
 
 export interface IAssignmentState {
@@ -37,24 +38,18 @@ const intitialState: IAssignmentState = {
     deleteAssignmentsFailed: false,
     assignmentMetadata: [],
     questions: [
-        {id: "1", question: "Hur mycket hår har Roger?", answer: "", number: 1, color: "#D0A1A1"},
-        {id: "2", question: "Vem vann minigolfen?", answer: "", number: 2, color: "#A1D0A5"},
-        {id: "3", question: "1 + 1?", answer: "", number: 3, color: "#D0A1A1"},
-        {id: "4", question: "Vem vill bli miljonär?", answer: "", number: 4, color: "#A1D0A5"},
-        {id: "5", question: "Vad heter Karlsson på taket i förnamn?", answer: "", number: 5, color: "#A1D0A5"},
-        {id: "6", question: "Vem var Sveriges först president?", answer: "", number: 6, color: "#A1D0A5"},
-        {id: "7", question: "1 * 500?", answer: "", number: 7, color: "#A1D0A5"},
-        {id: "8", question: "Hur mycket hår har Roger?", answer: "", number: 8, color: "#D0A1A1"},
-        {id: "9", question: "Vem vann minigolfen?", answer: "", number: 9, color: "#A1D0A5"},
-        {id: "10", question: "1 + 1?", answer: "", number: 10, color: "#D0A1A1"},
-        {id: "11", question: "Vem vill bli miljonär?", answer: "", number: 11, color: "#A1D0A5"},
-        {id: "12", question: "Vad heter Karlsson på taket i förnamn?", answer: "", number: 12, color: "#A1D0A5"},
-        {id: "13", question: "Vem var Sveriges först president?", answer: "", number: 13, color: "#A1D0A5"},
-        {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
+        {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
+        {id: "2", question: "Vem vann minigolfen?", answer: "Jag",correctAnswer: "Det var jadi jasidj iasjdi jsaidjasidjjd dijsd isji dijasidjsiajdis  djiwasjd ijasid jaisjd iasjdi jasdijas idjaisj diasjdiajsdij asdji saijd as asd asd qwdgewrg e erger gerg erg qdqwdwq qdw q dwq d wqd qw qw", number: 2, color: "#A1D0A5", status: 4, questionType: "text", points: 0, maxPoint: 4 },
+        {id: "3", question: "1 + 1?", answer: "", correctAnswer: "",  number: 3, color: "#D0A1A1" , status: 2 , questionType: "ettval"},
+        {id: "4", question: "Vem vill bli miljonär?", answer: "",correctAnswer: "", number: 4, color: "#A1D0A5", status: 4 , questionType: "flerval"},
+        {id: "5", question: "Vad heter Karlsson på taket i förnamn?", answer: "HAn uehfu wefhw eufhuwefh uwehf uwehfuh weufhwuehf huwefhuwehf uwehfefe efef", correctAnswer: "", number: 5, color: "#A1D0A5", status: 1 , questionType: "flerval"},
+        {id: "6", question: "Vem var Sveriges först president?", answer: "", number: 6, correctAnswer: "", color: "#A1D0A5", status: 1 , questionType: "text"},
+        {id: "7", question: "1 * 500?", answer: "", number: 7, correctAnswer: "",color: "#A1D0A5", status: 1, questionType: "flerval" },
+        {id: "8", question: "Vad är en bil?", answer: "asd as dsd sd sd wqdwwqd wdqdssdg gsdg asd dwq dqwdwq dqwd qwd qdq wd qwdqwdqwdqwdw dw wd w", number: 8, correctAnswer: "",color: "#D0A1A1", status: 1 , questionType: "text", points: 0, maxPoint: 6},
     ],
-    selectedQuestion: {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
     multiChoiceAlts: [],
     singleChoiceAlts: [],
+    selectedQuestion: {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -117,6 +112,12 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 singleChoiceAlts: action.payload
+            }
+        case assignmentsActions.updateQuestion:
+            return{
+                ...state,
+                selectedQuestion: action.payload.q,
+                questions: action.payload.qs
             }
         default:
             return state;

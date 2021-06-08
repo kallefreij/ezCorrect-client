@@ -32,3 +32,6 @@ export const setMultiChoiceAlts = (alts: IMultiChoiceAlts[]) => async (dispatch:
 export const setSingleChoiceAlts = (alts: ISingleChoiceAlts[]) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.setSingleChoiceAlts, payload: alts});
 }
+export const updateQuestion = (question: IQuestion, questions: IQuestion[]) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.updateQuestion, payload: {q: question, qs: questions}})
+}
