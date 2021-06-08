@@ -1,4 +1,6 @@
 import { IAssignmentMetaData, IQuestion } from "./assignments.interfaces";
+import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
+import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
 
 export const assignmentsActions = {
     fetchAssignmentMetaData: "AssignmentAction/fetchAssignmentMetaData",
@@ -7,7 +9,9 @@ export const assignmentsActions = {
     deleteAssignments: "AssignmentAction/deleteAssignments",
     deleteAssignmentsSuccessful: "AssignmentAction/deleteAssignmentsSuccessful",
     deleteAssignmentsFailed: "AssignmentAction/deleteAssignmentsFailed",
-    setSelectedQuestion: "AssignmentAction/setSelectedQuestion"
+    setSelectedQuestion: "AssignmentAction/setSelectedQuestion",
+    setMultiChoiceAlts: 'AssignmentAction/setMultiChoiceAlts',
+    setSingleChoiceAlts: 'AssignmentAction/setSingleChoiceAlts'
 }
 
 export interface IAssignmentState {
@@ -20,6 +24,8 @@ export interface IAssignmentState {
     assignmentMetadata: IAssignmentMetaData[];
     questions: IQuestion[];
     selectedQuestion: IQuestion;
+    multiChoiceAlts: IMultiChoiceAlts[];
+    singleChoiceAlts: ISingleChoiceAlts[];
 }
 
 const intitialState: IAssignmentState = {
@@ -47,6 +53,8 @@ const intitialState: IAssignmentState = {
         {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
     ],
     selectedQuestion: {id: "14", question: "1 * 500?",answer: "", number: 14, color: "#A1D0A5"},
+    multiChoiceAlts: [],
+    singleChoiceAlts: [],
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -99,6 +107,16 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 selectedQuestion: action.payload
+            }
+        case assignmentsActions.setMultiChoiceAlts:
+            return{
+                ...state,
+                multiChoiceAlts: action.payload
+            }
+        case assignmentsActions.setSingleChoiceAlts:
+            return{
+                ...state,
+                singleChoiceAlts: action.payload
             }
         default:
             return state;

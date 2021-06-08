@@ -1,5 +1,10 @@
 import { Input, List, makeStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+import { IStateTree } from '../../../../../redux/rootReducer';
+import { setSingleChoiceAlts } from '../../../assignments.actions';
+import { IAssignmentState } from '../../../assignments.reducer';
 import RadioButtonInput from './radioButtonInput';
 
 const useStyles = makeStyles({
@@ -8,17 +13,75 @@ const useStyles = makeStyles({
     }
 });
 
-const SingleChoiceQuestion: React.FC = () => {
+export interface ISingleChoiceAlts{
+    id: string;
+    alts: IAlt[];
+}
 
+export interface IAlt{
+    id: any; 
+    value: string;
+}
+
+export interface IInputProps{
+    id: string;
+}
+
+const getSingleChoiceAlts = createSelector<IStateTree, IAssignmentState, ISingleChoiceAlts[]>(
+    (state) => state.assignments,
+    (a) => a.singleChoiceAlts
+)
+
+const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
     let tmp_inputs = [
-        {id: 1, txtVal: ''}, 
+        {id: 1, value: ''}, 
     ]
-
     const classes = useStyles();
-    const [alts, setAlts] = useState(tmp_inputs);
     const [selectVal, setSelectVal] = useState(0);
+    const [inputValue, setInputValue] = useState("");
+    const [alts, setAlts] = useState(tmp_inputs);
+    const altsArray = useSelector(getSingleChoiceAlts);
+    const dispatch = useDispatch();
 
-    const addInput = () => {
+    useEffect(()=>{
+        if(altsArray.length !== 0){
+            const singelChoiceAlt = altsArray.find(a => a.id === props.id);
+            if(singelChoiceAlt){
+                setAlts(singelChoiceAlt!.alts);
+            }
+        }
+    })
+
+    const updateReduxState = (alts: IAlt[]) =>{
+        if(altsArray.length !== 0){
+            const hasAlts = altsArray.findIndex(a => a.id === props.id);
+            if(hasAlts > -1){
+                const newSingelChoiceAlts = altsArray.map(sca => {
+                    if(sca.id === props.id)
+                        sca.alts = alts;
+                    return sca; 
+                })
+                dispatch(setSingleChoiceAlts(newSingelChoiceAlts));
+                return;
+            }
+            const singelChoiceAlt = {
+                id: props.id,
+                alts: alts
+            }
+            altsArray.push(singelChoiceAlt);
+            dispatch(setSingleChoiceAlts([...altsArray]));
+            return;
+        }
+        const singelChoiceAlt = {
+            id: props.id,
+            alts: alts
+        }
+        const singleChoiceAlts = [singelChoiceAlt];
+        dispatch(setSingleChoiceAlts(singleChoiceAlts));
+    }
+
+    const addInput = (element: any) => {
+        setInputValue("");
         let highestNumber = 0;
         alts.forEach((item) => {
             if(item.id > highestNumber){
@@ -26,23 +89,27 @@ const SingleChoiceQuestion: React.FC = () => {
             }
         }) 
         highestNumber++;
-        setAlts([...alts, {id: highestNumber, txtVal: ''}]);
+        const newAlts = [...alts, {id: highestNumber, value: ''}];
+        setAlts(newAlts);
+        updateReduxState(newAlts);
     }
 
-    const handleInput = (id: any, e: any) => {
+    const handleInput = (e: any, id: any) => {
         let val = e.target.value
         alts.forEach((item) => {
             if(item.id === id){
-                item.txtVal = val; 
+                item.value = val; 
             }
         })
-        setAlts(alts);
-        console.log(alts);
+        const newAlts = [...alts];
+        setAlts(newAlts);
+        updateReduxState(newAlts);
     }
 
     const deleteInput = (id: any) => {
-        const newList = alts.filter((item) => item.id !== id);
-        setAlts(newList);
+        const newAlts = alts.filter((item) => item.id !== id);
+        setAlts(newAlts);
+        updateReduxState(newAlts);
     }
 
     const handleRadioButton = (newSelectVal: number) => {
@@ -50,17 +117,18 @@ const SingleChoiceQuestion: React.FC = () => {
     }
 
     return (
-            <List >
-                    {
-                        alts.map((item, i, a) => <RadioButtonInput  id={item.id}
-                                                                    selectVal={selectVal}
-                                                                    index={i}
-                                                                    handleInput={handleInput}
-                                                                    deleteInput={deleteInput}
-                                                                    handleRadioButton={handleRadioButton}/>)
-                    }
-                    <Input className={classes.root} onClick={addInput}/>
-            </List>
+        <List >
+                {   alts.map((item, i) => <RadioButtonInput buttonId={item.id}
+                                                            altsId={props.id}
+                                                            inputValue={item.value}
+                                                            selectVal={selectVal}
+                                                            index={i}
+                                                            handleInput={handleInput}
+                                                            deleteInput={deleteInput}
+                                                            handleRadioButton={handleRadioButton}/>)                                                 
+                }
+                <Input value={inputValue} className={classes.root} onClick={(e) => addInput(e)} />
+        </List>
     );
 };
 

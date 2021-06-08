@@ -7,7 +7,11 @@ const useStyles = makeStyles({
     }
 });
 
-const TextAnswer: React.FC = () => {
+export interface IInputProps{
+    id: string;
+}
+
+const TextAnswer: React.FC<IInputProps> = (props) => {
     
     const classes = useStyles();
     const [txtValue, setTxtValue] = useState('');

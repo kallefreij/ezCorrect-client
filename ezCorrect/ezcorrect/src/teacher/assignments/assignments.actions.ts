@@ -1,5 +1,7 @@
 import { IQuestion } from "./assignments.interfaces";
 import { assignmentsActions } from "./assignments.reducer"
+import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
+import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
 
  
 const axios = require('axios').default;
@@ -21,4 +23,12 @@ export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
 
 export const setSelectedQuestion = (question: IQuestion) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.setSelectedQuestion, payload: question});
+}
+
+export const setMultiChoiceAlts = (alts: IMultiChoiceAlts[]) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.setMultiChoiceAlts, payload: alts});
+}
+
+export const setSingleChoiceAlts = (alts: ISingleChoiceAlts[]) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.setSingleChoiceAlts, payload: alts});
 }

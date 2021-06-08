@@ -79,11 +79,11 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
     const renderSwitch = (qType: string) =>{
         switch (qType) {
             case 'textAnswer': 
-                return (<TextAnswer/>)
+                return (<TextAnswer id={props.id}/>)
             case 'multiChoiceAnswer': 
-                return (<MultiChoiceQuestion/>)
+                return (<MultiChoiceQuestion id={props.id}/>)
             case 'singleChoceAnswer':
-                return (<SingleChoiceQuestion/>)
+                return (<SingleChoiceQuestion id={props.id}/>)
         }
     }
 

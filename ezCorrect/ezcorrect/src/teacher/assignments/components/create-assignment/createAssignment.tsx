@@ -12,8 +12,8 @@ const CreateAssignment: React.FC = () => {
 
     const startCards: any[] = [
         {id: '1', title: '', description: '', categories: '', centralContent: '', cardType: 'header', isSelected: false},
-        {id: '2', question: '', type: '', cardType: 'question', isSelected: true},
-        {id: '3', question: '', type: '', cardType: 'question', isSelected: false},
+        {id: '2', question: '', type: '', cardType: 'question', isSelected: true, isDragDisabled: false},
+        {id: '3', question: '', type: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
     ]
 
     const [questionCards, setCards] = useState(startCards); 
@@ -41,11 +41,23 @@ const CreateAssignment: React.FC = () => {
         setCards(newCardsArr);
     }
 
+    const handleIsDraggable = () => {
+        questionCards.forEach((qc, i) =>{
+            if(i>0)
+                qc.isDragDisabled = qc.isDragDisabled ? false : true;
+        })
+        const newQuestionCards = [...questionCards];
+        setCards(newQuestionCards);
+    }
+
     return (
         <div>
             <Grid container>
-                
-                <Grid item sm={3} md={2} lg={2}></Grid>
+            
+            <button style={{margin: '50px'}} onClick={handleIsDraggable}></button>
+                <Grid item sm={3} md={2} lg={2}>
+                    
+                </Grid>
                 <Grid item sm={12} md={8} lg={8}>
                     <DragDropContext onDragEnd={onDragEnd}>
                         <DroppableArea childComp={
@@ -54,7 +66,7 @@ const CreateAssignment: React.FC = () => {
                                         return <HeaderTitleAndDescription handleSelect={handleSelect} isSelected={card.isSelected} id={card.id}/>
                                     }
                                     else{
-                                        return <DraggableCard index={i} id={card.id} childComp={
+                                        return <DraggableCard index={i} id={card.id} isDragDisabled={card.isDragDisabled} childComp={
                                             <CreateQuestionCard  handleSelect={handleSelect} isSelected={card.isSelected} id={card.id}/>
                                         }/>
                                     }
