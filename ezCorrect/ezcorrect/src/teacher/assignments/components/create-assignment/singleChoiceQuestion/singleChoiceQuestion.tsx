@@ -56,27 +56,27 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
         if(altsArray.length !== 0){
             const hasAlts = altsArray.findIndex(a => a.id === props.id);
             if(hasAlts > -1){
-                const newSingelChoiceAlts = altsArray.map(sca => {
+                const newSingleChoiceAlts = altsArray.map(sca => {
                     if(sca.id === props.id)
                         sca.alts = alts;
                     return sca; 
                 })
-                dispatch(setSingleChoiceAlts(newSingelChoiceAlts));
+                dispatch(setSingleChoiceAlts(newSingleChoiceAlts));
                 return;
             }
-            const singelChoiceAlt = {
+            const singleChoiceAlt = {
                 id: props.id,
                 alts: alts
             }
-            altsArray.push(singelChoiceAlt);
+            altsArray.push(singleChoiceAlt);
             dispatch(setSingleChoiceAlts([...altsArray]));
             return;
         }
-        const singelChoiceAlt = {
+        const singleChoiceAlt = {
             id: props.id,
             alts: alts
         }
-        const singleChoiceAlts = [singelChoiceAlt];
+        const singleChoiceAlts = [singleChoiceAlt];
         dispatch(setSingleChoiceAlts(singleChoiceAlts));
     }
 

@@ -4,7 +4,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import ClearIcon from '@material-ui/icons/Clear';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckboxInput from './checkboxInput';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createSelector } from 'reselect';
 import { IStateTree } from '../../../../../redux/rootReducer';
 import { IAssignmentState } from '../../../assignments.reducer';
@@ -18,7 +18,11 @@ const useStyles = makeStyles({
 });
 
 export interface IMultiChoiceAlts{
-    id: number;
+    id: string;
+    alts: IMAlt[];
+}
+export interface IMAlt{
+    id: any;
     value: string;
     isSelected: boolean;
 }
@@ -40,13 +44,50 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
     const classes = useStyles();
     const [inputValue, setInputValue] = useState("");
     const [alts, setAlts] = useState(tmp_inputs);
-    // const alts = useSelector(getMultiChoiceAlts);
+    const altsArray = useSelector(getMultiChoiceAlts);
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        if(altsArray.length !== 0){
+            const multiChoiceAlt = altsArray.find(a => a.id === props.id);
+            if(multiChoiceAlt){
+                setAlts(multiChoiceAlt!.alts);
+            }
+        }
+    })
+
+    const updateReduxState = (alts: IMAlt[]) =>{
+        if(altsArray.length !== 0){
+            const hasAlts = altsArray.findIndex(a => a.id === props.id);
+            if(hasAlts > -1){
+                const newMultiChoiceAlts = altsArray.map(sca => {
+                    if(sca.id === props.id)
+                        sca.alts = alts;
+                    return sca; 
+                })
+                dispatch(setMultiChoiceAlts(newMultiChoiceAlts));
+                return;
+            }
+            const MultiChoiceAlt = {
+                id: props.id,
+                alts: alts
+            }
+            altsArray.push(MultiChoiceAlt);
+            dispatch(setMultiChoiceAlts([...altsArray]));
+            return;
+        }
+        const MultiChoiceAlt = {
+            id: props.id,
+            alts: alts
+        }
+        const multiChoiceAlts = [MultiChoiceAlt];
+        dispatch(setMultiChoiceAlts(multiChoiceAlts));
+    }
 
     const deleteInput = (id: any) => {
         const newAlts = alts.filter((item) => item.id !== id);
         setAlts(newAlts);
-        // dispatch(setMultiChoiceAlts(newAlts));
+        updateReduxState(newAlts);
     }
     const addInput = () => {
         setInputValue("");
@@ -57,8 +98,9 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
             }
         }) 
         highestNumber++;
-        setAlts([...alts, {id: highestNumber, value: '', isSelected: false}]);
-        // dispatch(setMultiChoiceAlts([...alts, {id: highestNumber, value: '', isSelected: false}]))
+        const newAlts = [...alts, {id: highestNumber, value: '', isSelected: false}]
+        setAlts(newAlts);
+        updateReduxState(newAlts);
     }
 
     const handleCheckbox = (id:any) => {
@@ -69,7 +111,7 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
         })
         const newAlts = [...alts];
         setAlts(newAlts);
-        // dispatch(setMultiChoiceAlts([...alts]));
+        updateReduxState(newAlts);
     }
 
     const handleInput = (e: any, id: any) => {
@@ -81,7 +123,7 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
         })
         const newAlts = [...alts];
         setAlts(newAlts);
-        // dispatch(setMultiChoiceAlts([...alts]));
+        updateReduxState(newAlts);
     }
 
     return (

@@ -6,14 +6,22 @@ import ToolSidebar from './toolSidebar';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import DroppableArea from './droppableArea';
 import DraggableCard from './draggableCard';
+import DragAndDropButton from './dragAndDropButton';
 
 
 const CreateAssignment: React.FC = () => {
 
     const startCards: any[] = [
         {id: '1', title: '', description: '', categories: '', centralContent: '', cardType: 'header', isSelected: false},
-        {id: '2', question: '', type: '', cardType: 'question', isSelected: true, isDragDisabled: false},
-        {id: '3', question: '', type: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: false},
+        {id: '3', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        // {id: '4', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        // {id: '5', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        // {id: '6', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        // {id: '7', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        // {id: '8', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        // {id: '9', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
+        // {id: '10', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
     ]
 
     const [questionCards, setCards] = useState(startCards); 
@@ -41,12 +49,22 @@ const CreateAssignment: React.FC = () => {
         setCards(newCardsArr);
     }
 
-    const handleIsDraggable = () => {
+    const handleIsDraggable = (isDisabled: boolean) => {
         questionCards.forEach((qc, i) =>{
             if(i>0)
-                qc.isDragDisabled = qc.isDragDisabled ? false : true;
+                qc.isDragDisabled = isDisabled ? false : true;
         })
         const newQuestionCards = [...questionCards];
+        console.log(newQuestionCards)
+        setCards(newQuestionCards);
+    }
+
+    const setQuestiontype = (id: string, qType: string) => {
+        const newQuestionCards = questionCards.map((qc)=> {
+            if(qc.id === id)
+                qc.questionType = qType;
+            return qc;
+        })
         setCards(newQuestionCards);
     }
 
@@ -54,8 +72,7 @@ const CreateAssignment: React.FC = () => {
         <div>
             <Grid container>
             
-            <button style={{margin: '50px'}} onClick={handleIsDraggable}></button>
-                <Grid item sm={3} md={2} lg={2}>
+                <Grid item sm={3} md={2} lg={2} >
                     
                 </Grid>
                 <Grid item sm={12} md={8} lg={8}>
@@ -67,7 +84,7 @@ const CreateAssignment: React.FC = () => {
                                     }
                                     else{
                                         return <DraggableCard index={i} id={card.id} isDragDisabled={card.isDragDisabled} childComp={
-                                            <CreateQuestionCard  handleSelect={handleSelect} isSelected={card.isSelected} id={card.id}/>
+                                            <CreateQuestionCard handleSelect={handleSelect} setQuestiontype={setQuestiontype} isSelected={card.isSelected} id={card.id} qType={card.questionType} />
                                         }/>
                                     }
                                 })
@@ -75,7 +92,9 @@ const CreateAssignment: React.FC = () => {
                         />
                     </DragDropContext>
                 </Grid>
-                <Grid item sm={3} md={2} lg={2}></Grid>
+                <Grid item sm={3} md={2} lg={2}>   
+                    <DragAndDropButton handleDisable={handleIsDraggable}/>
+                </Grid>
             </Grid>
         </div>
     );

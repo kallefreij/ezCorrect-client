@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { ThemeProvider } from '@material-ui/styles';
+import { theme } from '../../../../common/ezTheme';
 
 interface ParentCompProps {
     childComp?: React.ReactNode;
@@ -8,21 +10,27 @@ interface ParentCompProps {
     index: number;
     id: string;
 }
-const useStyles = makeStyles({
-    main: {
-        margin: '0',
-    },
-})
+
+function getStyle(style: any, snapshot: any) {
+    if (!snapshot.isDropAnimating) {
+        return style;
+    }
+    return {
+        ...style,
+        transition: `all 0.5s ease`,
+    };
+}
+
 const DraggableCard: React.FC<ParentCompProps> = (props) => {
-    const classes = useStyles();
     const { childComp } = props;
 
     return (
         <Draggable draggableId={props.id} key={props.id} index={props.index} isDragDisabled={props.isDragDisabled}>
-            {(provided) => (
+            {(provided, snapshot) => (
                 <div    ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
+                        style={getStyle(provided.draggableProps.style, snapshot)}
                 >
                     {childComp}
                 </div>

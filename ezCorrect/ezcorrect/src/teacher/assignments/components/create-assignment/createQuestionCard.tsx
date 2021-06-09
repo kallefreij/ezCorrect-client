@@ -12,7 +12,9 @@ import { theme } from '../../../../common/ezTheme';
 export interface IInputProps{
     id: string;
     isSelected: boolean;
+    qType: string;
     handleSelect: (id: any) => void;
+    setQuestiontype: (id: string, qType: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -69,10 +71,11 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
 
     const classes = useStyles();
 
-    const [qType, setQType] = useState('');
+    const [qType, setQType] = useState(props.qType);
 
     const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
         setQType(event.target.value);
+        props.setQuestiontype(props.id, event.target.value);
         renderSwitch(event.target.value);
     };
 
