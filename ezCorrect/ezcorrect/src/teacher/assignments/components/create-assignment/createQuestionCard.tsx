@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, FormControl, Grid, Hidden, IconButton, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, FormControl, Grid, Hidden, IconButton, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import React, { useEffect, useState } from 'react';
 import ToolSidebar from './toolSidebar';
@@ -9,10 +9,11 @@ import { ThemeProvider } from '@material-ui/styles';
 import { theme } from '../../../../common/ezTheme';
 
 
+
 export interface IInputProps{
     id: string;
     isSelected: boolean;
-    qType: string;
+    qType?: string;
     handleSelect: (id: any) => void;
     setQuestiontype: (id: string, qType: string) => void;
 }
@@ -79,7 +80,7 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
         renderSwitch(event.target.value);
     };
 
-    const renderSwitch = (qType: string) =>{
+    const renderSwitch = (qType?: string) =>{
         switch (qType) {
             case 'textAnswer': 
                 return (<TextAnswer id={props.id}/>)
@@ -130,12 +131,9 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
                         }
                         
                     </CardContent>
-                    <CardActions>
-                    
-                    </CardActions>
                 </ThemeProvider>    
             </Card>
-            {props.isSelected ? (<ToolSidebar/>) : null}
+            {props.isSelected ? (<ToolSidebar cardId={props.id}/>) : null}
         </div>
     );
 };

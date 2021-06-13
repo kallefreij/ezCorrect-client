@@ -1,4 +1,5 @@
 import { IAssignmentMetaData, IQuestion } from "./assignments.interfaces";
+import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
 import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
 
@@ -12,7 +13,8 @@ export const assignmentsActions = {
     setSelectedQuestion: "AssignmentAction/setSelectedQuestion",
     setMultiChoiceAlts: 'AssignmentAction/setMultiChoiceAlts',
     setSingleChoiceAlts: 'AssignmentAction/setSingleChoiceAlts',
-    updateQuestion: "AssignmentAction/updateQuestion"
+    updateQuestion: "AssignmentAction/updateQuestion",
+    setCreateTestQuestion: 'Assignment/setCreateQuestions',
 }
 
 export interface IAssignmentState {
@@ -27,6 +29,7 @@ export interface IAssignmentState {
     selectedQuestion: IQuestion;
     multiChoiceAlts: IMultiChoiceAlts[];
     singleChoiceAlts: ISingleChoiceAlts[];
+    createTestQuestionCards: ICreateTestQuestionCards[];
 }
 
 const intitialState: IAssignmentState = {
@@ -50,6 +53,10 @@ const intitialState: IAssignmentState = {
     multiChoiceAlts: [],
     singleChoiceAlts: [],
     selectedQuestion: {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
+    createTestQuestionCards: [
+        {id: '1', title: '', description: '', categories: [], subjects: [], cardType: 'header', isSelected: false},
+        {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: false}
+    ],
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -118,6 +125,11 @@ const assignmentReducer = (state = intitialState, action: any) => {
                 ...state,
                 selectedQuestion: action.payload.q,
                 questions: action.payload.qs
+            }
+        case assignmentsActions.setCreateTestQuestion:
+            return{
+                ...state,
+                createTestQuestionCards: action.payload,
             }
         default:
             return state;

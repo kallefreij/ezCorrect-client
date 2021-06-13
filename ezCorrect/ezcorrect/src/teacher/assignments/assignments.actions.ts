@@ -1,5 +1,6 @@
 import { IQuestion } from "./assignments.interfaces";
 import { assignmentsActions } from "./assignments.reducer"
+import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
 import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
 
@@ -34,4 +35,7 @@ export const setSingleChoiceAlts = (alts: ISingleChoiceAlts[]) => async (dispatc
 }
 export const updateQuestion = (question: IQuestion, questions: IQuestion[]) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.updateQuestion, payload: {q: question, qs: questions}})
+}
+export const setCreateTestQuestions = (createTestQuestions: ICreateTestQuestionCards[]) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.setCreateTestQuestion, payload: createTestQuestions})
 }

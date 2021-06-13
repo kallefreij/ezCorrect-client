@@ -7,24 +7,35 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import DroppableArea from './droppableArea';
 import DraggableCard from './draggableCard';
 import DragAndDropButton from './dragAndDropButton';
+import { IStateTree } from '../../../../redux/rootReducer';
+import { IAssignmentState } from '../../assignments.reducer';
+import { createSelector } from 'reselect';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCreateTestQuestions } from '../../assignments.actions';
 
+export interface ICreateTestQuestionCards {
+    id: string; 
+    title?: string;
+    description?: string;
+    question?: string;
+    categories?: string[];
+    questionType?: string;
+    subjects?: string[];
+    cardType: string;
+    isSelected: boolean;
+    isDragDisabled?: boolean;
+    answer?: any;
+}
+
+const getCreateQuestions = createSelector<IStateTree, IAssignmentState, ICreateTestQuestionCards[]>(
+    (state) => state.assignments,
+    (a) => a.createTestQuestionCards
+)
 
 const CreateAssignment: React.FC = () => {
 
-    const startCards: any[] = [
-        {id: '1', title: '', description: '', categories: '', centralContent: '', cardType: 'header', isSelected: false},
-        {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: false},
-        {id: '3', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-        // {id: '4', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-        // {id: '5', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-        // {id: '6', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-        // {id: '7', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-        // {id: '8', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-        // {id: '9', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-        // {id: '10', question: '', questionType: '', cardType: 'question', isSelected: false,  isDragDisabled: false},
-    ]
-
-    const [questionCards, setCards] = useState(startCards); 
+    const questionCards: ICreateTestQuestionCards[] = useSelector(getCreateQuestions);
+    const dispatch = useDispatch();
 
     const handleSelect = (id: string) => {
         const qCards = questionCards.map((card)=>{
@@ -34,7 +45,7 @@ const CreateAssignment: React.FC = () => {
                 card.isSelected = false;
             return card;
         });
-        setCards(qCards);
+        dispatch(setCreateTestQuestions(qCards));
     }
 
     const onDragEnd = (result: any) => {
@@ -44,9 +55,10 @@ const CreateAssignment: React.FC = () => {
         if(destination.droppableId === source.droppableId && destination.index === source.index)
             return;
         let newCardsArr = [...questionCards];
+        const draggedCard: any = questionCards.find(c => c.id === draggableId);
         newCardsArr.splice(source.index, 1);
-        newCardsArr.splice(destination.index, 0, questionCards.find(c => c.id === draggableId));
-        setCards(newCardsArr);
+        newCardsArr.splice(destination.index, 0, draggedCard);
+        dispatch(setCreateTestQuestions(newCardsArr));
     }
 
     const handleIsDraggable = (isDisabled: boolean) => {
@@ -56,7 +68,7 @@ const CreateAssignment: React.FC = () => {
         })
         const newQuestionCards = [...questionCards];
         console.log(newQuestionCards)
-        setCards(newQuestionCards);
+        dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
     const setQuestiontype = (id: string, qType: string) => {
@@ -65,15 +77,13 @@ const CreateAssignment: React.FC = () => {
                 qc.questionType = qType;
             return qc;
         })
-        setCards(newQuestionCards);
+        dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
     return (
         <div>
             <Grid container>
-            
                 <Grid item sm={3} md={2} lg={2} >
-                    
                 </Grid>
                 <Grid item sm={12} md={8} lg={8}>
                     <DragDropContext onDragEnd={onDragEnd}>
@@ -83,7 +93,7 @@ const CreateAssignment: React.FC = () => {
                                         return <HeaderTitleAndDescription handleSelect={handleSelect} isSelected={card.isSelected} id={card.id}/>
                                     }
                                     else{
-                                        return <DraggableCard index={i} id={card.id} isDragDisabled={card.isDragDisabled} childComp={
+                                        return <DraggableCard index={i} id={card.id} isDragDisabled={card.isDragDisabled!} childComp={
                                             <CreateQuestionCard handleSelect={handleSelect} setQuestiontype={setQuestiontype} isSelected={card.isSelected} id={card.id} qType={card.questionType} />
                                         }/>
                                     }

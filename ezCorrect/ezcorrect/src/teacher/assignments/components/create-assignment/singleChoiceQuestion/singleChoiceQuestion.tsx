@@ -118,7 +118,8 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
 
     return (
         <List >
-                {   alts.map((item, i) => <RadioButtonInput buttonId={item.id}
+                {   
+                    alts.map((item, i) => <RadioButtonInput buttonId={item.id}
                                                             altsId={props.id}
                                                             inputValue={item.value}
                                                             selectVal={selectVal}

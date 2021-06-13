@@ -1,6 +1,7 @@
-import { createStyles, Grid, makeStyles, Popover, Slider, Theme, Typography } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Popover, Slider, Theme, ThemeProvider, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { NamedTupleMember } from 'typescript';
+import { theme } from '../../../../../common/ezTheme';
 
 interface PointSelectionProps{
     points?: number;
@@ -83,18 +84,21 @@ const PointSelectionMenu:React.FC<PointSelectionProps> = (props) => {
                 <Typography id="discrete-slider-always" gutterBottom>
                     Antal poäng
                 </Typography>
-                <Slider
-                    key={props.id}
-                    defaultValue={props.points}
-                    getAriaValueText={valuetext}
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    min={0}
-                    marks={marks}
-                    max={props.maxPoint}
-                    className={classes.slider}
-                />
+                <ThemeProvider theme={theme}>
+                    <Slider
+                        color="primary"
+                        key={props.id}
+                        defaultValue={props.points}
+                        getAriaValueText={valuetext}
+                        aria-labelledby="discrete-slider"
+                        valueLabelDisplay="auto"
+                        step={1}
+                        min={0}
+                        marks={marks}
+                        max={props.maxPoint}
+                        className={classes.slider}
+                    />
+                </ThemeProvider>
             </Grid>
         </Grid>
            

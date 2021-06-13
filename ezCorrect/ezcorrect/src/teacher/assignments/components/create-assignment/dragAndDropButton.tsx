@@ -37,7 +37,7 @@ function getWindowDimensions() {
 const DragAndDropButton: React.FC<IInputProps> = (props) => {
 
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-    const [isDraggableDisabled, setDisabled] = useState(false);
+    const [isDraggableDisabled, setDisabled] = useState(true);
     const classes = useStyles(windowDimensions);
 
     useEffect(() => {
