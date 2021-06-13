@@ -12,10 +12,12 @@ import { theme } from '../../../../common/ezTheme';
 
 export interface IInputProps{
     id: string;
+    questionVal?: string;
     isSelected: boolean;
     qType?: string;
     handleSelect: (id: any) => void;
     setQuestiontype: (id: string, qType: string) => void;
+    handleQuestionInput: (id: any, input: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -91,6 +93,10 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
         }
     }
 
+    const handleQuestionInput = (event: any) => {
+        props.handleQuestionInput(props.id, event.target.value);
+    }
+
     return (
         <div className={classes.main}>
             <Card className={(props.isSelected ? classes.rootSelect : classes.root)} onClick={() => props.handleSelect(props.id)}>
@@ -99,7 +105,7 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
                         <form noValidate autoComplete="off">
                             <Grid container>
                                 <Grid item sm={8} xs={6}>
-                                    <TextField className={classes.titleField} label="Fråga" variant="outlined" />
+                                    <TextField className={classes.titleField} value={props.questionVal} label="Fråga" variant="outlined" onInput={handleQuestionInput}/>
                                 </Grid>
                                 <Hidden xsDown>
                                     <Grid item sm={1} xs={1}>

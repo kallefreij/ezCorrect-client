@@ -93,7 +93,7 @@ const ToolSidebar: React.FC<IInputProps> = (props) => {
     
     const addQuestionCard = () => {
         const newQuestionCars = [...questionCards];
-        const index = questionCards.findIndex(q => q.id === props.cardId);
+        const index = questionCards.findIndex(q => q.id === props.cardId) + 1;
         newQuestionCars.splice(index, 0, {id: getNewId(), question: '', questionType: '', cardType: 'question', isSelected: false, isDragDisabled: false});
         dispatch(setCreateTestQuestions(newQuestionCars));
     }

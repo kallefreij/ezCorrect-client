@@ -80,6 +80,36 @@ const CreateAssignment: React.FC = () => {
         dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
+    const handleQuestionInput = (id: string, input: string) => {
+        const newQuestionCards = questionCards.map(qc => {
+            if(qc.id === id){
+                qc.question = input;
+            }
+            return qc;
+        })
+        dispatch(setCreateTestQuestions(newQuestionCards));
+    }
+
+    const handleTitleInput = (id: string, input: string) => {
+        const newQuestionCards = questionCards.map(qc => {
+            if(qc.id === id){
+                qc.title = input;
+            }
+            return qc;
+        })
+        dispatch(setCreateTestQuestions(newQuestionCards));
+    }
+
+    const handleDesciptionInput = (id: string, input: string) => {
+        const newQuestionCards = questionCards.map(qc => {
+            if(qc.id === id){
+                qc.description = input;
+            }
+            return qc;
+        })
+        dispatch(setCreateTestQuestions(newQuestionCards));
+    }
+
     return (
         <div>
             <Grid container>
@@ -90,11 +120,25 @@ const CreateAssignment: React.FC = () => {
                         <DroppableArea childComp={
                                 questionCards.map((card, i, a)=>{
                                     if(card.cardType === 'header'){
-                                        return <HeaderTitleAndDescription handleSelect={handleSelect} isSelected={card.isSelected} id={card.id}/>
+                                        return <HeaderTitleAndDescription 
+                                                    handleSelect={handleSelect}
+                                                    handleTitleInput={handleTitleInput} 
+                                                    handleDesciptionInput={handleDesciptionInput} 
+                                                    isSelected={card.isSelected} 
+                                                    id={card.id}
+                                                    title={card.title}
+                                                    description={card.description}/>
                                     }
                                     else{
                                         return <DraggableCard index={i} id={card.id} isDragDisabled={card.isDragDisabled!} childComp={
-                                            <CreateQuestionCard handleSelect={handleSelect} setQuestiontype={setQuestiontype} isSelected={card.isSelected} id={card.id} qType={card.questionType} />
+                                            <CreateQuestionCard 
+                                                handleSelect={handleSelect} 
+                                                setQuestiontype={setQuestiontype} 
+                                                handleQuestionInput={handleQuestionInput}
+                                                isSelected={card.isSelected} 
+                                                id={card.id}
+                                                questionVal={card.question} 
+                                                qType={card.questionType} />
                                         }/>
                                     }
                                 })

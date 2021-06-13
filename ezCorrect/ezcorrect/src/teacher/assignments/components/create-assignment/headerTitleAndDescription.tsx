@@ -7,8 +7,12 @@ import { theme } from '../../../../common/ezTheme';
 
 export interface IInputProps{
     id: string;
+    title?: string;
+    description?: string;
     isSelected: boolean;
     handleSelect: (id: any) => void;
+    handleDesciptionInput: (id: string, input: string) => void;
+    handleTitleInput: (id: string, input: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -119,8 +123,17 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
     const handleSubjecs = (event: React.ChangeEvent<{ value: any }>) => {
         setSelectedSubjects(event.target.value as string[])
     };
+
     const handleCategories = (event: React.ChangeEvent<{ value: any }>) => {
         setSelectedCategories(event.target.value as string[])
+    };
+
+    const handleTitleInput = (event: any) => {
+        props.handleTitleInput(props.id, event.target.value);
+    };
+
+    const handleDesciptionInput = (event: any) => {
+        props.handleDesciptionInput(props.id, event.target.value);
     };
 
     return (
@@ -132,8 +145,10 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                             <Grid container>
                                 <Grid item sm={8} xs={12}>
                                 <TextField  className={classes.titleField} 
-                                        label="Titel" 
+                                        label="Titel"
+                                        value={props.title} 
                                         variant="standard"
+                                        onInput={handleTitleInput}
                                         InputProps={{
                                             classes: {
                                             input: classes.resize,
@@ -160,7 +175,9 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                                     <Grid item sm={8} xs={6}>
                                         <TextField  className={classes.descriptionField} 
                                                 id="outlined-basic" 
-                                                label="Beskrvning" 
+                                                label="Beskrvning"
+                                                value={props.description} 
+                                                onInput={handleDesciptionInput} 
                                                 variant="standard"
                                                 multiline
                                                 rowsMax={4} />
@@ -188,6 +205,8 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                                                 id="outlined-basic" 
                                                 label="Beskrvning" 
                                                 variant="standard"
+                                                value={props.description}
+                                                onInput={handleDesciptionInput} 
                                                 multiline
                                                 rows={5} />
                                     </Grid>
