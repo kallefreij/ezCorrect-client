@@ -1,7 +1,7 @@
-import { Grid, Hidden, IconButton, Input, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { Button, Card, CardActions, CardContent, createMuiTheme, FormControl, makeStyles, TextField, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import ToolSidebar from './toolSidebar';
+import { Grid, Hidden, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Card, CardActions, CardContent, FormControl, makeStyles, TextField } from '@material-ui/core';
+import React, {  useState } from 'react';
+import CardToolbar from './cardToolbar';
 import { ThemeProvider } from '@material-ui/styles';
 import { theme } from '../../../../common/ezTheme';
 
@@ -33,19 +33,19 @@ const useStyles = makeStyles({
         },
     },
     rootSelect: {
-        borderStyle: 'solid',
+        borderLeft: 'solid',
         borderColor:  '#A1D0A5',
         boxSizing: 'border-box',
         [theme.breakpoints.up('sm')]: {
             width: '100%',
-            borderStyle: 'solid',
+            borderLeft: 'solid',
             borderColor:  '#A1D0A5',
             boxSizing: 'border-box',
             margin: 'auto',
         },
         [theme.breakpoints.up(800)]: {
                 width: '800px',
-                borderStyle: 'solid',
+                borderLeft: 'solid',
                 borderColor:  '#A1D0A5',
                 boxSizing: 'border-box',
                 margin: 'auto',
@@ -248,7 +248,7 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                     </CardActions>
                 </ThemeProvider>
             </Card>
-            {props.isSelected ? (<ToolSidebar cardId={props.id}/>) : null}
+            {props.isSelected ? (<CardToolbar cardId={props.id}/>) : null}
         </div>
     );
 };

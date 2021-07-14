@@ -1,17 +1,17 @@
-import { createMuiTheme, Grid } from '@material-ui/core';
-import React, { useState } from 'react';
+import {  Grid, Snackbar } from '@material-ui/core';
+import React from 'react';
 import HeaderTitleAndDescription from './headerTitleAndDescription';
 import CreateQuestionCard from './createQuestionCard';
-import ToolSidebar from './toolSidebar';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext} from 'react-beautiful-dnd';
 import DroppableArea from './droppableArea';
 import DraggableCard from './draggableCard';
-import DragAndDropButton from './dragAndDropButton';
+import CardSidebarMenu from './cardSidebarMenu';
 import { IStateTree } from '../../../../redux/rootReducer';
 import { IAssignmentState } from '../../assignments.reducer';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCreateTestQuestions } from '../../assignments.actions';
+import { setCreateTestQuestions, saveAssignment } from '../../assignments.actions';
+import EzSnackbar from '../../../../common/ezSnackbar/ezSnackbar';
 
 export interface ICreateTestQuestionCards {
     id: string; 
@@ -67,7 +67,6 @@ const CreateAssignment: React.FC = () => {
                 qc.isDragDisabled = isDisabled ? false : true;
         })
         const newQuestionCards = [...questionCards];
-        console.log(newQuestionCards)
         dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
@@ -110,6 +109,17 @@ const CreateAssignment: React.FC = () => {
         dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
+    const handleSave = () => {
+        dispatch(saveAssignment(questionCards));
+    }
+
+    const handleClean = () => {
+        dispatch(setCreateTestQuestions([
+            {id: '1', title: '', description: '', categories: [], subjects: [], cardType: 'header', isSelected: false},
+            {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true}
+        ]))
+    }
+
     return (
         <div>
             <Grid container>
@@ -137,6 +147,7 @@ const CreateAssignment: React.FC = () => {
                                                 handleQuestionInput={handleQuestionInput}
                                                 isSelected={card.isSelected} 
                                                 id={card.id}
+                                                index={i}
                                                 questionVal={card.question} 
                                                 qType={card.questionType} />
                                         }/>
@@ -146,8 +157,8 @@ const CreateAssignment: React.FC = () => {
                         />
                     </DragDropContext>
                 </Grid>
-                <Grid item sm={3} md={2} lg={2}>   
-                    <DragAndDropButton handleDisable={handleIsDraggable}/>
+                <Grid item md={2} lg={2}>   
+                    <CardSidebarMenu handleDisable={handleIsDraggable} handleSave={handleSave} handleClean={handleClean}/>
                 </Grid>
             </Grid>
         </div>

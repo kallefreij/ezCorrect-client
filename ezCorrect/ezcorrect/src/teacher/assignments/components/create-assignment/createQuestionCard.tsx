@@ -1,7 +1,7 @@
-import { Button, Card, CardActions, CardContent, FormControl, Grid, Hidden, IconButton, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
+import { Card, CardContent, FormControl, Grid, Hidden, IconButton, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import React, { useEffect, useState } from 'react';
-import ToolSidebar from './toolSidebar';
+import React, { useState } from 'react';
+import CardToolbar from './cardToolbar';
 import MultiChoiceQuestion from './multiChoiceQuestion/multiCoiceQuestion';
 import SingleChoiceQuestion from './singleChoiceQuestion/singleChoiceQuestion';
 import TextAnswer from './textAnswer/textAnswer';
@@ -12,6 +12,7 @@ import { theme } from '../../../../common/ezTheme';
 
 export interface IInputProps{
     id: string;
+    index: number;
     questionVal?: string;
     isSelected: boolean;
     qType?: string;
@@ -38,19 +39,19 @@ const useStyles = makeStyles({
         },
     },
     rootSelect: {
-        borderStyle: 'solid',
+        borderLeft: 'solid',
         borderColor:  '#A1D0A5',
         boxSizing: 'border-box',
         [theme.breakpoints.up('sm')]: {
             width: '100%',
-            borderStyle: 'solid',
+            borderLeft: 'solid',
             borderColor:  '#A1D0A5',
             boxSizing: 'border-box',
             margin: 'auto',
         },
         [theme.breakpoints.up(800)]: {
                 width: '800px',
-                borderStyle: 'solid',
+                borderLeft: 'solid',
                 borderColor:  '#A1D0A5',
                 boxSizing: 'border-box',
                 margin: 'auto',
@@ -105,7 +106,7 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
                         <form noValidate autoComplete="off">
                             <Grid container>
                                 <Grid item sm={8} xs={6}>
-                                    <TextField className={classes.titleField} value={props.questionVal} label="Fråga" variant="outlined" onInput={handleQuestionInput}/>
+                                    <TextField className={classes.titleField} value={props.questionVal} label={"Fråga " + props.index} variant="outlined" onInput={handleQuestionInput}/>
                                 </Grid>
                                 <Hidden xsDown>
                                     <Grid item sm={1} xs={1}>
@@ -139,7 +140,7 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
                     </CardContent>
                 </ThemeProvider>    
             </Card>
-            {props.isSelected ? (<ToolSidebar cardId={props.id}/>) : null}
+            {props.isSelected ? (<CardToolbar cardId={props.id}/>) : null}
         </div>
     );
 };

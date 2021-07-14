@@ -9,6 +9,7 @@ const milestonesRoutes = require('./routes/milestones');
 const taskRoutes = require('./routes/tasks');
 const categoryRoutes = require('./routes/categories');
 const centralContentRoutes = require('./routes/centralContent');
+const assignmentRoutes = require('./routes/assignments');
 
 mongoose.connect("mongodb+srv://admin:YeJYeFhk5m85GIlt@cluster0-5tqle.mongodb.net/ezCorrectDB?retryWrites=true&w=majority")
     .then( () => {
@@ -37,5 +38,6 @@ app.use('/api/milestones', milestonesRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/centralContents', centralContentRoutes);
+app.use('/api/assignments', assignmentRoutes);
 
 module.exports = app;

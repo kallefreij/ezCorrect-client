@@ -33,9 +33,27 @@ export const setMultiChoiceAlts = (alts: IMultiChoiceAlts[]) => async (dispatch:
 export const setSingleChoiceAlts = (alts: ISingleChoiceAlts[]) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.setSingleChoiceAlts, payload: alts});
 }
+
 export const updateQuestion = (question: IQuestion, questions: IQuestion[]) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.updateQuestion, payload: {q: question, qs: questions}})
 }
+
 export const setCreateTestQuestions = (createTestQuestions: ICreateTestQuestionCards[]) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.setCreateTestQuestion, payload: createTestQuestions})
 }
+
+export const setSaveLoadingStatus = (loading: boolean) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.setSaveLoadingStatus, payload: loading})
+}
+
+export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) => async (dispatch: any) => {
+
+    await axios.post('http://localhost:4000/api/assignments', {assignment: JSON.stringify(createTestQuestions)})
+        .then((res: any) => {
+            console.log(res)
+            console.log("Successfull post to database")
+            dispatch(setSaveLoadingStatus(false))
+        })
+        .catch((err: any) => console.error(err))
+
+} 

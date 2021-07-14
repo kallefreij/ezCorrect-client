@@ -1,14 +1,12 @@
-import { Button, Card, CardActions, CardContent, Grid, IconButton, makeStyles } from '@material-ui/core';
+import { Button, Card, CardActions, Grid, makeStyles } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import InputIcon from '@material-ui/icons/Input';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import TitleIcon from '@material-ui/icons/Title';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import React from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import { theme } from '../../../../common/ezTheme';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { ICreateTestQuestionCards } from './createAssignment';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -19,7 +17,7 @@ import { setCreateTestQuestions } from '../../assignments.actions';
 const useStyles = makeStyles({
     root: {
         height: '55px',
-        borderStyle: 'solid',
+        borderLeft: 'solid',
         borderColor:  '#A1D0A5',
         boxSizing: 'border-box',
         margin: 'auto',
@@ -31,7 +29,7 @@ const useStyles = makeStyles({
         [theme.breakpoints.up('sm')]: {
             height: '55px',
             width: '100%',
-            borderStyle: 'solid',
+            borderLeft: 'solid',
             borderColor:  '#A1D0A5',
             boxSizing: 'border-box',
             margin: 'auto',
@@ -44,7 +42,7 @@ const useStyles = makeStyles({
         [theme.breakpoints.up(800)]: {
             height: '55px',
             width: '800px',
-            borderStyle: 'solid',
+            borderLeft: 'solid',
             borderColor:  '#A1D0A5',
             boxSizing: 'border-box',
             margin: 'auto',
@@ -74,7 +72,7 @@ const getCreateQuestions = createSelector<IStateTree, IAssignmentState, ICreateT
     (a) => a.createTestQuestionCards
 )
 
-const ToolSidebar: React.FC<IInputProps> = (props) => {
+const CardToolbar: React.FC<IInputProps> = (props) => {
 
     const classes = useStyles();
     const questionCards: ICreateTestQuestionCards[] = useSelector(getCreateQuestions);
@@ -92,16 +90,17 @@ const ToolSidebar: React.FC<IInputProps> = (props) => {
     }
     
     const addQuestionCard = () => {
-        const newQuestionCars = [...questionCards];
-        const index = questionCards.findIndex(q => q.id === props.cardId) + 1;
-        newQuestionCars.splice(index, 0, {id: getNewId(), question: '', questionType: '', cardType: 'question', isSelected: false, isDragDisabled: false});
-        dispatch(setCreateTestQuestions(newQuestionCars));
+        const newQuestionCards = [...questionCards];
+        const index = questionCards.findIndex(q => q.id === props.cardId);
+        newQuestionCards[index].isSelected = false;
+        newQuestionCards.splice(index + 1, 0, {id: getNewId(), question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true});
+        dispatch(setCreateTestQuestions(newQuestionCards));
     }
     const deleteQuestionCard = () => {
-        const newQuestionCars = [...questionCards];
+        const newQuestionCards = [...questionCards];
         const index = questionCards.findIndex(q => q.id === props.cardId);
-        newQuestionCars.splice(index, 1);
-        dispatch(setCreateTestQuestions(newQuestionCars));
+        newQuestionCards.splice(index, 1);
+        dispatch(setCreateTestQuestions(newQuestionCards));
     }
     
     return (
@@ -110,7 +109,7 @@ const ToolSidebar: React.FC<IInputProps> = (props) => {
                 <CardActions>
                     <Grid container justify="space-evenly">
                         <Grid item>
-                            <Button className={classes.iconButton} onClick={addQuestionCard}>
+                            <Button className={classes.iconButton} onClick={addQuestionCard} >
                                 <AddCircleOutlineIcon/>
                             </Button>
                         </Grid>
@@ -130,7 +129,7 @@ const ToolSidebar: React.FC<IInputProps> = (props) => {
                             </Button>
                         </Grid>
                         <Grid item>
-                            <Button className={classes.iconButton} onClick={deleteQuestionCard}>
+                            <Button className={classes.iconButton} onClick={deleteQuestionCard} disabled={props.cardId === '1'}>
                                 <DeleteIcon/>
                             </Button>
                         </Grid>
@@ -141,4 +140,4 @@ const ToolSidebar: React.FC<IInputProps> = (props) => {
     );
 };
 
-export default ToolSidebar;
+export default CardToolbar;
