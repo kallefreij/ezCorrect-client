@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButton: {
         display: 'block',
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
           display: 'none',
         },
     },
