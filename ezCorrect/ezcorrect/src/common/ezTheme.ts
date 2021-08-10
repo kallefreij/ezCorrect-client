@@ -11,6 +11,17 @@ const options: ThemeOptions = {
     },
 };
 
+const blueOptions: ThemeOptions = {
+    palette: {
+      primary: {
+        main: '#1976d2',
+      },
+      secondary: {
+        main: '#e57373',
+      }
+    },
+}
 
+export const blueTheme = createMuiTheme(blueOptions);
 export const theme = createMuiTheme(options);
 

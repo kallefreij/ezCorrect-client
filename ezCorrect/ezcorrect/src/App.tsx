@@ -16,7 +16,7 @@ import Groups from './teacher/groups/components/groups';
 import Group from './teacher/groups/components/group';
 import Student from './teacher/student/components/student';
 import CorrectAssignment from './teacher/assignments/components/correct-assignment/correctAssignment';
-
+import EzSnackbar from './common/ezSnackbar/ezSnackbar';
 
 function App() {
   return (

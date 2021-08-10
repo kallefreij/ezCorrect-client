@@ -15,6 +15,7 @@ export const assignmentsActions = {
     setSingleChoiceAlts: 'AssignmentAction/setSingleChoiceAlts',
     updateQuestion: "AssignmentAction/updateQuestion",
     setCreateTestQuestion: 'Assignment/setCreateQuestions',
+    setSaveLoadingStatus: 'Assignment/setSaveLoadingStatus',
 }
 
 export interface IAssignmentState {
@@ -30,6 +31,7 @@ export interface IAssignmentState {
     multiChoiceAlts: IMultiChoiceAlts[];
     singleChoiceAlts: ISingleChoiceAlts[];
     createTestQuestionCards: ICreateTestQuestionCards[];
+    saveLoadingStatus: boolean;
 }
 
 const intitialState: IAssignmentState = {
@@ -55,8 +57,9 @@ const intitialState: IAssignmentState = {
     selectedQuestion: {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
     createTestQuestionCards: [
         {id: '1', title: '', description: '', categories: [], subjects: [], cardType: 'header', isSelected: false},
-        {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: false}
+        {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true}
     ],
+    saveLoadingStatus: false,
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -130,6 +133,11 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 createTestQuestionCards: action.payload,
+            }
+        case assignmentsActions.setSaveLoadingStatus: 
+            return{
+                ...state,
+                saveLoadingStatus: action.payload,
             }
         default:
             return state;
