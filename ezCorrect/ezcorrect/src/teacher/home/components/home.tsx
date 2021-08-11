@@ -23,9 +23,10 @@ const Home: React.FC = () => {
                 <Hidden smUp>
                     <div className="center">
                         <EzCorrectIcon height={100} width={100}/>
-                    </div>                   
+                    </div>            
                 </Hidden>
-                <Hidden smDown>
+                
+                <Hidden smDown>                     
                     <Grid item xs={12}>
                         <div className="pictureHeader">
                             <div className="iconPosition">
