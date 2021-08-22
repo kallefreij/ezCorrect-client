@@ -15,7 +15,7 @@ import { IMultiChoiceAlts } from './multiCoiceQuestion';
 
 export interface IInputProps{
     id: any;
-    isSelected: boolean;
+    isCorrect: boolean;
     inputValue: string;
     handleInput: (e: any, id: any) => void;
     handleCheckbox: (id:any) => void;
@@ -29,11 +29,11 @@ const getMultiChoiceAlts = createSelector<IStateTree, IAssignmentState, IMultiCh
 
 const CheckboxInput: React.FC<IInputProps> = (props) => {
 
-    const [isSelected, setSelected] = useState(false);
+    const [isCorrect, setSelected] = useState(false);
     const alts = useSelector(getMultiChoiceAlts);
 
     const changeSelected = () =>{
-        let bool = isSelected ? false : true; 
+        let bool = isCorrect ? false : true; 
         setSelected(bool);
         props.handleCheckbox(props.id)
     }
@@ -52,7 +52,7 @@ const CheckboxInput: React.FC<IInputProps> = (props) => {
                     startAdornment={
                         <InputAdornment position="start">
                             <IconButton onClick={() => changeSelected()} color="primary">
-                                {isSelected ? (<CheckBoxIcon />) : <CheckBoxOutlineBlankIcon />}
+                                {isCorrect ? (<CheckBoxIcon />) : <CheckBoxOutlineBlankIcon />}
                             </IconButton>
                         </InputAdornment>
                     }

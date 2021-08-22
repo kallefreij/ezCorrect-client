@@ -3,6 +3,7 @@ import { assignmentsActions } from "./assignments.reducer"
 import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
 import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
+import { ITextAnswer } from "./components/create-assignment/textAnswer/textAnswer";
 
  
 const axios = require('axios').default;
@@ -34,6 +35,10 @@ export const setSingleChoiceAlts = (alts: ISingleChoiceAlts[]) => async (dispatc
     dispatch({type: assignmentsActions.setSingleChoiceAlts, payload: alts});
 }
 
+export const setTextAnswer = (answers: ITextAnswer[]) => async (dispatch:any) => {
+    dispatch({type: assignmentsActions.setTextAnswer, payload: answers});
+}
+
 export const updateQuestion = (question: IQuestion, questions: IQuestion[]) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.updateQuestion, payload: {q: question, qs: questions}})
 }
@@ -48,12 +53,17 @@ export const setSaveLoadingStatus = (loading: boolean) => async (dispatch:any) =
 
 export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) => async (dispatch: any) => {
 
-    await axios.post('http://localhost:4000/api/assignments', {assignment: JSON.stringify(createTestQuestions)})
+    console.log(createTestQuestions)
+
+    await axios.post('http://localhost:4000/api/assignments', {assignment: createTestQuestions})
         .then((res: any) => {
             console.log(res)
             console.log("Successfull post to database")
             dispatch(setSaveLoadingStatus(false))
         })
-        .catch((err: any) => console.error(err))
+        .catch((err: any) => {
+            console.log(err)
+            dispatch(setSaveLoadingStatus(false))
+        })
 
 } 

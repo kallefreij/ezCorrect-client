@@ -12,6 +12,9 @@ import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCreateTestQuestions, saveAssignment } from '../../assignments.actions';
 import EzSnackbar from '../../../../common/ezSnackbar/ezSnackbar';
+import { ITextAnswer } from './textAnswer/textAnswer';
+import { IMultiChoiceAlts } from './multiChoiceQuestion/multiCoiceQuestion';
+import { ISingleChoiceAlts } from './singleChoiceQuestion/singleChoiceQuestion';
 
 export interface ICreateTestQuestionCards {
     id: string; 
@@ -32,9 +35,28 @@ const getCreateQuestions = createSelector<IStateTree, IAssignmentState, ICreateT
     (a) => a.createTestQuestionCards
 )
 
+const getSingleChoiceAlts = createSelector<IStateTree, IAssignmentState, ISingleChoiceAlts[]>(
+    (state) => state.assignments,
+    (a) => a.singleChoiceAlts
+)
+
+const getMultiChoiceAlts = createSelector<IStateTree, IAssignmentState, IMultiChoiceAlts[]>(
+    (state) => state.assignments,
+    (a) => a.multiChoiceAlts
+)
+
+const getTextAnswer = createSelector<IStateTree, IAssignmentState, ITextAnswer[]>(
+    (state) => state.assignments,
+    (a) => a.textAnswer
+)
+
 const CreateAssignment: React.FC = () => {
 
     const questionCards: ICreateTestQuestionCards[] = useSelector(getCreateQuestions);
+    const singleChoiceAlts: ISingleChoiceAlts[] = useSelector(getSingleChoiceAlts); 
+    const multiChoiceAlts: IMultiChoiceAlts[] = useSelector(getMultiChoiceAlts);
+    const textAnswers: ITextAnswer[] = useSelector(getTextAnswer);
+
     const dispatch = useDispatch();
 
     const handleSelect = (id: string) => {
@@ -110,7 +132,17 @@ const CreateAssignment: React.FC = () => {
     }
 
     const handleSave = () => {
-        dispatch(saveAssignment(questionCards));
+
+
+        let answerArray: any[] = [];
+        answerArray = answerArray.concat(textAnswers, singleChoiceAlts, multiChoiceAlts);
+
+        const cardsToSave = questionCards.map(qc => {
+            qc.answer = answerArray.find(a => a.id === qc.id);
+            return qc;
+        })
+
+        dispatch(saveAssignment(cardsToSave));
     }
 
     const handleClean = () => {

@@ -21,6 +21,7 @@ export interface ISingleChoiceAlts{
 export interface IAlt{
     id: any; 
     value: string;
+    isCorrect: boolean;
 }
 
 export interface IInputProps{
@@ -34,7 +35,7 @@ const getSingleChoiceAlts = createSelector<IStateTree, IAssignmentState, ISingle
 
 const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
     let tmp_inputs = [
-        {id: 1, value: ''}, 
+        {id: 1, value: '', isCorrect: true}, 
     ]
     const classes = useStyles();
     const [selectVal, setSelectVal] = useState(0);
@@ -47,6 +48,10 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
         if(altsArray.length !== 0){
             const singelChoiceAlt = altsArray.find(a => a.id === props.id);
             if(singelChoiceAlt){
+                singelChoiceAlt.alts.forEach((a, i) => {
+                    if(a.isCorrect === true)
+                        setSelectVal(i);
+                })
                 setAlts(singelChoiceAlt!.alts);
             }
         }
@@ -89,7 +94,7 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
             }
         }) 
         highestNumber++;
-        const newAlts = [...alts, {id: highestNumber, value: ''}];
+        const newAlts = [...alts, {id: highestNumber, value: '', isCorrect: false}];
         setAlts(newAlts);
         updateReduxState(newAlts);
     }
@@ -114,6 +119,14 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
 
     const handleRadioButton = (newSelectVal: number) => {
         setSelectVal(newSelectVal);
+        alts.forEach((a, i, arr) => {
+            if(i === newSelectVal)
+                a.isCorrect = true;
+            else
+                a.isCorrect = false;
+        })
+        const newAlts = [...alts];
+        updateReduxState(newAlts);
     }
 
     return (

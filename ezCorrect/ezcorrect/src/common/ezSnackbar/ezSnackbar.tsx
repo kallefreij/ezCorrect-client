@@ -11,14 +11,8 @@ const useStyles = makeStyles({
     },
 });
 
-export interface ISnackBar {
-    message: string;
-    color: string;
-    open(): void;
-}
 
-
-const EzSnackbar: React.FC<ISnackBar> = (props) => {
+const EzSnackbar: React.FC = () => {
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);

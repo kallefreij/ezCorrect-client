@@ -24,7 +24,7 @@ export interface IMultiChoiceAlts{
 export interface IMAlt{
     id: any;
     value: string;
-    isSelected: boolean;
+    isCorrect: boolean;
 }
 
 export interface IInputProps{
@@ -38,7 +38,7 @@ const getMultiChoiceAlts = createSelector<IStateTree, IAssignmentState, IMultiCh
 
 const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
     let tmp_inputs = [
-        {id: 1, value: '', isSelected: false}, 
+        {id: 1, value: '', isCorrect: false}, 
     ]
 
     const classes = useStyles();
@@ -98,7 +98,7 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
             }
         }) 
         highestNumber++;
-        const newAlts = [...alts, {id: highestNumber, value: '', isSelected: false}]
+        const newAlts = [...alts, {id: highestNumber, value: '', isCorrect: false}]
         setAlts(newAlts);
         updateReduxState(newAlts);
     }
@@ -106,7 +106,7 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
     const handleCheckbox = (id:any) => {
         alts.forEach((item) => {
             if(item.id === id){
-                item.isSelected = item.isSelected ? false : true;
+                item.isCorrect = item.isCorrect ? false : true;
             }
         })
         const newAlts = [...alts];
@@ -130,7 +130,7 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
         <List >
             {
                 alts.map(item => <CheckboxInput id={item.id} 
-                                                isSelected={item.isSelected} 
+                                                isCorrect={item.isCorrect} 
                                                 inputValue={item.value}
                                                 handleCheckbox={handleCheckbox}
                                                 handleInput={handleInput}

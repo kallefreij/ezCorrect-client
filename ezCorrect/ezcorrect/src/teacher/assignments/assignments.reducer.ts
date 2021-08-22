@@ -2,6 +2,7 @@ import { IAssignmentMetaData, IQuestion } from "./assignments.interfaces";
 import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
 import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
+import { ITextAnswer } from "./components/create-assignment/textAnswer/textAnswer";
 
 export const assignmentsActions = {
     fetchAssignmentMetaData: "AssignmentAction/fetchAssignmentMetaData",
@@ -13,6 +14,7 @@ export const assignmentsActions = {
     setSelectedQuestion: "AssignmentAction/setSelectedQuestion",
     setMultiChoiceAlts: 'AssignmentAction/setMultiChoiceAlts',
     setSingleChoiceAlts: 'AssignmentAction/setSingleChoiceAlts',
+    setTextAnswer: 'AssignmentAction/setTextAnswer',
     updateQuestion: "AssignmentAction/updateQuestion",
     setCreateTestQuestion: 'Assignment/setCreateQuestions',
     setSaveLoadingStatus: 'Assignment/setSaveLoadingStatus',
@@ -30,6 +32,7 @@ export interface IAssignmentState {
     selectedQuestion: IQuestion;
     multiChoiceAlts: IMultiChoiceAlts[];
     singleChoiceAlts: ISingleChoiceAlts[];
+    textAnswer: ITextAnswer[];
     createTestQuestionCards: ICreateTestQuestionCards[];
     saveLoadingStatus: boolean;
 }
@@ -54,10 +57,11 @@ const intitialState: IAssignmentState = {
     ],
     multiChoiceAlts: [],
     singleChoiceAlts: [],
+    textAnswer:[],
     selectedQuestion: {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
     createTestQuestionCards: [
         {id: '1', title: '', description: '', categories: [], subjects: [], cardType: 'header', isSelected: false},
-        {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true}
+        {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true, answer: null}
     ],
     saveLoadingStatus: false,
 }
@@ -122,6 +126,11 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 singleChoiceAlts: action.payload
+            }
+        case assignmentsActions.setTextAnswer:
+            return{
+                ...state,
+                textAnswer: action.payload
             }
         case assignmentsActions.updateQuestion:
             return{
