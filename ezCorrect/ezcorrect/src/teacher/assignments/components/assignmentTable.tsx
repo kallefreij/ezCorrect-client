@@ -334,7 +334,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
 
     return(
-        <div style={{padding:40, paddingTop:20}}>
+        <div style={{padding:20, paddingTop:20}}>
                 <div className={classes.root}>
                     <Paper className={classes.paper}>
                         <EnhancedTableToolbar numSelected={selected.length} delete={handleRemoveItem}/>

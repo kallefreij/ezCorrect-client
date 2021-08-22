@@ -1,4 +1,4 @@
-import { Button, Grid } from '@material-ui/core';
+import { Button, createStyles, Grid, Hidden, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
 import ButtonCard from '../../../common/buttons/buttonCard';
 import CreateIcon from '@material-ui/icons/Create';
@@ -12,14 +12,26 @@ import { createSelector } from 'reselect';
 import { IStateTree } from '../../../redux/rootReducer';
 import { IAssignmentState } from '../assignments.reducer';
 import { IAssignmentMetaData } from '../assignments.interfaces';
+import EzCorrectIcon from '../../../common/ezCorrectIcon';
 
 const getAssignmentMetaData = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData[]>(
     (state) => state.assignments,
     (a) => a.assignmentMetadata
 );
 
+const useStyles = makeStyles((theme: Theme) => 
+  createStyles({
+    topDiv: {
+        height: 100,
+        [theme.breakpoints.down('sm')]: {
+            height: 0
+        },
+    }   
+}));
+
 const Assignments:React.FC = () => {
     const dispatch = useDispatch();
+    const classes = useStyles();
     const assignmentMetaData = useSelector(getAssignmentMetaData);
 
     React.useEffect(() => {
@@ -29,9 +41,14 @@ const Assignments:React.FC = () => {
 
     return(
         <div>
-            <div style={{height:100}}/>
+            <div className={classes.topDiv}/>
+            <Hidden smUp>
+                <div className="center">
+                    <EzCorrectIcon height={100} width={100}/>
+                </div>                   
+            </Hidden>
             <Grid container>
-                <Grid item xs={4}>
+                <Grid item sm={4} xs={12}>
                     <div>
                         <ButtonCard text="Skapa uppgift" icon={<CreateIcon/>} color='#A3A1D0' to='/assignments/create'/>
                         <ButtonCard text="Rätta uppgift" icon={<DoneIcon/>} color='#A3A1D0' to='/assignments/correct'/>
@@ -39,7 +56,7 @@ const Assignments:React.FC = () => {
                         <ButtonCard text="Hitta uppgift" icon={<FindInPageIcon/>} color='#A3A1D0' to='/home'/>               
                     </div>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item sm={8} xs={12}>
                     <div>
                         {assignmentMetaData != undefined ? <AssignmentTable data={assignmentMetaData}/> : ""}
                     </div>

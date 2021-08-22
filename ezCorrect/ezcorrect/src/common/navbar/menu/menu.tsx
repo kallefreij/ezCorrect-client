@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButton: {
         display: 'block',
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
           display: 'none',
         },
     },
@@ -58,7 +58,7 @@ const NavbarMenu: React.FC = () => {
                 <MenuItem onClick={handleClose}>Hem</MenuItem>
             </NavLink>  
 
-            <NavLink to="/tests" className={classes.navlink}>
+            <NavLink to="/assignments" className={classes.navlink}>
                 <MenuItem onClick={handleClose}>Uppgifter</MenuItem>
             </NavLink>  
 

@@ -1,4 +1,5 @@
 import { makeStyles, Card, CardActionArea, CardContent, Grid, SvgIcon, darken } from '@material-ui/core';
+import { BorderColor } from '@material-ui/icons';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -76,7 +77,11 @@ const Question:React.FC<IQuestionProps> = (props) => {
     }
     
     return(
-        <Card className={classes.root} style={{backgroundColor: props.question.id == selectedQuestion.id ? darken(colorRenderer(props.question.status), 0.3) : colorRenderer(props.question.status) }} onClick ={handleSelected}>
+        <Card 
+        className={classes.root} 
+            style={{backgroundColor: props.question.id == selectedQuestion.id ? darken(colorRenderer(props.question.status), 0.4) : colorRenderer(props.question.status)}} 
+            onClick ={handleSelected} 
+            elevation={props.question.id == selectedQuestion.id ? 10 : 0}>
             <Grid container alignItems="center" justify="space-between">
                 <Grid item>
                     <h1 className={classes.title}>Fråga {props.question.number}</h1>
