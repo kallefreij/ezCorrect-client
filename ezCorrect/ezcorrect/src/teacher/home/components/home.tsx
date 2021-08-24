@@ -1,8 +1,7 @@
-import { Button, Grid, Hidden } from '@material-ui/core';
+import { Grid, Hidden } from '@material-ui/core';
 import * as React from 'react';
 import '../home.modules.scss';
 import EzCorrectIcon from '../../../common/ezCorrectIcon';
-import Navbar from '../../../common/navbar/navbar';
 import InfoCard from './infoCard';
 import cardImg from '../../../resources/cardPhoto.jpeg';
 import cardImg2 from '../../../resources/cardPhoto2.jpeg';
@@ -12,7 +11,6 @@ import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import DoneIcon from '@material-ui/icons/Done';
 import ButtonCard from '../../../common/buttons/buttonCard';
 import GroupIcon from '@material-ui/icons/Group';
-import { NavLink } from 'react-router-dom';
 
 
 const Home: React.FC = () => {

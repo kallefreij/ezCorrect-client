@@ -1,4 +1,4 @@
-import {  Grid, Snackbar } from '@material-ui/core';
+import {  Grid } from '@material-ui/core';
 import React from 'react';
 import HeaderTitleAndDescription from './headerTitleAndDescription';
 import CreateQuestionCard from './createQuestionCard';
@@ -11,7 +11,6 @@ import { IAssignmentState } from '../../assignments.reducer';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCreateTestQuestions, saveAssignment } from '../../assignments.actions';
-import EzSnackbar from '../../../../common/ezSnackbar/ezSnackbar';
 import { ITextAnswer } from './textAnswer/textAnswer';
 import { IMultiChoiceAlts } from './multiChoiceQuestion/multiCoiceQuestion';
 import { ISingleChoiceAlts } from './singleChoiceQuestion/singleChoiceQuestion';
@@ -163,6 +162,7 @@ const CreateAssignment: React.FC = () => {
                                 questionCards.map((card, i, a)=>{
                                     if(card.cardType === 'header'){
                                         return <HeaderTitleAndDescription 
+                                                    key={card.id}
                                                     handleSelect={handleSelect}
                                                     handleTitleInput={handleTitleInput} 
                                                     handleDesciptionInput={handleDesciptionInput} 
@@ -172,8 +172,9 @@ const CreateAssignment: React.FC = () => {
                                                     description={card.description}/>
                                     }
                                     else{
-                                        return <DraggableCard index={i} id={card.id} isDragDisabled={card.isDragDisabled!} childComp={
+                                        return <DraggableCard key={card.id} index={i} id={card.id} isDragDisabled={card.isDragDisabled!} childComp={
                                             <CreateQuestionCard 
+                                                key={card.id}
                                                 handleSelect={handleSelect} 
                                                 setQuestiontype={setQuestiontype} 
                                                 handleQuestionInput={handleQuestionInput}

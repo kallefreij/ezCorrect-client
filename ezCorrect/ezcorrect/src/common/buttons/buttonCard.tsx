@@ -1,6 +1,5 @@
-import { makeStyles, Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Button, Grid, SvgIcon, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, Card, CardActionArea, CardContent, Grid, SvgIcon, createStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
-import DoneIcon from '@material-ui/icons/Done';
 import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => 

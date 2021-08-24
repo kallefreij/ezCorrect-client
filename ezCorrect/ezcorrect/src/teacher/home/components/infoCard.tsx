@@ -1,7 +1,5 @@
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, createStyles, Hidden, makeStyles, SvgIcon, Theme, Typography } from '@material-ui/core';
+import {  Card, CardContent, CardMedia, createStyles, Hidden, makeStyles, SvgIcon, Theme } from '@material-ui/core';
 import * as React from 'react';
-import img from '../../../resources/cardPhoto.jpeg';
-import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 
   const useStyles = makeStyles((theme: Theme) => 
   createStyles({

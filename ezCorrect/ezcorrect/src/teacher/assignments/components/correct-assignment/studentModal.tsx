@@ -1,4 +1,4 @@
-import { Avatar, Button, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, ListSubheader, makeStyles, Modal, Radio, RadioGroup, Theme } from '@material-ui/core';
+import { Button, Checkbox, createStyles, Dialog, DialogActions,  DialogTitle,  List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, ListSubheader, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
 import UserAvatar from '../../../../common/avatar/userAvatar';
 

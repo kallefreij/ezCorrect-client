@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
-  DayView,
   Appointments,
   MonthView,
   AppointmentTooltip,

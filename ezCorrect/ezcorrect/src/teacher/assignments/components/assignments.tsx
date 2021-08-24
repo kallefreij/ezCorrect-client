@@ -1,4 +1,4 @@
-import { Button, createStyles, Grid, Hidden, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, Grid, Hidden, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
 import ButtonCard from '../../../common/buttons/buttonCard';
 import CreateIcon from '@material-ui/icons/Create';
@@ -37,7 +37,7 @@ const Assignments:React.FC = () => {
     React.useEffect(() => {
         console.log("FETCHING");
         dispatch(fetchAssignmentsNow());
-      }, []);
+    });
 
     return(
         <div>
@@ -58,7 +58,7 @@ const Assignments:React.FC = () => {
                 </Grid>
                 <Grid item sm={8} xs={12}>
                     <div>
-                        {assignmentMetaData != undefined ? <AssignmentTable data={assignmentMetaData}/> : ""}
+                        {assignmentMetaData !== undefined ? <AssignmentTable data={assignmentMetaData}/> : ""}
                     </div>
                 </Grid>
             </Grid>

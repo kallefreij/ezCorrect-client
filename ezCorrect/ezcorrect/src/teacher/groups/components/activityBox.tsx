@@ -1,6 +1,4 @@
-import classes from '*.module.css';
-import styles from './../groups.module.scss';
-import { Card, CardContent, Typography, CardActions, Button, Paper } from '@material-ui/core';
+import { Card, CardContent} from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import * as React from 'react';
 

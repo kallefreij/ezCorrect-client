@@ -1,8 +1,4 @@
-import { Avatar, Checkbox, Grid, IconButton, Input, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, TextField } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import ClearIcon from '@material-ui/icons/Clear';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import {Input, List, makeStyles} from '@material-ui/core';
 import CheckboxInput from './checkboxInput';
 import React, { useEffect, useState } from 'react';
 import { createSelector } from 'reselect';
@@ -129,7 +125,8 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
     return (
         <List >
             {
-                alts.map(item => <CheckboxInput id={item.id} 
+                alts.map(item => <CheckboxInput key={item.id}
+                                                id={item.id} 
                                                 isCorrect={item.isCorrect} 
                                                 inputValue={item.value}
                                                 handleCheckbox={handleCheckbox}

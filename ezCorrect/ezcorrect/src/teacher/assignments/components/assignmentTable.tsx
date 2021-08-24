@@ -1,8 +1,6 @@
-import { Checkbox, createStyles, FormControlLabel, IconButton, lighten, makeStyles, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Theme, Toolbar, Tooltip, Typography, withStyles } from '@material-ui/core';
+import { Checkbox, createStyles, IconButton, lighten, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Theme, Toolbar, Tooltip, Typography, withStyles } from '@material-ui/core';
 import * as React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import clsx from 'clsx';
 import CreateIcon from '@material-ui/icons/Create';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import { IAssignmentMetaData } from '../assignments.interfaces';

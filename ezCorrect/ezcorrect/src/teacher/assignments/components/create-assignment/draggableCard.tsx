@@ -1,8 +1,5 @@
-import { makeStyles } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { ThemeProvider } from '@material-ui/styles';
-import { theme } from '../../../../common/ezTheme';
 
 interface ParentCompProps {
     childComp?: React.ReactNode;

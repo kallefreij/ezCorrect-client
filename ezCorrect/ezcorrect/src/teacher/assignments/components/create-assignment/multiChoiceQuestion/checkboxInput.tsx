@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Avatar, Checkbox, Grid, IconButton, Input, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import { IconButton, Input, InputAdornment } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import DeleteIcon from '@material-ui/icons/Delete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import { render } from '@testing-library/react';
 import { ThemeProvider } from '@material-ui/styles';
 import { theme } from '../../../../../common/ezTheme';
 import { useSelector } from 'react-redux';

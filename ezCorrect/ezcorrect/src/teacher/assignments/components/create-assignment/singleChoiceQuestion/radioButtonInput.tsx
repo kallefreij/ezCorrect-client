@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Avatar, Checkbox, FormControlLabel, Grid, IconButton, Input, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, Radio, RadioGroup, RadioProps, TextField, withStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { IconButton, Input, InputAdornment, Radio } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { ThemeProvider } from '@material-ui/styles';
 import { theme } from '../../../../../common/ezTheme';
@@ -7,7 +7,7 @@ import { createSelector } from 'reselect';
 import { IStateTree } from '../../../../../redux/rootReducer';
 import { IAssignmentState } from '../../../assignments.reducer';
 import { ISingleChoiceAlts } from './singleChoiceQuestion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 export interface IInputProps{
@@ -31,7 +31,6 @@ const RadioButtonInput: React.FC<IInputProps> = (props) => {
     const [value, setValue] = useState(props.inputValue);
 
     const altsArray = useSelector(getSingleChoiceAlts);
-    const dispatch = useDispatch();
 
     useEffect(()=>{
         if(altsArray.length !== 0){

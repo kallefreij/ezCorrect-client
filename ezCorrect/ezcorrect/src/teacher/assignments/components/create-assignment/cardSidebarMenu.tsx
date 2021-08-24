@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import { Button, CardContent, CircularProgress, FormControlLabel, makeStyles, Switch, ThemeProvider } from '@material-ui/core';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import LockIcon from '@material-ui/icons/Lock';
 import SaveIcon from '@material-ui/icons/Save';
 import { blueTheme } from '../../../../common/ezTheme';
 import { IStateTree } from '../../../../redux/rootReducer';
