@@ -37,7 +37,7 @@ const Assignments:React.FC = () => {
     React.useEffect(() => {
         console.log("FETCHING");
         dispatch(fetchAssignmentsNow());
-    });
+    }, []);
 
     return(
         <div>

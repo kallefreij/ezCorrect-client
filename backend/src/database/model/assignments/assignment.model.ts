@@ -1,7 +1,7 @@
-import { model, Schema, Document, Types } from 'mongoose';
+import { model, Schema, Document, Types, Date } from 'mongoose';
 
 export const DOCUMENT_NAME = "Assignment";
-export const COLLECTION_NAME = "Assignemnt";
+export const COLLECTION_NAME = "Assignment";
 
 export default interface IAssignment extends Document {
     title: string,
@@ -9,7 +9,9 @@ export default interface IAssignment extends Document {
     subjects: string[],
     categories: string[],
     questions: any[],
+    dateCreated: Date,
 }
+
 
 const schema = new Schema({
     title:{
@@ -33,6 +35,11 @@ const schema = new Schema({
     },
     questions: {
         type:Schema.Types.Array,
+        required: true
+    },
+    dateCreated: {
+        type:Schema.Types.Date,
+        default: Date.now,
         required: true
     }
 })

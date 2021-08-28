@@ -27,7 +27,7 @@ export interface IAssignmentState {
     deleteAssignments: boolean;
     deleteAssignmentsSuccessful: boolean;
     deleteAssignmentsFailed: boolean;
-    assignmentMetadata: IAssignmentMetaData[];
+    assignmentMetadata: any[];
     questions: IQuestion[];
     selectedQuestion: IQuestion;
     multiChoiceAlts: IMultiChoiceAlts[];

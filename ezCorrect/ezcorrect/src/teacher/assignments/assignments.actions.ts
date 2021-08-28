@@ -10,9 +10,14 @@ const axios = require('axios').default;
 
 export const fetchAssignmentsNow = () => async (dispatch: any) => {
     dispatch({type: assignmentsActions.fetchAssignmentMetaData});    
-    const res = await axios.get('http://localhost:4000/api/tasks/metaData');
-    if(res.status === 200) dispatch({type: assignmentsActions.fetchAssignmentMetaDataSuccessful, payload: res.data.tasks});
-    else dispatch({type: assignmentsActions.fetchAssignmentMetaDataFailed});
+    const res = await axios.get('http://localhost:4000/api/assignments/metadata');
+
+    if(res.status === 200){
+        console.log(res.data.assignments)
+        dispatch({type: assignmentsActions.fetchAssignmentMetaDataSuccessful, payload: res.data.assignments});
+    }  
+    else 
+        dispatch({type: assignmentsActions.fetchAssignmentMetaDataFailed});
 }
 
 export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {

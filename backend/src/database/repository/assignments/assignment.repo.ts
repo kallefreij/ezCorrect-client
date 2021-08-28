@@ -3,7 +3,6 @@ import IAlternatives, { AlternativesModel } from "../../model/assignments/altern
 import IMultiChoiceAnswer, { MultiChoiceAnswerModel } from "../../model/assignments/multichoiceQuestion.model";
 import ISingleChoiceAnswer, { SingleChoiceAnswerModel } from "../../model/assignments/singlechoiceQuestion.model";
 import ITextAnswer, { TextAnswerModel } from "../../model/assignments/textQuestion.model";
-import { Types } from "mongoose";
 
 export default class AssignmentRepo {
     public static getAllAssignments(): Promise<IAssignment[]> {
@@ -13,6 +12,7 @@ export default class AssignmentRepo {
     public static getAssignment(id: string): Promise<IAssignment|null> {
         return AssignmentModel.findById(id).exec();
     }
+
     public static getAllTextAnswers(assignmentId: string): Promise<ITextAnswer[]> {
         return TextAnswerModel.find({assignmentId: assignmentId}).exec();
     }

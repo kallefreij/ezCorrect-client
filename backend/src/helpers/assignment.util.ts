@@ -14,9 +14,13 @@ export class AssignmentUtil {
         
         let assignmentModel = new AssignmentModel();
 
-        body.assignment.forEach((element: any) => {
+        body.assignment.forEach((element: any, i: number) => {
             const model = AssignmentUtil.getModel(element);
-            assignmentModel.questions.push(model);
+            if(i === 0){
+                assignmentModel = model;
+            }
+            else
+                assignmentModel.questions.push(model);
         });
 
         return assignmentModel;
@@ -63,7 +67,7 @@ export class AssignmentUtil {
         const correctAnswer = AssignmentUtil.createAlternative(element.answer.alts.find((a:any) => a.isCorrect === true));
 
         const singleChoiceAnswerModel = new SingleChoiceAnswerModel({
-            assignemntId: 'x',
+            assignmentId: 'x',
             teacher: element.teacher,
             questionType: element.questionType,
             question: element.question,
@@ -88,7 +92,7 @@ export class AssignmentUtil {
         });
 
         const multiChoiceAnswerModel = new MultiChoiceAnswerModel({
-            assignemntId: 'x',
+            assignmentId: 'x',
             teacher: element.teacher,
             questionType: element.questionType,
             question: element.question,
@@ -103,7 +107,7 @@ export class AssignmentUtil {
     static createTextAnswerQuestion(element: any){
 
         const textAnswerModel = new TextAnswerModel({
-            assignemntId: 'x',
+            assignmentId: 'x',
             teacher: element.teacher,
             questionType: element.questionType,
             question: element.question,

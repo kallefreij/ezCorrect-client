@@ -1,6 +1,6 @@
 import express from "express";
 
-import { AssignmentModel } from "../database/model/assignments/assignment.model";
+import IAssignment, { AssignmentModel } from "../database/model/assignments/assignment.model";
 import { AlternativesModel } from "../database/model/assignments/alternatives.model";
 import { MultiChoiceAnswerModel } from "../database/model/assignments/multichoiceQuestion.model";
 import { SingleChoiceAnswerModel } from "../database/model/assignments/singlechoiceQuestion.model";
@@ -18,29 +18,47 @@ router.post('',(req, res, next) =>{
     // Är detta asynch ?
 
     const assignment = AssignmentUtil.createModels(req.body);
+    const promise = AssignmentRepo.postAssignment(assignment);
 
-    const result = AssignmentRepo.postAssignment(assignment);
-
-    result.then((doc) =>{
+    promise.then((doc) =>{
         res.status(200).json({
             savedData: doc,
             message: 'Data is saved successfully'
         })
     }).catch((e) => {
-        console.log("Fail");
+        console.log(e);
         res.status(400).json({
             message: e._message
         })
     })
-
-    // res.status(200).json({
-    //     savedData: result,
-    //     message: 'success'
-    // })
-
 })
 router.get('', (req, res, next) => {  
- 
+    
+});
+router.get('/metadata', (req, res, next) => {
+    const promise = AssignmentRepo.getAllAssignments();
+
+    promise.then((doc: IAssignment[]) => {
+        const metadataList = doc.map(d => {
+            return {
+                title: d.title,
+                description: d.description,
+                subjects: d.subjects,
+                categories: d.categories,
+                questions: d.questions.length
+            }
+        })
+
+        res.status(200).json({
+            assignments: metadataList,
+            message: 'Fetching data successfull'
+        })
+    }).catch((e) => {
+        console.log(e.error)
+        res.status(400).json({
+            message: e._message
+        })
+    })
 });
 router.delete('/:id', (req, res, next) => {
 
