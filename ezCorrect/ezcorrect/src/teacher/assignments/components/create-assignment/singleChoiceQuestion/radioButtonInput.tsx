@@ -16,6 +16,7 @@ export interface IInputProps{
     selectVal: number;
     index: any;
     inputValue: string;
+    handleKeyPress: () => void;
     handleInput: (id: any, e: any) => void;
     deleteInput: (id: any) => void;
     handleRadioButton: (newSelectVal: number) => void;
@@ -43,6 +44,12 @@ const RadioButtonInput: React.FC<IInputProps> = (props) => {
         }
     })
 
+    const handleKeypress = (event: any) => {
+        if(event.key === 'Enter'){
+            props.handleKeyPress();
+        }
+    }
+
     const handleChange = () => {
         const i = props.index;
         props.handleRadioButton(i);
@@ -55,6 +62,7 @@ const RadioButtonInput: React.FC<IInputProps> = (props) => {
                         <Input  style={{width: '100%'}}
                                 value={value}
                                 autoFocus
+                                onKeyPress={e => handleKeypress(e)}
                                 onChange={(e) => props.handleInput(e, props.buttonId)}
                                 startAdornment={
                                     <InputAdornment position="start">

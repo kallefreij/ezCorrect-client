@@ -15,6 +15,7 @@ export interface IInputProps{
     id: any;
     isCorrect: boolean;
     inputValue: string;
+    handleKeyPress: () => void;
     handleInput: (e: any, id: any) => void;
     handleCheckbox: (id:any) => void;
     deleteInput: (id: any) => void; 
@@ -36,6 +37,12 @@ const CheckboxInput: React.FC<IInputProps> = (props) => {
         props.handleCheckbox(props.id)
     }
 
+    const handleKeypress = (event: any) => {
+        if(event.key === 'Enter'){
+            props.handleKeyPress();
+        }
+    }
+
     const handleInput = (e:any, id:any) =>{
         props.handleInput(e,id);
     }
@@ -46,6 +53,7 @@ const CheckboxInput: React.FC<IInputProps> = (props) => {
                     // value={alts.find(a => a.id === props.id)?.value}
                     value={props.inputValue}
                     autoFocus
+                    onKeyPress={e => handleKeypress(e)}
                     onChange={(e) => handleInput(e, props.id)}
                     startAdornment={
                         <InputAdornment position="start">

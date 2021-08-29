@@ -131,6 +131,7 @@ const MultiCoiceQuestion: React.FC<IInputProps>  = (props) => {
                                                 inputValue={item.value}
                                                 handleCheckbox={handleCheckbox}
                                                 handleInput={handleInput}
+                                                handleKeyPress={addInput}
                                                 deleteInput={deleteInput}
                                                 />)
             }

@@ -9,8 +9,12 @@ export interface IInputProps{
     id: string;
     title?: string;
     description?: string;
+    subjects?: string[];
+    categories?: string[];
     isSelected: boolean;
     handleSelect: (id: any) => void;
+    handleSubjectInput: (id:string, input:string[]) => void;
+    handleCategoriesInput: (id:string, input:string[]) => void;
     handleDesciptionInput: (id: string, input: string) => void;
     handleTitleInput: (id: string, input: string) => void;
 }
@@ -116,16 +120,20 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
 
     const classes = useStyles();
     const [categories, setCategories] = useState<string[]>(tmp_categories);
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<string[] | undefined>(props.categories);
     const [subjects, setSubjects] = useState(tmp_subjects.sort());
-    const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
+    const [selectedSubjects, setSelectedSubjects] = useState<string[] | undefined>(props.subjects);
 
     const handleSubjecs = (event: React.ChangeEvent<{ value: any }>) => {
-        setSelectedSubjects(event.target.value as string[])
+        const subjects = event.target.value as string[];
+        setSelectedSubjects(subjects)
+        props.handleSubjectInput(props.id, subjects);
     };
 
     const handleCategories = (event: React.ChangeEvent<{ value: any }>) => {
-        setSelectedCategories(event.target.value as string[])
+        const subjects = event.target.value as string[];
+        setSelectedCategories(subjects)
+        props.handleCategoriesInput(props.id, subjects);
     };
 
     const handleTitleInput = (event: any) => {

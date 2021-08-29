@@ -100,13 +100,33 @@ const CreateAssignment: React.FC = () => {
         dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
+    const handleSubjectInput = (id: string, input: string[]) => {
+        const newQuestionCards = questionCards.map(qc => {
+            if(qc.id === id){
+                qc.subjects = input;
+            }
+            return qc;
+        });
+        dispatch(setCreateTestQuestions(newQuestionCards));
+    }
+
+    const handleCategoriesInput = (id: string, input: string[]) => {
+        const newQuestionCards = questionCards.map(qc => {
+            if(qc.id === id){
+                qc.categories = input;
+            }
+            return qc;
+        });
+        dispatch(setCreateTestQuestions(newQuestionCards));
+    }
+
     const handleQuestionInput = (id: string, input: string) => {
         const newQuestionCards = questionCards.map(qc => {
             if(qc.id === id){
                 qc.question = input;
             }
             return qc;
-        })
+        });
         dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
@@ -116,7 +136,7 @@ const CreateAssignment: React.FC = () => {
                 qc.title = input;
             }
             return qc;
-        })
+        });
         dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
@@ -126,12 +146,11 @@ const CreateAssignment: React.FC = () => {
                 qc.description = input;
             }
             return qc;
-        })
+        });
         dispatch(setCreateTestQuestions(newQuestionCards));
     }
 
     const handleSave = () => {
-
 
         let answerArray: any[] = [];
         answerArray = answerArray.concat(textAnswers, singleChoiceAlts, multiChoiceAlts);
@@ -139,7 +158,7 @@ const CreateAssignment: React.FC = () => {
         const cardsToSave = questionCards.map(qc => {
             qc.answer = answerArray.find(a => a.id === qc.id);
             return qc;
-        })
+        });
 
         dispatch(saveAssignment(cardsToSave));
     }
@@ -148,7 +167,7 @@ const CreateAssignment: React.FC = () => {
         dispatch(setCreateTestQuestions([
             {id: '1', title: '', description: '', categories: [], subjects: [], cardType: 'header', isSelected: false},
             {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true}
-        ]))
+        ]));
     }
 
     return (
@@ -164,12 +183,16 @@ const CreateAssignment: React.FC = () => {
                                         return <HeaderTitleAndDescription 
                                                     key={card.id}
                                                     handleSelect={handleSelect}
+                                                    handleSubjectInput={handleSubjectInput}
+                                                    handleCategoriesInput={handleCategoriesInput}
                                                     handleTitleInput={handleTitleInput} 
                                                     handleDesciptionInput={handleDesciptionInput} 
                                                     isSelected={card.isSelected} 
                                                     id={card.id}
                                                     title={card.title}
-                                                    description={card.description}/>
+                                                    description={card.description}
+                                                    subjects={card.subjects}
+                                                    categories={card.categories}/>
                                     }
                                     else{
                                         return <DraggableCard key={card.id} index={i} id={card.id} isDragDisabled={card.isDragDisabled!} childComp={

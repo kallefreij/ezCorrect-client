@@ -85,7 +85,7 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
         dispatch(setSingleChoiceAlts(singleChoiceAlts));
     }
 
-    const addInput = (element: any) => {
+    const addInput = () => {
         setInputValue("");
         let highestNumber = 0;
         alts.forEach((item) => {
@@ -138,11 +138,12 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
                                                             inputValue={item.value}
                                                             selectVal={selectVal}
                                                             index={i}
+                                                            handleKeyPress={addInput}
                                                             handleInput={handleInput}
                                                             deleteInput={deleteInput}
                                                             handleRadioButton={handleRadioButton}/>)                                                 
                 }
-                <Input value={inputValue} className={classes.root} onClick={(e) => addInput(e)} />
+                <Input value={inputValue} className={classes.root} onClick={addInput} />
         </List>
     );
 };
