@@ -15,12 +15,13 @@ import Group from './teacher/groups/components/group';
 import Student from './teacher/student/components/student';
 import CorrectAssignment from './teacher/assignments/components/correct-assignment/correctAssignment';
 import EzSnackbar from './common/ezSnackbar/ezSnackbar';
+import StartHome from './start/home';
 
 function App() {
   return (
     <div>
       <Router>
-        <Navbar/>
+        {/* <Navbar/> */}
         <Switch>
           <Route exact path="/home" component={HomeTeacher}></Route>
           <Route exact path="/assignments" component={Assignments}></Route>
@@ -30,10 +31,12 @@ function App() {
           <Route exact path="/group" component={Group}></Route>
           <Route exact path="/statistics" component={Statistics}></Route>
           <Route exact path="/student" component={Student}></Route>
+          <Route exact path="/startHome" component={StartHome}></Route>
           <Route path="/">
               <Redirect to="/home" />
           </Route>
         </Switch>
+        
       </Router>
       {/* <HomeTeacher/>
       <Statistics/> */}
