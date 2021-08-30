@@ -12,11 +12,6 @@ const router = express.Router();
 
 router.post('',(req, res, next) =>{
 
-    // TODO 
-    // Här eller i denna kedja lär jag skapa en validering av något slag.
-    // Ett sätt att hantera misslyckade calls. 
-    // Är detta asynch ?
-
     const assignment = AssignmentUtil.createModels(req.body);
     const promise = AssignmentRepo.postAssignment(assignment);
 
