@@ -1,6 +1,6 @@
 export interface IAssignmentMetaData{
     datestamp: string;
-    id: string;
+    _id: string;
     questions: number;
     subject: string;
     title: string;

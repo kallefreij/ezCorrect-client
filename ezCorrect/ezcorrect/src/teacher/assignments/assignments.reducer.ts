@@ -103,7 +103,7 @@ const assignmentReducer = (state = intitialState, action: any) => {
                 deleteAssignments: false,
                 deleteAssignmentsSuccessful: true,
                 deleteAssignmentsFailed: false,
-                assignmentMetadata: [...state.assignmentMetadata.filter(x => !action.payload.includes(x.id))]
+                assignmentMetadata: [...state.assignmentMetadata.filter(x => !action.payload.includes(x._id))]
             };
         case assignmentsActions.deleteAssignmentsFailed:
             return{

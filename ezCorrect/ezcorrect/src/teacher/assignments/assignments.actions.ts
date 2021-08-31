@@ -1,5 +1,6 @@
-import { IQuestion } from "./assignments.interfaces";
+import { IAssignmentMetaData, IQuestion } from "./assignments.interfaces";
 import { assignmentsActions } from "./assignments.reducer"
+import Header from "./components/correct-assignment/header";
 import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
 import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
@@ -22,10 +23,21 @@ export const fetchAssignmentsNow = () => async (dispatch: any) => {
 
 export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
     dispatch({type: assignmentsActions.deleteAssignments});
-    // const res = await axios.delete('dasdasda');
-    // if(res.status == 200) dispatch({type: assignmentsActions.deleteAssignmentsSuccessful, payload: ids})
-    //else dispatch({type: assignmentsActions.deleteAssignmentsFailed});
-    dispatch({type: assignmentsActions.deleteAssignmentsSuccessful, payload: ids});
+
+    await axios.delete('http://localhost:4000/api/assignments/', {
+            data: {
+                id: ids
+            }
+        })
+        .then((res: any) => {
+            console.log(res)
+            dispatch({type: assignmentsActions.deleteAssignmentsSuccessful, payload: ids})
+        })
+        .catch((err: any) => {
+            console.log(err.message)
+            dispatch({type: assignmentsActions.deleteAssignmentsFailed})
+        })
+
 }
 
 export const setSelectedQuestion = (question: IQuestion) => async (dispatch:any) => {

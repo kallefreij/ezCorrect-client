@@ -9,7 +9,7 @@ import { deleteAssignments } from '../assignments.actions';
 
 interface Data {
     datestamp: string;
-    id: string;
+    _id: string;
     questions: number;
     subject: string;
     title: string;
@@ -107,7 +107,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   }
 
   const headCells: HeadCell[] = [
-    // { id: 'id', numeric: false, disablePadding: true, label: 'Id' },
+     //{ id: '_id', numeric: false, disablePadding: true, label: 'Id' },
     { id: 'title', numeric: false, disablePadding: false, label: 'Titel' },
     { id: 'subject', numeric: false, disablePadding: false, label: 'Ämne' },
     { id: 'questions', numeric: false, disablePadding: false, label: 'Frågor' },  
@@ -285,7 +285,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelecteds = props.data.map((n) => n.id);
+            const newSelecteds = props.data.map((n) => n._id);
             setSelected(newSelecteds);
             return;
         }
@@ -293,6 +293,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     };
 
     const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+
         const selectedIndex = selected.indexOf(name);
         let newSelected: string[] = [];
 
@@ -355,17 +356,17 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
                             {stableSort(props.data, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                const isItemSelected = isSelected(row.id);
+                                const isItemSelected = isSelected(row._id);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                 return (
                                     <StyledTableRow
                                     hover
-                                    onClick={(event) => handleClick(event, row.id)}
+                                    onClick={(event) => handleClick(event, row._id)}
                                     role="checkbox"
                                     aria-checked={isItemSelected}
                                     tabIndex={-1}
-                                    key={row.id}
+                                    key={row._id}
                                     selected={isItemSelected}
                                     >
                                         <TableCell padding="checkbox">

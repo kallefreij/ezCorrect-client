@@ -36,6 +36,7 @@ router.get('/metadata', (req, res, next) => {
     promise.then((doc: IAssignment[]) => {
         const metadataList = doc.map(d => {
             return {
+                _id: d._id,
                 title: d.title,
                 description: d.description,
                 subjects: d.subjects,
@@ -43,7 +44,6 @@ router.get('/metadata', (req, res, next) => {
                 questions: d.questions.length
             }
         })
-
         res.status(200).json({
             assignments: metadataList,
             message: 'Fetching data successfull'
@@ -55,7 +55,19 @@ router.get('/metadata', (req, res, next) => {
         })
     })
 });
-router.delete('/:id', (req, res, next) => {
+router.delete('', (req, res, next) => {
+
+    const promise = AssignmentRepo.deleteAssignment(req.body.id);
+
+    promise.then((doc: IAssignment) => {
+        res.status(200).json({
+            message: 'Assignment removed'
+        })
+    }).catch((error) => {
+        res.status(400).json({
+            message: 'Remove assignment failed due to '
+        })
+    })
 
 })
 router.put('/:id', (req, res, next) => {

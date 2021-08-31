@@ -28,4 +28,7 @@ export default class AssignmentRepo {
     public static postAssignment(assignmentModel: IAssignment): Promise<any> {
         return assignmentModel.save();
     }
+    public static deleteAssignment(ids: string): Promise<any>{
+        return AssignmentModel.deleteMany({_id: ids}).exec();
+    }
 }
