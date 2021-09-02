@@ -1,6 +1,7 @@
 import './App.css';
 import HomeTeacher from './teacher/home/components/home';
 import Navbar from './common/navbar/navbar';
+import SignInNavbar from './common/navbar/signInNavbar';
 import Statistics from './teacher/statistics/components/statistics';
 import {
   HashRouter as Router,
@@ -15,13 +16,52 @@ import Group from './teacher/groups/components/group';
 import Student from './teacher/student/components/student';
 import CorrectAssignment from './teacher/assignments/components/correct-assignment/correctAssignment';
 import EzSnackbar from './common/ezSnackbar/ezSnackbar';
+import SignIn from './common/signIn/signIn';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
+// @ts-ignore
+import Amplify, { Auth } from 'aws-amplify';
+// @ts-ignore
+import awsconfig from './aws-exports';
+
+Amplify.configure(awsconfig)
+
+// TODO skapa din egen utloggningsknapp med hjälp av Auth.signOut();
+// TODO Om oinloggad visar vi en annan eller en modifierad navbar. Samt curvy sidan. Annars teacher ATM.
 function App() {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    AssessLoggedInState()
+  }, [])
+
+  const AssessLoggedInState = () => {
+    Auth.currentAuthenticatedUser()
+      .then(() => {
+        setLoggedIn(true)
+      })
+      .catch(() => {
+        setLoggedIn(false)
+      })
+  }
+
+  const onSignIn = () => {
+    console.log('Hello')
+  }
+
+  const onSignOut = () => {
+    setLoggedIn(false)
+  }
+
   return (
     <div>
+      
       <Router>
-        <Navbar/>
+        {loggedIn ? <Navbar onSignOut={onSignOut}/> : <SignInNavbar/>}
         <Switch>
+          <Route exact path="/signin" render={(loggedIn) => <SignIn onSignIn={onSignIn}/>}></Route>
           <Route exact path="/home" component={HomeTeacher}></Route>
           <Route exact path="/assignments" component={Assignments}></Route>
           <Route exact path="/assignments/create" component={CreateAssignment}></Route>

@@ -59,11 +59,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+export interface INavbarProps {
+  onSignOut: () => void;
+}
 
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<INavbarProps> = (props) => {
 
     const classes = useStyles();
+
+    const onSignOut = () => {
+      props.onSignOut();
+    }
 
     return (
         <div className={classes.root}>
@@ -97,6 +104,11 @@ const Navbar: React.FC = () => {
               <NavLink to="/assignments/create" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Abdullah</Button>
               </NavLink>              
+            </Typography>
+            <Typography className={classes.button}>
+              <NavLink to="/statistics" style={{textDecoration:'none', color:'white'}}>
+                <Button color="inherit">Logga ut</Button>
+              </NavLink>           
             </Typography>
             <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
           </Toolbar>
