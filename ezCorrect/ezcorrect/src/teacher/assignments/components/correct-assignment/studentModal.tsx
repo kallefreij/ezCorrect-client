@@ -33,9 +33,9 @@ const StudentModal:React.FC<StudentModalProps> = (props) => {
 
     return(
         <Dialog
-            disableBackdropClick
             disableEscapeKeyDown
             aria-labelledby="confirmation-dialog-title"
+            onClose={props.handleClose}
             open={props.open}
             >
             <DialogTitle id="confirmation-dialog-title" className={classes.dialogActions}>Matteprov Algebra</DialogTitle>

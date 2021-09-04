@@ -21,7 +21,7 @@ function App() {
   return (
     <div>
       <Router>
-        {/* <Navbar/> */}
+        <Navbar/>
         <Switch>
           <Route exact path="/home" component={HomeTeacher}></Route>
           <Route exact path="/assignments" component={Assignments}></Route>
