@@ -18,6 +18,7 @@ export const assignmentsActions = {
     updateQuestion: "AssignmentAction/updateQuestion",
     setCreateTestQuestion: 'Assignment/setCreateQuestions',
     setSaveLoadingStatus: 'Assignment/setSaveLoadingStatus',
+    setSelectedAssignment: 'Assignment/setSelectedAssignment'
 }
 
 export interface IAssignmentState {
@@ -35,6 +36,8 @@ export interface IAssignmentState {
     textAnswer: ITextAnswer[];
     createTestQuestionCards: ICreateTestQuestionCards[];
     saveLoadingStatus: boolean;
+    selectedAssignment: IAssignmentMetaData;
+    //selectedAssignment: any;
 }
 
 const intitialState: IAssignmentState = {
@@ -64,6 +67,7 @@ const intitialState: IAssignmentState = {
         {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true, answer: null}
     ],
     saveLoadingStatus: false,
+    selectedAssignment: {_id: "0", datestamp: "0", title: "", questions: 0, subject: ""},
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -147,6 +151,11 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 saveLoadingStatus: action.payload,
+            }
+        case assignmentsActions.setSelectedAssignment:
+            return{
+                ...state,
+                selectedAssignment: [...state.assignmentMetadata.filter(x => action.payload == x._id)][0]
             }
         default:
             return state;

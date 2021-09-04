@@ -1,10 +1,20 @@
 import { useTheme, useMediaQuery, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, createStyles, makeStyles, Theme, TextField, Checkbox, FormControl, Input, InputLabel, ListItemText, MenuItem, Select } from '@material-ui/core';
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+import { IStateTree } from '../../../redux/rootReducer';
+import { IAssignmentMetaData } from '../assignments.interfaces';
+import { IAssignmentState } from '../assignments.reducer';
 
 interface IPlanAssignmentModalProps{
     open: boolean;
     handleClose: () => void;
 }
+
+const getSelectedAssignmentFromState = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData>(
+    (state) => state.assignments,
+    (a) => a.selectedAssignment
+)
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,6 +45,9 @@ const useStyles = makeStyles((theme: Theme) =>
         color: 'white',
         fontWeight:'bold',
         backgroundColor: '#989898',
+        "&:hover": {
+            backgroundColor: '#5d5d5d'
+        }
     },
     formControl: {
         margin: theme.spacing(1),
@@ -53,6 +66,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [personName, setPersonName] = React.useState<string[]>([]);
+    const selectedAssignment = useSelector(getSelectedAssignmentFromState);
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setPersonName(event.target.value as string[]);
@@ -94,8 +108,8 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
             >
                 <DialogTitle id="responsive-dialog-title" className={classes.dialogActions}>Schemalägg prov</DialogTitle>
                 <DialogContent>
-                    <h3>Prov: Matteprov algrebra</h3>
-                    <h3>Frågor: 22</h3>
+                    <h3>Prov: {selectedAssignment.title}</h3>
+                    <h3>Frågor: {selectedAssignment.questions}</h3>
 
                     <TextField
                         id="date"

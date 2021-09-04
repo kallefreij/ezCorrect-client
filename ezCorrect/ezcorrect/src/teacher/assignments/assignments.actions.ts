@@ -83,4 +83,8 @@ export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) 
             dispatch(setSaveLoadingStatus(false))
         })
 
-} 
+}
+
+export const setSelectedAssignment = (assignment: any) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.setSelectedAssignment, payload: assignment})
+}

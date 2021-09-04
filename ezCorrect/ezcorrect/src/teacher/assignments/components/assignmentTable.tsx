@@ -6,7 +6,7 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import PlanTestIcon from '@material-ui/icons/AccessTime';
 import { IAssignmentMetaData } from '../assignments.interfaces';
 import { useDispatch } from 'react-redux';
-import { deleteAssignments } from '../assignments.actions';
+import { deleteAssignments, setSelectedAssignment } from '../assignments.actions';
 import PlanAssignmentModal from './planAssignmentModal';
 
 interface Data {
@@ -293,7 +293,17 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     }
 
     const handleClickPlanAssignment = () => {
-        planAssignmentOpen == true ? setPlanAssignmentOpen(false) : setPlanAssignmentOpen(true);
+        console.log(selected);
+        if(selected.length > 1){
+          alert("Du kan bara schemalägga ett prov åt gången")
+        }
+        else if(selected.length == 1){       
+            dispatch(setSelectedAssignment(selected[0]))
+            planAssignmentOpen == true ? setPlanAssignmentOpen(false) : setPlanAssignmentOpen(true);
+        }
+        else{
+          alert("Välj ett prov att schemalägga") 
+        }           
     }
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
