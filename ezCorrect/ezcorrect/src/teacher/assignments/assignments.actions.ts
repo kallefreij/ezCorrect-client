@@ -40,6 +40,32 @@ export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
 
 }
 
+export const getAssignment = (id: string) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.fetchAssignment});
+    await axios.get('http://localhost:4000/api/assignments/single/' + id)
+        .then((res: any) => {
+            console.log(res)
+            dispatch({type: assignmentsActions.fetchAssignmentSuccessful});
+            let questionCards = [
+                {id: '1', title: res.data.assignment.title, description: res.data.assignment.description, categories: [], subjects: [], cardType: 'header', isSelected: false},
+                {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true, answer: null}
+            ]
+            let id = 3;
+            res.data.assignment.questions.forEach((q: any) => {
+                console.log(q)
+                questionCards.push({id: id.toString(), question: q.question, questionType: q.questionType, cardType: 'question', isSelected: false, isDragDisabled: true, answer: null})
+                id++
+            });
+            //dispatch({type: assignmentsActions.editAssignment, payload: res.data.assignment.questions});
+            dispatch({type: assignmentsActions.editAssignment, payload: questionCards});
+        })
+        .catch((err: any) => {
+            console.log(err.message)
+            dispatch({type: assignmentsActions.fetchAssignmentFailed});
+        })
+
+}
+
 export const setSelectedQuestion = (question: IQuestion) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.setSelectedQuestion, payload: question});
 }

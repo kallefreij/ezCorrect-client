@@ -27,7 +27,7 @@ const Groups:React.FC = () => {
             <Grid container>
                 <Grid item sm={4} xs={12}>
                     <div>
-                        <ButtonCard text="Grupp" icon={<GroupIcon/>} color='#D0A1A1' to='/group'/>             
+                        <ButtonCard text="Grupp" icon={<GroupIcon/>} color='#D0A1A1' to='/teacher/group'/>             
                     </div>
                 </Grid>
                 <Grid item xs={8}>

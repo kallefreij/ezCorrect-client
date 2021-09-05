@@ -6,8 +6,9 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import PlanTestIcon from '@material-ui/icons/AccessTime';
 import { IAssignmentMetaData } from '../assignments.interfaces';
 import { useDispatch } from 'react-redux';
-import { deleteAssignments, setSelectedAssignment } from '../assignments.actions';
+import { deleteAssignments, getAssignment, setSelectedAssignment } from '../assignments.actions';
 import PlanAssignmentModal from './planAssignmentModal';
+import { useHistory } from 'react-router-dom';
 
 interface Data {
     datestamp: string;
@@ -149,6 +150,7 @@ interface EnhancedTableToolbarProps {
     numSelected: number;
     delete: () => void;
     planAssignment: () => void;
+    edit: () => void;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
@@ -168,18 +170,18 @@ const { numSelected } = props;
                 Uppgifter
             </Typography>
         )}
-            <Tooltip title="Förhandsgranska">
+            {/* <Tooltip title="Förhandsgranska">
                 <IconButton aria-label="preview">
                     <FindInPageIcon style={{color:'white'}}/>
                 </IconButton>
-            </Tooltip>
+            </Tooltip> */}
             <Tooltip title="Planera">
                 <IconButton aria-label="plan" onClick={props.planAssignment}>
                     <PlanTestIcon style={{color:'white'}}/>
                 </IconButton>
             </Tooltip> 
             <Tooltip title="Redigera">
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit" onClick={props.edit}>
                     <CreateIcon style={{color:'white'}}/>
                 </IconButton>
             </Tooltip>           
@@ -233,6 +235,7 @@ interface AssignmentTableProps{
 }
 const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     const classes = useStyles();
+    const history = useHistory();
     const dispatch = useDispatch();
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('title');
@@ -292,6 +295,20 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
         setSelected([]);
     }
 
+    const handleEditAssignmentButtonClick = () => {
+        console.log(selected);
+        if(selected.length > 1){
+          alert("Du kan bara redigera ett prov åt gången")
+        }
+        else if(selected.length == 1){       
+            dispatch(getAssignment(selected[0]))
+            history.push("/teacher/assignments/create");
+        }
+        else{
+          alert("Välj ett prov att redigera") 
+      }  
+    }
+
     const handleClickPlanAssignment = () => {
         console.log(selected);
         if(selected.length > 1){
@@ -314,7 +331,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
         <div style={{padding:20, paddingTop:20}}>
                 <div className={classes.root}>
                     <Paper className={classes.paper}>
-                        <EnhancedTableToolbar numSelected={selected.length} delete={handleRemoveItem} planAssignment={handleClickPlanAssignment}/>
+                        <EnhancedTableToolbar numSelected={selected.length} delete={handleRemoveItem} planAssignment={handleClickPlanAssignment} edit={handleEditAssignmentButtonClick}/>
                         <TableContainer>
                         <Table
                             className={classes.table}
