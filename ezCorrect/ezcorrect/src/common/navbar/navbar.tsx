@@ -8,6 +8,7 @@ import '../common.scss';
 import { NavLink } from 'react-router-dom';
 import NavbarMenu from './menu/menu';
 import UserAvatar from '../avatar/userAvatar';
+import ProfileMenu from './menu/profileMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,6 +65,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const Navbar: React.FC = () => {
 
     const classes = useStyles();
+    const [anchorElProfileMenu, setAnchorElProfileMenu] = React.useState<null | HTMLElement>(null);
+
+    const handleClickProfileButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorElProfileMenu(event.currentTarget);
+    };
+  
+    const handleCloseProfileMenu = () => {
+      setAnchorElProfileMenu(null);
+    };
 
     return (
         <div className={classes.root}>
@@ -94,11 +104,10 @@ const Navbar: React.FC = () => {
             </Typography>
             <Typography className={classes.flex}></Typography>
             <Typography className={classes.account}>
-              <NavLink to="/teacher/assignments/create" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Abdullah</Button>
-              </NavLink>              
+              <Button color="inherit" onClick={handleClickProfileButton}>Abdullah</Button>            
             </Typography>
             <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
+            <ProfileMenu handleClose={handleCloseProfileMenu} anchorEl={anchorElProfileMenu}/>
           </Toolbar>
         </AppBar>
       </div>
