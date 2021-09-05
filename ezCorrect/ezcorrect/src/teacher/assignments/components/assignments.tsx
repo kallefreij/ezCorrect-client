@@ -50,10 +50,10 @@ const Assignments:React.FC = () => {
             <Grid container>
                 <Grid item sm={4} xs={12}>
                     <div>
-                        <ButtonCard text="Skapa uppgift" icon={<CreateIcon/>} color='#A3A1D0' to='/assignments/create'/>
-                        <ButtonCard text="Rätta uppgift" icon={<DoneIcon/>} color='#A3A1D0' to='/assignments/correct'/>
-                        <ButtonCard text="Schemalagda uppgifter" icon={<ScheduleIcon/>} color='#A3A1D0' to='/home'/>
-                        <ButtonCard text="Hitta uppgift" icon={<FindInPageIcon/>} color='#A3A1D0' to='/home'/>               
+                        <ButtonCard text="Skapa uppgift" icon={<CreateIcon/>} color='#A3A1D0' to='/teacher/assignments/create'/>
+                        <ButtonCard text="Rätta uppgift" icon={<DoneIcon/>} color='#A3A1D0' to='/teacher/assignments/correct'/>
+                        <ButtonCard text="Schemalagda uppgifter" icon={<ScheduleIcon/>} color='#A3A1D0' to='/teacher/home'/>
+                        <ButtonCard text="Hitta uppgift" icon={<FindInPageIcon/>} color='#A3A1D0' to='/teacher/home'/>               
                     </div>
                 </Grid>
                 <Grid item sm={8} xs={12}>

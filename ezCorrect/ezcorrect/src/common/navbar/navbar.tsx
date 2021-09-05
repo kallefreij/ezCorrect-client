@@ -72,29 +72,29 @@ const Navbar: React.FC = () => {
             <NavbarMenu/>
             
             <Typography className={classes.button} >
-              <NavLink to="/home" style={{textDecoration:'none', color:'white'}}>
+              <NavLink to="/teacher/home" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Hem</Button>
               </NavLink>  
             </Typography>
                      
             <Typography className={classes.button}>
-              <NavLink to="/assignments" style={{textDecoration:'none', color:'white'}}>
+              <NavLink to="/teacher/assignments" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Uppgifter</Button>
               </NavLink>
             </Typography>
             <Typography className={classes.button}>
-              <NavLink to="/groups" style={{textDecoration:'none', color:'white'}}>
+              <NavLink to="/teacher/groups" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Klasser</Button>
               </NavLink>
             </Typography>
             <Typography className={classes.button}>
-              <NavLink to="/statistics" style={{textDecoration:'none', color:'white'}}>
+              <NavLink to="/teacher/statistics" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Statistik</Button>
               </NavLink>           
             </Typography>
             <Typography className={classes.flex}></Typography>
             <Typography className={classes.account}>
-              <NavLink to="/assignments/create" style={{textDecoration:'none', color:'white'}}>
+              <NavLink to="/teacher/assignments/create" style={{textDecoration:'none', color:'white'}}>
                 <Button color="inherit">Abdullah</Button>
               </NavLink>              
             </Typography>
