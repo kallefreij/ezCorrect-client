@@ -53,19 +53,19 @@ const NavbarMenu: React.FC = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}>
 
-            <NavLink to="/home" className={classes.navlink}>
+            <NavLink to="/teacher/home" className={classes.navlink}>
                 <MenuItem onClick={handleClose}>Hem</MenuItem>
             </NavLink>  
 
-            <NavLink to="/assignments" className={classes.navlink}>
+            <NavLink to="/teacher/assignments" className={classes.navlink}>
                 <MenuItem onClick={handleClose}>Uppgifter</MenuItem>
             </NavLink>  
 
-            <NavLink to="/groups" className={classes.navlink}>
+            <NavLink to="/teacher/groups" className={classes.navlink}>
                 <MenuItem onClick={handleClose}>Klasser</MenuItem>
             </NavLink>  
             
-            <NavLink to="/statistics" className={classes.navlink}>
+            <NavLink to="/teacher/statistics" className={classes.navlink}>
                 <MenuItem onClick={handleClose}>Statistik</MenuItem>
             </NavLink>  
 

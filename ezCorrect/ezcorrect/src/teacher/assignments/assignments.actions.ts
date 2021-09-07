@@ -40,6 +40,29 @@ export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
 
 }
 
+export const getAssignment = (id: string) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.fetchAssignment});
+    await axios.get('http://localhost:4000/api/assignments/single/' + id)
+        .then((res: any) => {
+            dispatch({type: assignmentsActions.fetchAssignmentSuccessful});
+
+            let questionCards: ICreateTestQuestionCards[] = [
+                {id: '1', title: res.data.assignment.title, description: res.data.assignment.description, categories: [], subjects: [], cardType: 'header', isSelected: false},
+            ]
+            let id = 3;
+            res.data.assignment.questions.forEach((q: any) => {
+                console.log(q)
+                questionCards.push({id: id.toString(), question: q.question, questionType: q.questionType, cardType: 'question', isSelected: false, isDragDisabled: true, answer: null})
+                id++
+            });
+            dispatch({type: assignmentsActions.editAssignment, payload: questionCards});
+        })
+        .catch((err: any) => {
+            dispatch({type: assignmentsActions.fetchAssignmentFailed});
+        })
+
+}
+
 export const setSelectedQuestion = (question: IQuestion) => async (dispatch:any) => {
     dispatch({type: assignmentsActions.setSelectedQuestion, payload: question});
 }
@@ -83,4 +106,8 @@ export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) 
             dispatch(setSaveLoadingStatus(false))
         })
 
-} 
+}
+
+export const setSelectedAssignment = (assignment: any) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.setSelectedAssignment, payload: assignment})
+}

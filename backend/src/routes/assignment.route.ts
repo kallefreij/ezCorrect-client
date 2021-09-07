@@ -27,9 +27,23 @@ router.post('',(req, res, next) =>{
         })
     })
 })
-router.get('', (req, res, next) => {  
-    
+
+router.get('/single/:id', (req, res, next) => {
+    const promise = AssignmentRepo.getAssignment(req.params.id);
+    promise
+    .then((doc: IAssignment | null) => {
+        res.status(200).json({
+            assignment: doc,
+            message: 'Fetching data successfull'
+        })
+    })
+    .catch(e => {
+        res.status(400).json({
+            message: e._message
+        })
+    })
 });
+
 router.get('/metadata', (req, res, next) => {
     const promise = AssignmentRepo.getAllAssignments();
 
@@ -71,7 +85,7 @@ router.delete('', (req, res, next) => {
 
 })
 router.put('/:id', (req, res, next) => {
-
+    
 })
 
 export default router;

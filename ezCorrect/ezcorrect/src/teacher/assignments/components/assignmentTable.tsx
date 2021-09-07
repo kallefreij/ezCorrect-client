@@ -3,9 +3,12 @@ import * as React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
+import PlanTestIcon from '@material-ui/icons/AccessTime';
 import { IAssignmentMetaData } from '../assignments.interfaces';
 import { useDispatch } from 'react-redux';
-import { deleteAssignments } from '../assignments.actions';
+import { deleteAssignments, getAssignment, setSelectedAssignment } from '../assignments.actions';
+import PlanAssignmentModal from './planAssignmentModal';
+import { useHistory } from 'react-router-dom';
 
 interface Data {
     datestamp: string;
@@ -14,51 +17,6 @@ interface Data {
     subject: string;
     title: string;
   }
-  
-  // function createData(
-  //   name: string,
-  //   calories: number,
-  //   fat: number,
-  //   carbs: number,
-  //   protein: number,
-  // ): Data {
-  //   return { name, calories, fat, carbs, protein };
-  // }
-  
-  // const rows = [
-  //   createData('Cupcake', 305, 3.7, 67, 4.3),
-  //   createData('Donut', 452, 25.0, 51, 4.9),
-  //   createData('Eclair', 262, 16.0, 24, 6.0),
-  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  //   createData('Gingerbread', 356, 16.0, 49, 3.9),
-  //   createData('Honeycomb', 408, 3.2, 87, 6.5),
-  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  //   createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  //   createData('KitKat', 518, 26.0, 65, 7.0),
-  //   createData('Lollipop', 392, 0.2, 98, 0.0),
-  //   createData('Marshmallow', 318, 0, 81, 2.0),
-  //   createData('Nougat', 360, 19.0, 9, 37.0),
-  //   createData('Oreo', 437, 18.0, 63, 4.0),
-  // ];
-  
-
-// const useStyles = makeStyles({
-//     table: {
-//       minWidth: 650,
-//     },
-//   });
-
-//   const StyledTableCell = withStyles((theme: Theme) =>
-//   createStyles({
-//     head: {
-//       backgroundColor: '#A3A1D0',
-//       color: theme.palette.common.white,
-//     },
-//     body: {
-//       fontSize: 14,
-//     },
-//   }),
-// )(TableCell);
   
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -121,7 +79,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
-  
+
     return (
       <TableHead>
         <TableRow>
@@ -191,6 +149,8 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 interface EnhancedTableToolbarProps {
     numSelected: number;
     delete: () => void;
+    planAssignment: () => void;
+    edit: () => void;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
@@ -210,13 +170,18 @@ const { numSelected } = props;
                 Uppgifter
             </Typography>
         )}
-            <Tooltip title="Förhandsgranska">
+            {/* <Tooltip title="Förhandsgranska">
                 <IconButton aria-label="preview">
                     <FindInPageIcon style={{color:'white'}}/>
                 </IconButton>
-            </Tooltip>
+            </Tooltip> */}
+            <Tooltip title="Planera">
+                <IconButton aria-label="plan" onClick={props.planAssignment}>
+                    <PlanTestIcon style={{color:'white'}}/>
+                </IconButton>
+            </Tooltip> 
             <Tooltip title="Redigera">
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit" onClick={props.edit}>
                     <CreateIcon style={{color:'white'}}/>
                 </IconButton>
             </Tooltip>           
@@ -270,12 +235,14 @@ interface AssignmentTableProps{
 }
 const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     const classes = useStyles();
+    const history = useHistory();
     const dispatch = useDispatch();
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('title');
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [planAssignmentOpen, setPlanAssignmentOpen] = React.useState(false);
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -328,6 +295,34 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
         setSelected([]);
     }
 
+    const handleEditAssignmentButtonClick = () => {
+        console.log(selected);
+        if(selected.length > 1){
+          alert("Du kan bara redigera ett prov åt gången")
+        }
+        else if(selected.length == 1){       
+            dispatch(getAssignment(selected[0]))
+            history.push("/teacher/assignments/create");
+        }
+        else{
+          alert("Välj ett prov att redigera") 
+      }  
+    }
+
+    const handleClickPlanAssignment = () => {
+        console.log(selected);
+        if(selected.length > 1){
+          alert("Du kan bara schemalägga ett prov åt gången")
+        }
+        else if(selected.length == 1){       
+            dispatch(setSelectedAssignment(selected[0]))
+            planAssignmentOpen == true ? setPlanAssignmentOpen(false) : setPlanAssignmentOpen(true);
+        }
+        else{
+          alert("Välj ett prov att schemalägga") 
+        }           
+    }
+
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
@@ -336,7 +331,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
         <div style={{padding:20, paddingTop:20}}>
                 <div className={classes.root}>
                     <Paper className={classes.paper}>
-                        <EnhancedTableToolbar numSelected={selected.length} delete={handleRemoveItem}/>
+                        <EnhancedTableToolbar numSelected={selected.length} delete={handleRemoveItem} planAssignment={handleClickPlanAssignment} edit={handleEditAssignmentButtonClick}/>
                         <TableContainer>
                         <Table
                             className={classes.table}
@@ -404,6 +399,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
                         />
                     </Paper>
                 </div>
+                <PlanAssignmentModal handleClose={handleClickPlanAssignment} open={planAssignmentOpen}/>
         </div>
     )
 }

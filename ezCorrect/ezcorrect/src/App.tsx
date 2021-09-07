@@ -21,6 +21,8 @@ import SignUp from './common/signup/signup';
 import Confirm from './common/signup/confirm';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import StartHome from './start/home';
+import { Component } from 'react';
 
 // @ts-ignore
 import Amplify, { Auth } from 'aws-amplify';
@@ -88,20 +90,25 @@ function App() {
     <div>
       {loggedIn ?
       <Router>
-        <Navbar onSignOut={onSignOut} loggedIn={loggedIn}/>
         <Switch>
-          <Route exact path="/home" component={HomeTeacher}></Route>
-          <Route exact path="/assignments" component={Assignments}></Route>
-          <Route exact path="/assignments/create" component={CreateAssignment}></Route>
-          <Route exact path="/assignments/correct" component={CorrectAssignment}></Route>
-          <Route exact path="/groups" component={Groups}></Route>
-          <Route exact path="/group" component={Group}></Route>
-          <Route exact path="/statistics" component={Statistics}></Route>
-          <Route exact path="/student" component={Student}></Route>
+          <Route path="/teacher/">
+            <Navbar onSignOut={onSignOut}/>
+            <Route exact path="/teacher/home" component={HomeTeacher}></Route>
+            <Route exact path="/teacher/assignments" component={Assignments}></Route>
+            <Route exact path="/teacher/assignments/create" component={CreateAssignment}></Route>
+            <Route exact path="/teacher/assignments/correct" component={CorrectAssignment}></Route>
+            <Route exact path="/teacher/groups" component={Groups}></Route>
+            <Route exact path="/teacher/group" component={Group}></Route>
+            <Route exact path="/teacher/statistics" component={Statistics}></Route>
+            <Route exact path="/teacher/student" component={Student}></Route>
+            <Route exact path="/teacher/profile" component={Student}></Route>
+          </Route>         
+          <Route exact path="/home" component={StartHome}></Route>
           <Route path="/">
               <Redirect to="/home" />
           </Route>
         </Switch>
+        
       </Router>
       :
       <Router>

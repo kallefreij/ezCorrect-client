@@ -18,12 +18,20 @@ export const assignmentsActions = {
     updateQuestion: "AssignmentAction/updateQuestion",
     setCreateTestQuestion: 'Assignment/setCreateQuestions',
     setSaveLoadingStatus: 'Assignment/setSaveLoadingStatus',
+    setSelectedAssignment: 'Assignment/setSelectedAssignment',
+    fetchAssignment: 'Assignment/fetchAssignment',
+    fetchAssignmentFailed: 'Assignment/fetchAssignmentFailed',
+    fetchAssignmentSuccessful: 'Assignment/fetchAssignmentSuccessful',
+    editAssignment: 'Assignment/editAssignment'
 }
 
 export interface IAssignmentState {
     fetchingAssignmentMetaData: boolean;
     fetchingAssignmentMetaDataSuccessful: boolean;
     fetchingAssignmentMetaDataFailed: boolean;
+    fetchAssignment: boolean,
+    fetchAssignmentFailed: boolean,
+    fetchAssignmentSuccessful: boolean;
     deleteAssignments: boolean;
     deleteAssignmentsSuccessful: boolean;
     deleteAssignmentsFailed: boolean;
@@ -35,12 +43,17 @@ export interface IAssignmentState {
     textAnswer: ITextAnswer[];
     createTestQuestionCards: ICreateTestQuestionCards[];
     saveLoadingStatus: boolean;
+    selectedAssignment: IAssignmentMetaData;
+    //selectedAssignment: any;
 }
 
 const intitialState: IAssignmentState = {
     fetchingAssignmentMetaData: false,
     fetchingAssignmentMetaDataSuccessful: false,
     fetchingAssignmentMetaDataFailed: false,
+    fetchAssignment: false,
+    fetchAssignmentFailed: false,
+    fetchAssignmentSuccessful: false,
     deleteAssignments: false,
     deleteAssignmentsSuccessful: false,
     deleteAssignmentsFailed: false,
@@ -64,6 +77,7 @@ const intitialState: IAssignmentState = {
         {id: '2', question: '', questionType: '', cardType: 'question', isSelected: true, isDragDisabled: true, answer: null}
     ],
     saveLoadingStatus: false,
+    selectedAssignment: {_id: "0", datestamp: "0", title: "", questions: 0, subject: ""},
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -89,6 +103,27 @@ const assignmentReducer = (state = intitialState, action: any) => {
                 fetchingAssignmentMetaData: false,
                 fetchingAssignmentMetaDataSuccessful: false,
                 fetchingAssignmentMetaDataFailed: true,
+            };
+        case assignmentsActions.fetchAssignment:
+            return{
+                ...state,
+                fetchAssignment: true,
+                fetchAssignmentFailed: false,
+                fetchAssignmentSuccessful: false,
+            };
+        case assignmentsActions.fetchAssignmentFailed:
+            return{
+                ...state,
+                fetchAssignment: false,
+                fetchAssignmentFailed: true,
+                fetchAssignmentSuccessful: false,
+            };
+        case assignmentsActions.fetchAssignmentSuccessful:
+            return{
+                ...state,
+                fetchAssignment: false,
+                fetchAssignmentFailed: false,
+                fetchAssignmentSuccessful: true,
             };
         case assignmentsActions.deleteAssignments:
             return{
@@ -147,6 +182,16 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 saveLoadingStatus: action.payload,
+            }
+        case assignmentsActions.setSelectedAssignment:
+            return{
+                ...state,
+                selectedAssignment: [...state.assignmentMetadata.filter(x => action.payload == x._id)][0]
+            }
+        case assignmentsActions.editAssignment:
+            return{
+                ...state,
+                createTestQuestionCards: action.payload
             }
         default:
             return state;
