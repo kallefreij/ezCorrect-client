@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface INavbarProps {
   onSignOut: () => void;
+  loggedIn: boolean;
 }
 
 
@@ -78,39 +79,36 @@ const Navbar: React.FC<INavbarProps> = (props) => {
           <Toolbar>
             <NavbarMenu/>
             
-            <Typography className={classes.button} >
-              <NavLink to="/home" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Hem</Button>
-              </NavLink>  
-            </Typography>
-                     
-            <Typography className={classes.button}>
-              <NavLink to="/assignments" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Uppgifter</Button>
-              </NavLink>
-            </Typography>
-            <Typography className={classes.button}>
-              <NavLink to="/groups" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Klasser</Button>
-              </NavLink>
-            </Typography>
-            <Typography className={classes.button}>
-              <NavLink to="/statistics" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Statistik</Button>
-              </NavLink>           
-            </Typography>
-            <Typography className={classes.flex}></Typography>
-            <Typography className={classes.account}>
-              <NavLink to="/assignments/create" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Abdullah</Button>
-              </NavLink>              
-            </Typography>
-            <Typography className={classes.button}>
-              <NavLink to="/statistics" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Logga ut</Button>
-              </NavLink>           
-            </Typography>
-            <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
+              <Typography className={classes.button} >
+                <NavLink to="/home" style={{textDecoration:'none', color:'white'}}>
+                  <Button color="inherit">Hem</Button>
+                </NavLink>  
+              </Typography>  
+              <Typography className={classes.button}>
+                <NavLink to="/assignments" style={{textDecoration:'none', color:'white'}}>
+                  <Button color="inherit">Uppgifter</Button>
+                </NavLink>
+              </Typography>
+              <Typography className={classes.button}>
+                <NavLink to="/groups" style={{textDecoration:'none', color:'white'}}>
+                  <Button color="inherit">Klasser</Button>
+                </NavLink>
+              </Typography>
+              <Typography className={classes.button}>
+                <NavLink to="/statistics" style={{textDecoration:'none', color:'white'}}>
+                  <Button color="inherit">Statistik</Button>
+                </NavLink>           
+              </Typography>
+              <Typography className={classes.flex}></Typography>
+              <Typography className={classes.account}>
+                <NavLink to="/assignments/create" style={{textDecoration:'none', color:'white'}}>
+                  <Button color="inherit">Abdullah</Button>
+                </NavLink>              
+              </Typography> 
+              <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
+              <Typography>
+                  <Button onClick={onSignOut} color="inherit">Logga ut</Button>        
+              </Typography>
           </Toolbar>
         </AppBar>
       </div>

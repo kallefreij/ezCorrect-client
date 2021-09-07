@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { theme } from '../ezTheme';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 // @ts-ignore
 import Amplify, { Auth } from 'aws-amplify';
 
@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
       color: "#FFFFFF"
     },
+    link: {
+        textDecoration: 'none',
+    },
   }));
 
 export interface ISigninProps {
@@ -63,11 +66,15 @@ const SignIn: React.FC<ISigninProps> = (props) => {
     const history = useHistory();
 
     const handleUsername = (input: string) => {
-
+        setUserName(input);
+        console.log(userName);
+        console.log(password);
     }
 
     const handlePassword = (input: string) => {
-        
+        setPassword(input);
+        console.log(password);
+        console.log(userName);
     }
 
     const onSignIn = () => {
@@ -76,8 +83,8 @@ const SignIn: React.FC<ISigninProps> = (props) => {
 
     const handleSignIn = async () => {
         try {
-            // const user = await Auth.signIn(userName, password);
-            // history.push('/');
+            const user = await Auth.signIn(userName, password);
+            history.push('/home');
             onSignIn();
         }
         catch (error){
@@ -87,73 +94,72 @@ const SignIn: React.FC<ISigninProps> = (props) => {
     
     return (
         <Container component="main" maxWidth="xs">
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                    Sign in
-                    </Typography>
-                    <form className={classes.form} >
-                        <TextField
-                            variant="outlined"
-                            required
-                            margin="normal"
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            onChange={e => handleUsername(e.target.value)}
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            required
-                            name="password"
-                            label="Lösenord"
-                            type="password"
-                            id="password"    
-                            autoComplete="password"
-                            onChange={e => handleUsername(e.target.value)}
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            onClick={handleSignIn}
-                            className={classes.submit}
-                            color="primary"
-                        >
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                            </Grid>
-                            <Grid item>
-                            <Link href="#" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                            </Grid>
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                Sign in
+                </Typography>
+                <form className={classes.form} >
+                    <TextField
+                        variant="outlined"
+                        required
+                        margin="normal"
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        onChange={e => handleUsername(e.target.value)}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        required
+                        name="password"
+                        label="Lösenord"
+                        type="password"
+                        id="password"    
+                        autoComplete="password"
+                        onChange={e => handlePassword(e.target.value)}
+                    />
+                    <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        onClick={handleSignIn}
+                        className={classes.submit}
+                        color="primary"
+                    >
+                        Sign In
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                        <NavLink to="#" className={classes.link}>
+                            Forgot password?
+                        </NavLink>
                         </Grid>
-                    </form>
-                </div>
-                <Box mt={8}>
-                    <Copyright />
-                </Box>
-        </ThemeProvider>
-    </Container>
+                        <Grid item>
+
+                        <NavLink to="/signup" className={classes.link}>
+                            {"Don't have an account? Sign Up"}
+                        </NavLink>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+            <Box mt={8}>
+                <Copyright />
+            </Box>
+        </Container>
     );
 };
 
