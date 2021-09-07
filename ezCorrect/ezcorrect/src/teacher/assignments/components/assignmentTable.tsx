@@ -258,7 +258,7 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
             return;
         }
         setSelected([]);
-    };
+    }; 
 
     const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
 

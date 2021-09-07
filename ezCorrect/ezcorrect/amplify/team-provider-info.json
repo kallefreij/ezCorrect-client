@@ -1,0 +1,20 @@
+{
+  "ezcorrect": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ezcorrect-ezcorrect-200519-authRole",
+      "UnauthRoleArn": "arn:aws:iam::495618268261:role/amplify-ezcorrect-ezcorrect-200519-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::495618268261:role/amplify-ezcorrect-ezcorrect-200519-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-ezcorrect-ezcorrect-200519-deployment",
+      "UnauthRoleName": "amplify-ezcorrect-ezcorrect-200519-unauthRole",
+      "StackName": "amplify-ezcorrect-ezcorrect-200519",
+      "StackId": "arn:aws:cloudformation:eu-west-1:495618268261:stack/amplify-ezcorrect-ezcorrect-200519/025541c0-0a86-11ec-9a77-0ada810706b5",
+      "AmplifyAppId": "d1liembta8zzzs"
+    },
+    "categories": {
+      "auth": {
+        "ezcorrect29702702": {}
+      }
+    }
+  }
+}

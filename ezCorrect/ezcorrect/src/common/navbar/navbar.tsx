@@ -60,9 +60,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+export interface INavbarProps {
+  onSignOut: () => void;
+}
 
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<INavbarProps> = (props) => {
 
     const classes = useStyles();
     const [anchorElProfileMenu, setAnchorElProfileMenu] = React.useState<null | HTMLElement>(null);
@@ -107,7 +110,7 @@ const Navbar: React.FC = () => {
               <Button color="inherit" onClick={handleClickProfileButton}>Abdullah</Button>            
             </Typography>
             <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
-            <ProfileMenu handleClose={handleCloseProfileMenu} anchorEl={anchorElProfileMenu}/>
+            <ProfileMenu handleClose={handleCloseProfileMenu} handleSignOut={props.onSignOut} anchorEl={anchorElProfileMenu}/>
           </Toolbar>
         </AppBar>
       </div>
