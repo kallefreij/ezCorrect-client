@@ -103,21 +103,20 @@ function App() {
             <Route exact path="/teacher/student" component={Student}></Route>
             <Route exact path="/teacher/profile" component={Student}></Route>
           </Route>         
-          <Route exact path="/home" component={StartHome}></Route>
           <Route path="/">
-              <Redirect to="/home" />
+              <Redirect to="/teacher/home" />
           </Route>
         </Switch>
-        
       </Router>
       :
       <Router>
         <Switch>
+          <Route exact path="/home" component={StartHome}></Route>
           <Route exact path="/signin" render={() => <SignIn onSignIn={onSignIn}/>}></Route>
           <Route exact path="/signup" render={() => <SignUp onSignUp={onSignUp}/>}></Route>
           <Route exact path="/confirm" render={() => <Confirm email={userEmail} onConfirm={onConfirm}/>}></Route>
           <Route path="/">
-              <Redirect to="/signin" />
+              <Redirect to="/home" />
           </Route>
         </Switch>
       </Router>

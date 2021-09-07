@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 interface IProfileMenuProps{
     anchorEl: null | HTMLElement;
     handleClose: () => void;
+    handleSignOut: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,7 +44,7 @@ const ProfileMenu:React.FC<IProfileMenuProps> = (props) => {
                 <MenuItem onClick={props.handleClose}>Min profil</MenuItem>
             </NavLink>  
             <NavLink to="/home" className={classes.navlink}>
-                <MenuItem onClick={props.handleClose}>Logga ut</MenuItem>
+                <MenuItem onClick={props.handleSignOut}>Logga ut</MenuItem>
             </NavLink>   
         </Menu>
     )

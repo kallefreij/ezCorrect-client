@@ -75,7 +75,6 @@ const Navbar: React.FC<INavbarProps> = (props) => {
     };
   
     const handleCloseProfileMenu = () => {
-      props.onSignOut();
       setAnchorElProfileMenu(null);
     };
 
@@ -111,7 +110,7 @@ const Navbar: React.FC<INavbarProps> = (props) => {
               <Button color="inherit" onClick={handleClickProfileButton}>Abdullah</Button>            
             </Typography>
             <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
-            <ProfileMenu handleClose={handleCloseProfileMenu} anchorEl={anchorElProfileMenu}/>
+            <ProfileMenu handleClose={handleCloseProfileMenu} handleSignOut={props.onSignOut} anchorEl={anchorElProfileMenu}/>
           </Toolbar>
         </AppBar>
       </div>
