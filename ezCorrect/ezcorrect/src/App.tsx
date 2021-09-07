@@ -16,11 +16,13 @@ import Student from './teacher/student/components/student';
 import CorrectAssignment from './teacher/assignments/components/correct-assignment/correctAssignment';
 import EzSnackbar from './common/ezSnackbar/ezSnackbar';
 import StartHome from './start/home';
-import { Component } from 'react';
+import ErrorSnackbar from './common/ezSnackbar/snackbarError';
 
 function App() {
   return (
     <div>
+      <EzSnackbar/>
+      <ErrorSnackbar />
       <Router> 
         <Switch>
           <Route path="/teacher/">

@@ -1,3 +1,4 @@
+import { showSnackbar, showSnackbarError } from "../../common/ezSnackbar/snackbar.actions";
 import { IAssignmentMetaData, IQuestion } from "./assignments.interfaces";
 import { assignmentsActions } from "./assignments.reducer"
 import Header from "./components/correct-assignment/header";
@@ -100,10 +101,12 @@ export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) 
             console.log(res)
             console.log("Successfull post to database")
             dispatch(setSaveLoadingStatus(false))
+            dispatch(showSnackbar("Provet är sparat")) 
         })
         .catch((err: any) => {
             console.log(err)
             dispatch(setSaveLoadingStatus(false))
+            dispatch(showSnackbarError("Kunde spara prov")) 
         })
 
 }
