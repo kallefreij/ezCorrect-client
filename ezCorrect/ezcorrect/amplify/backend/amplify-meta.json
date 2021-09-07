@@ -1,0 +1,53 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ezcorrect-ezcorrect-200519-authRole",
+      "UnauthRoleArn": "arn:aws:iam::495618268261:role/amplify-ezcorrect-ezcorrect-200519-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::495618268261:role/amplify-ezcorrect-ezcorrect-200519-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-ezcorrect-ezcorrect-200519-deployment",
+      "UnauthRoleName": "amplify-ezcorrect-ezcorrect-200519-unauthRole",
+      "StackName": "amplify-ezcorrect-ezcorrect-200519",
+      "StackId": "arn:aws:cloudformation:eu-west-1:495618268261:stack/amplify-ezcorrect-ezcorrect-200519/025541c0-0a86-11ec-9a77-0ada810706b5",
+      "AmplifyAppId": "d1liembta8zzzs"
+    }
+  },
+  "auth": {
+    "ezcorrect29702702": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "loginMechanisms": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ]
+      },
+      "output": {
+        "UserPoolId": "eu-west-1_f8F2XPlJ2",
+        "AppClientIDWeb": "6jf7i42cld7b42c862lkhejiha",
+        "AppClientID": "69o5tclf922746hp0h7gshqf1i",
+        "IdentityPoolId": "eu-west-1:e59ae90e-aca4-4c49-b0c9-f3faf4530108",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-1:495618268261:userpool/eu-west-1_f8F2XPlJ2",
+        "IdentityPoolName": "ezcorrect29702702_identitypool_29702702__ezcorrect",
+        "UserPoolName": "ezcorrect29702702_userpool_29702702"
+      },
+      "lastPushTimeStamp": "2021-09-02T14:48:36.477Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ezcorrect-ezcorrect-200519-deployment/amplify-cfn-templates/auth/ezcorrect29702702-cloudformation-template.yml",
+        "logicalId": "authezcorrect29702702"
+      }
+    }
+  }
+}
