@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { deleteAssignments, getAssignment, setSelectedAssignment } from '../assignments.actions';
 import PlanAssignmentModal from './planAssignmentModal';
 import { useHistory } from 'react-router-dom';
+import { showSnackbar, showSnackbarError } from '../../../common/ezSnackbar/snackbar.actions';
 
 interface Data {
     datestamp: string;
@@ -298,28 +299,28 @@ const AssignmentTable:React.FC<AssignmentTableProps> = (props) => {
     const handleEditAssignmentButtonClick = () => {
         console.log(selected);
         if(selected.length > 1){
-          alert("Du kan bara redigera ett prov åt gången")
+          dispatch(showSnackbarError("Du kan bara redigera ett prov åt gången"))
         }
         else if(selected.length == 1){       
             dispatch(getAssignment(selected[0]))
             history.push("/teacher/assignments/create");
         }
         else{
-          alert("Välj ett prov att redigera") 
+          dispatch(showSnackbarError("Välj ett prov att redigera")) 
       }  
     }
 
     const handleClickPlanAssignment = () => {
         console.log(selected);
         if(selected.length > 1){
-          alert("Du kan bara schemalägga ett prov åt gången")
+          dispatch(showSnackbarError("Du kan bara schemalägga ett prov åt gången")) 
         }
         else if(selected.length == 1){       
             dispatch(setSelectedAssignment(selected[0]))
             planAssignmentOpen == true ? setPlanAssignmentOpen(false) : setPlanAssignmentOpen(true);
         }
         else{
-          alert("Välj ett prov att schemalägga") 
+          dispatch(showSnackbarError("Välj ett prov att schemalägga")) 
         }           
     }
 

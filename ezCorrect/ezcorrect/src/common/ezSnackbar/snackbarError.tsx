@@ -15,6 +15,7 @@ import { createSelector } from "reselect";
 import { IStateTree } from "../../redux/rootReducer";
 import CancelIcon from "@material-ui/icons/Cancel";
 import CheckIcon from "@material-ui/icons/Check";
+import NotInterestedIcon from "@material-ui/icons/NotInterested";
 
 export interface ISnackbar {
   open: boolean;
@@ -24,8 +25,8 @@ export interface ISnackbar {
 const getSnackbar = createSelector<IStateTree, ISnackbarState, ISnackbar>(
   (state) => state.snackbar,
   (sb) => ({
-    open: sb.snackbarSuccessOpen,
-    message: sb.snackbarSuccessMessage,
+    open: sb.snackbarErrorOpen,
+    message: sb.snackbarErrorMessage,
   })
 );
 
@@ -35,13 +36,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& > * + *": {
       marginTop: theme.spacing(2),
     },
-    backgroundColor: "#789D4A",
+    backgroundColor: "#9A3324",
     borderRadius: "4px",
     color: 'white'
   },
 }));
 
-const EzSnackbar: React.FC = () => {
+const ErrorSnackbar: React.FC = () => {
   const snackbar = useSelector(getSnackbar);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -53,24 +54,24 @@ const EzSnackbar: React.FC = () => {
         open={snackbar.open}
         message={snackbar.message}
         autoHideDuration={3000}
-        onClose={() => dispatch({ type: snackbarActions.snackbarSuccessClear })}
+        onClose={() => dispatch({ type: snackbarActions.snackbarErrorClear })}
       >
-        <Grid container alignItems="center">
+        <Grid container alignItems="center" justify="space-between">
           <Grid item sm={2} lg={1}>
             <IconButton>
               <SvgIcon>
-                <CheckIcon />
+                <NotInterestedIcon />
               </SvgIcon>
             </IconButton>
           </Grid>
-          <Grid item sm={9} lg={10}>
+          <Grid item sm={8} lg={10}>
             <p style={{ fontSize: "15px" }}>{snackbar.message}</p>
           </Grid>
-          <Grid item sm={1} lg={1}>
+          <Grid item sm={2} lg={1}>
             <IconButton
               size="small"
               onClick={() =>
-                dispatch({ type: snackbarActions.snackbarSuccessClear })
+                dispatch({ type: snackbarActions.snackbarErrorClear })
               }
               style={{float:'right', marginRight: 10}}
             >
@@ -85,4 +86,4 @@ const EzSnackbar: React.FC = () => {
   );
 };
 
-export default EzSnackbar;
+export default ErrorSnackbar;
