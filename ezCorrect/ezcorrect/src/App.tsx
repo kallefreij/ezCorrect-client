@@ -50,8 +50,8 @@ function App() {
     AssessLoggedInState()
   }, [])
 
-  const AssessLoggedInState = () => {
-    Auth.currentAuthenticatedUser()
+  const AssessLoggedInState = async () => {
+    await Auth.currentAuthenticatedUser()
       .then(() => {
         setLoggedIn(true)
         console.log("Logged in")
@@ -76,15 +76,13 @@ function App() {
   }
 
   const onSignUp = async (email: string) => {
-      AssessLoggedInState();
-      setUserEmail(email);
+    AssessLoggedInState();
+    setUserEmail(email);
   }
 
   const onConfirm = async () => {
     AssessLoggedInState();
   }
-
-// <Route exact path="/signin" render={(loggedIn) => <SignIn onSignIn={onSignIn}/>}></Route>
 
   return (
     <div>

@@ -10,12 +10,12 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { theme } from '../ezTheme';
 import { NavLink, useHistory } from 'react-router-dom';
-// @ts-ignore
-import Amplify, { Auth } from 'aws-amplify';
+import { Paper } from '@material-ui/core';
+import { Auth } from 'aws-amplify';
+
 
 const Copyright = () => {
     return (
@@ -52,6 +52,15 @@ const useStyles = makeStyles((theme) => ({
     link: {
         textDecoration: 'none',
     },
+    card: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: 'fit-content',
+        padding: '40px',
+        margin: 'auto'
+    }
   }));
 
 export interface ISigninProps {
@@ -67,14 +76,10 @@ const SignIn: React.FC<ISigninProps> = (props) => {
 
     const handleUsername = (input: string) => {
         setUserName(input);
-        console.log(userName);
-        console.log(password);
     }
 
     const handlePassword = (input: string) => {
         setPassword(input);
-        console.log(password);
-        console.log(userName);
     }
 
     const onSignIn = () => {
@@ -93,73 +98,76 @@ const SignIn: React.FC<ISigninProps> = (props) => {
     }
     
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                Sign in
-                </Typography>
-                <form className={classes.form} >
-                    <TextField
-                        variant="outlined"
-                        required
-                        margin="normal"
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        onChange={e => handleUsername(e.target.value)}
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        required
-                        name="password"
-                        label="Lösenord"
-                        type="password"
-                        id="password"    
-                        autoComplete="password"
-                        onChange={e => handlePassword(e.target.value)}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        onClick={handleSignIn}
-                        className={classes.submit}
-                        color="primary"
-                    >
-                        Sign In
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                        <NavLink to="#" className={classes.link}>
-                            Forgot password?
-                        </NavLink>
-                        </Grid>
-                        <Grid item>
+        <div>
+            <Paper className={classes.card}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <div className={classes.paper}>
+                        <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                        Sign in
+                        </Typography>
+                        <form className={classes.form} >
+                            <TextField
+                                variant="outlined"
+                                required
+                                margin="normal"
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={e => handleUsername(e.target.value)}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                fullWidth
+                                required
+                                name="password"
+                                label="Lösenord"
+                                type="password"
+                                id="password"    
+                                autoComplete="password"
+                                onChange={e => handlePassword(e.target.value)}
+                            />
+                            <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            />
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                onClick={handleSignIn}
+                                className={classes.submit}
+                                color="primary"
+                            >
+                                Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                <NavLink to="#" className={classes.link}>
+                                    Forgot password?
+                                </NavLink>
+                                </Grid>
+                                <Grid item>
 
-                        <NavLink to="/signup" className={classes.link}>
-                            {"Don't have an account? Sign Up"}
-                        </NavLink>
-                        </Grid>
-                    </Grid>
-                </form>
-            </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
-        </Container>
+                                <NavLink to="/signup" className={classes.link}>
+                                    {"Don't have an account? Sign Up"}
+                                </NavLink>
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </div>
+                    <Box mt={8}>
+                        <Copyright />
+                    </Box>
+                </Container>
+            </Paper>    
+        </div>
     );
 };
 

@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import { NavLink, useHistory } from 'react-router-dom';
 import { ISignUpValues } from '../../App';
 import { Auth } from 'aws-amplify';
+import { Paper } from '@material-ui/core';
 
 function Copyright() {
   return (
@@ -47,6 +48,15 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  card: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: 'fit-content',
+      padding: '40px',
+      margin: 'auto'
+  }
 }));
 
 export interface IConfirmProps {
@@ -71,80 +81,79 @@ const Confirm: React.FC<IConfirmProps> = (props) => {
     const onConfirm = async () => {
         try {
             await Auth.confirmSignUp(username, confCode);
-            history.push('/home')
             props.onConfirm();
+            history.push('/signin')
         } catch (error) {
             console.log('error confirming sign up', error);
         }
     }
 
-    const createUsername = (email: string) => {
-        return email.substring(0, email.indexOf('@'));
-    }
-
     return (
-        <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-            Sign up
-            </Typography>
-            <form className={classes.form} noValidate>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                </Grid>
-                <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    onChange={e => onUsernameChange(e.target.value)}
-                    value={username}
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                />
-                </Grid>
-                <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    onChange={e => onConfirmationChange(e.target.value)}
-                    name="confirmationcode"
-                    label="Bekräftelsekod"
-                    type="confirmationcode"
-                    id="confirmationcode"
-                />
-                </Grid>
-            </Grid>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={onConfirm}
-                className={classes.submit}
-            >
-                Bekfräfta
-            </Button>
-            <Grid container>
-                <Grid item>
-                    <NavLink to="/signin">
-                        Already have an account? Sign in
-                    </NavLink>
-                </Grid>
-            </Grid>
-            </form>
-        </div>
-        <Box mt={5}>
-            <Copyright />
-        </Box>
-        </Container>
+        <div>
+            <Paper className={classes.card}>
+                <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                    Sign up
+                    </Typography>
+                    <form className={classes.form} noValidate>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                        </Grid>
+                        <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            onChange={e => onUsernameChange(e.target.value)}
+                            value={username}
+                            id="username"
+                            label="Användarnamn"
+                            name="email"
+                            autoComplete="email"
+                        />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            onChange={e => onConfirmationChange(e.target.value)}
+                            name="confirmationcode"
+                            label="Bekräftelsekod"
+                            type="confirmationcode"
+                            id="confirmationcode"
+                        />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        onClick={onConfirm}
+                        className={classes.submit}
+                    >
+                        Bekfräfta
+                    </Button>
+                    <Grid container>
+                        <Grid item>
+                            <NavLink to="/signin">
+                                Already have an account? Sign in
+                            </NavLink>
+                        </Grid>
+                    </Grid>
+                    </form>
+                </div>
+                <Box mt={5}>
+                    <Copyright />
+                </Box>
+                </Container>
+        </Paper>
+    </div>
     );
 }
 
