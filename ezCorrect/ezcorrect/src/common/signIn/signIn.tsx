@@ -10,167 +10,161 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink, useHistory } from 'react-router-dom';
 import { Paper } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 
-
 const Copyright = () => {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="http://localhost:3000/">
-          ezCorrect
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="http://localhost:3000/">
+        ezCorrect
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.primary.main,
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-      color: "#FFFFFF"
-    },
-    link: {
-        textDecoration: 'none',
-    },
-    card: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: 'fit-content',
-        padding: '40px',
-        margin: 'auto'
-    }
-  }));
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    color: '#FFFFFF',
+  },
+  link: {
+    textDecoration: 'none',
+  },
+  card: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 'fit-content',
+    padding: '40px',
+    margin: 'auto',
+  },
+}));
 
 export interface ISigninProps {
-    onSignIn: () => void;
+  onSignIn: () => void;
 }
 
 const SignIn: React.FC<ISigninProps> = (props) => {
-    
-    const classes = useStyles();
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    const history = useHistory();
+  const classes = useStyles();
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
 
-    const handleUsername = (input: string) => {
-        setUserName(input);
+  const handleUsername = (input: string) => {
+    setUserName(input);
+  };
+
+  const handlePassword = (input: string) => {
+    setPassword(input);
+  };
+
+  const onSignIn = () => {
+    props.onSignIn();
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await Auth.signIn(userName, password);
+      history.push('/home');
+      onSignIn();
+    } catch (error) {
+      console.log('Unable to log in due to: ', error);
     }
+  };
 
-    const handlePassword = (input: string) => {
-        setPassword(input);
-    }
-
-    const onSignIn = () => {
-        props.onSignIn();
-    }
-
-    const handleSignIn = async () => {
-        try {
-            const user = await Auth.signIn(userName, password);
-            history.push('/home');
-            onSignIn();
-        }
-        catch (error){
-            console.log('Unable to log in due to: ', error);
-        }
-    }
-    
-    return (
-        <div>
-            <Paper className={classes.card}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <div className={classes.paper}>
-                        <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                        Sign in
-                        </Typography>
-                        <form className={classes.form} >
-                            <TextField
-                                variant="outlined"
-                                required
-                                margin="normal"
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                onChange={e => handleUsername(e.target.value)}
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                fullWidth
-                                required
-                                name="password"
-                                label="Lösenord"
-                                type="password"
-                                id="password"    
-                                autoComplete="password"
-                                onChange={e => handlePassword(e.target.value)}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                onClick={handleSignIn}
-                                className={classes.submit}
-                                color="primary"
-                            >
-                                Sign In
-                            </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                <NavLink to="#" className={classes.link}>
-                                    Forgot password?
-                                </NavLink>
-                                </Grid>
-                                <Grid item>
-
-                                <NavLink to="/signup" className={classes.link}>
-                                    {"Don't have an account? Sign Up"}
-                                </NavLink>
-                                </Grid>
-                            </Grid>
-                        </form>
-                    </div>
-                    <Box mt={8}>
-                        <Copyright />
-                    </Box>
-                </Container>
-            </Paper>    
-        </div>
-    );
+  return (
+    <div>
+      <Paper className={classes.card}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <form className={classes.form}>
+              <TextField
+                variant="outlined"
+                required
+                margin="normal"
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={(e) => handleUsername(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                required
+                name="password"
+                label="Lösenord"
+                type="password"
+                id="password"
+                autoComplete="password"
+                onChange={(e) => handlePassword(e.target.value)}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={handleSignIn}
+                className={classes.submit}
+                color="primary"
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <NavLink to="#" className={classes.link}>
+                    Forgot password?
+                  </NavLink>
+                </Grid>
+                <Grid item>
+                  <NavLink to="/signup" className={classes.link}>
+                    {"Don't have an account? Sign Up"}
+                  </NavLink>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Container>
+      </Paper>
+    </div>
+  );
 };
 
 export default SignIn;
-
-

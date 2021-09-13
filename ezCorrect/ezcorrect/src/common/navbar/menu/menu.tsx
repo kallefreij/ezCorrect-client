@@ -8,70 +8,73 @@ import { NavLink } from 'react-router-dom';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButton: {
-        display: 'block',
-        [theme.breakpoints.up('md')]: {
-          display: 'none',
-        },
+      display: 'block',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
+      },
     },
     navlink: {
-        textDecoration: 'none',
-        color: '#f4f6f8',
+      textDecoration: 'none',
+      color: '#f4f6f8',
     },
     menu: {
-        "& .MuiPaper-root": {
-            backgroundColor: '#A1D0A5',
-            padding: '5px',
-        },
+      '& .MuiPaper-root': {
+        backgroundColor: '#A1D0A5',
+        padding: '5px',
+      },
     },
-  }),
+  })
 );
 
-
 const NavbarMenu: React.FC = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    return (
-        <div>
-          <IconButton aria-controls="simple-menu" aria-haspopup="true"  className={classes.menuButton} onClick={handleClick}>
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            className={classes.menu}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}>
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-            <NavLink to="/teacher/home" className={classes.navlink}>
-                <MenuItem onClick={handleClose}>Hem</MenuItem>
-            </NavLink>  
+  return (
+    <div>
+      <IconButton
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        className={classes.menuButton}
+        onClick={handleClick}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        className={classes.menu}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <NavLink to="/teacher/home" className={classes.navlink}>
+          <MenuItem onClick={handleClose}>Hem</MenuItem>
+        </NavLink>
 
-            <NavLink to="/teacher/assignments" className={classes.navlink}>
-                <MenuItem onClick={handleClose}>Uppgifter</MenuItem>
-            </NavLink>  
+        <NavLink to="/teacher/assignments" className={classes.navlink}>
+          <MenuItem onClick={handleClose}>Uppgifter</MenuItem>
+        </NavLink>
 
-            <NavLink to="/teacher/groups" className={classes.navlink}>
-                <MenuItem onClick={handleClose}>Klasser</MenuItem>
-            </NavLink>  
-            
-            <NavLink to="/teacher/statistics" className={classes.navlink}>
-                <MenuItem onClick={handleClose}>Statistik</MenuItem>
-            </NavLink>  
+        <NavLink to="/teacher/groups" className={classes.navlink}>
+          <MenuItem onClick={handleClose}>Klasser</MenuItem>
+        </NavLink>
 
-          </Menu>
-        </div>
-      );
+        <NavLink to="/teacher/statistics" className={classes.navlink}>
+          <MenuItem onClick={handleClose}>Statistik</MenuItem>
+        </NavLink>
+      </Menu>
+    </div>
+  );
 };
 
 export default NavbarMenu;

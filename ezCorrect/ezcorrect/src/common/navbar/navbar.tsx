@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       position: 'relative',
       [theme.breakpoints.up('sm')]: {
-        position: 'absolute'
+        position: 'absolute',
       },
     },
     menuButton: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
-    bar:{
+    bar: {
       borderBottomLeftRadius: '10px',
       borderBottomRightRadius: '10px',
       backgroundColor: '#A1D0A5',
@@ -56,67 +56,89 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         flex: 0,
       },
-    }
-  }),
+    },
+  })
 );
 
 export interface INavbarProps {
   onSignOut: () => void;
 }
 
-
 const Navbar: React.FC<INavbarProps> = (props) => {
+  const classes = useStyles();
+  const [anchorElProfileMenu, setAnchorElProfileMenu] =
+    React.useState<null | HTMLElement>(null);
 
-    const classes = useStyles();
-    const [anchorElProfileMenu, setAnchorElProfileMenu] = React.useState<null | HTMLElement>(null);
+  const handleClickProfileButton = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setAnchorElProfileMenu(event.currentTarget);
+  };
 
-    const handleClickProfileButton = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorElProfileMenu(event.currentTarget);
-    };
-  
-    const handleCloseProfileMenu = () => {
-      setAnchorElProfileMenu(null);
-    };
+  const handleCloseProfileMenu = () => {
+    setAnchorElProfileMenu(null);
+  };
 
-    return (
-        <div className={classes.root}>
-        <AppBar position="sticky" className={classes.bar} >
-          <Toolbar>
-            <NavbarMenu/>
-            
-            <Typography className={classes.button} >
-              <NavLink to="/teacher/home" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Hem</Button>
-              </NavLink>  
-            </Typography>
-                     
-            <Typography className={classes.button}>
-              <NavLink to="/teacher/assignments" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Uppgifter</Button>
-              </NavLink>
-            </Typography>
-            <Typography className={classes.button}>
-              <NavLink to="/teacher/groups" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Klasser</Button>
-              </NavLink>
-            </Typography>
-            <Typography className={classes.button}>
-              <NavLink to="/teacher/statistics" style={{textDecoration:'none', color:'white'}}>
-                <Button color="inherit">Statistik</Button>
-              </NavLink>           
-            </Typography>
-            <Typography className={classes.flex}></Typography>
-            <Typography className={classes.account}>
-              <Button color="inherit" onClick={handleClickProfileButton}>Abdullah</Button>            
-            </Typography>
-            <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300"/>
-            <ProfileMenu handleClose={handleCloseProfileMenu} handleSignOut={props.onSignOut} anchorEl={anchorElProfileMenu}/>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-    
+  return (
+    <div className={classes.root}>
+      <AppBar position="sticky" className={classes.bar}>
+        <Toolbar>
+          <NavbarMenu />
+
+          <Typography className={classes.button}>
+            <NavLink
+              to="/teacher/home"
+              style={{ textDecoration: 'none', color: 'white' }}
+            >
+              <Button color="inherit">Hem</Button>
+            </NavLink>
+          </Typography>
+
+          <Typography className={classes.button}>
+            <NavLink
+              to="/teacher/assignments"
+              style={{ textDecoration: 'none', color: 'white' }}
+            >
+              <Button color="inherit">Uppgifter</Button>
+            </NavLink>
+          </Typography>
+          <Typography className={classes.button}>
+            <NavLink
+              to="/teacher/groups"
+              style={{ textDecoration: 'none', color: 'white' }}
+            >
+              <Button color="inherit">Klasser</Button>
+            </NavLink>
+          </Typography>
+          <Typography className={classes.button}>
+            <NavLink
+              to="/teacher/statistics"
+              style={{ textDecoration: 'none', color: 'white' }}
+            >
+              <Button color="inherit">Statistik</Button>
+            </NavLink>
+          </Typography>
+          <Typography className={classes.flex}></Typography>
+          <Typography className={classes.account}>
+            <Button color="inherit" onClick={handleClickProfileButton}>
+              Abdullah
+            </Button>
+          </Typography>
+          <UserAvatar
+            firstName="Test"
+            lastName="Lärare"
+            size={45}
+            image="https://www.fillmurray.com/g/200/300"
+          />
+          <ProfileMenu
+            handleClose={handleCloseProfileMenu}
+            handleSignOut={props.onSignOut}
+            anchorEl={anchorElProfileMenu}
+          />
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 };
 
 export default Navbar;
-

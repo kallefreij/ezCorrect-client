@@ -19,9 +19,14 @@
     "@types/react-dom": "^17.0.5",
     "aws-amplify": "^4.2.5",
     "axios": "^0.21.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.25.1",
     "express": "^4.17.1",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.7",
+    "prettier": "^2.4.0",
+    "prettier-eslint-cli": "^5.0.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
@@ -39,7 +44,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "cd ../../backend/ && npm start"
+    "server": "cd ../../backend/ && npm start",
+    "format": "prettier-eslint --write \"{,!(node_modules)/**/}*.{js,tsx}\""
   },
   "eslintConfig": {
     "extends": [

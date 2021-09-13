@@ -1,8 +1,8 @@
-import { Card, CardContent} from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import * as React from 'react';
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: 150,
@@ -14,43 +14,43 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       margin: 0,
-      fontSize:15,
+      fontSize: 15,
       textAlign: 'center',
       [theme.breakpoints.down('lg')]: {
-        fontSize:10,
-        fontWeight:'bold'
-      }, 
+        fontSize: 10,
+        fontWeight: 'bold',
+      },
     },
     number: {
-        fontSize: 30,
-        margin: 0,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        [theme.breakpoints.down('lg')]: {
-          fontSize: 20,
-        },
+      fontSize: 30,
+      margin: 0,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      [theme.breakpoints.down('lg')]: {
+        fontSize: 20,
+      },
     },
-  }),
+  })
 );
 
-interface IActivityBoxProps{
-    numberOfTheMonth: number;
-    month: string;
-    activity: string;
+interface IActivityBoxProps {
+  numberOfTheMonth: number;
+  month: string;
+  activity: string;
 }
 
-const ActivityBox:React.FC<IActivityBoxProps> = (props) => {
-    const classes = useStyles();
+const ActivityBox: React.FC<IActivityBoxProps> = (props) => {
+  const classes = useStyles();
 
-    return(
-        <Card className={classes.root} variant="outlined">
-            <CardContent>
-                <p className={classes.text}>{props.month}</p>
-                <p className={classes.number}>{props.numberOfTheMonth}</p>
-                <p className={classes.text}>{props.activity}</p>
-            </CardContent>
-        </Card>
-    )
-}
+  return (
+    <Card className={classes.root} variant="outlined">
+      <CardContent>
+        <p className={classes.text}>{props.month}</p>
+        <p className={classes.number}>{props.numberOfTheMonth}</p>
+        <p className={classes.text}>{props.activity}</p>
+      </CardContent>
+    </Card>
+  );
+};
 
 export default ActivityBox;

@@ -186,7 +186,7 @@ const assignmentReducer = (state = intitialState, action: any) => {
         case assignmentsActions.setSelectedAssignment:
             return{
                 ...state,
-                selectedAssignment: [...state.assignmentMetadata.filter(x => action.payload == x._id)][0]
+                selectedAssignment: [...state.assignmentMetadata.filter(x => action.payload === x._id)][0]
             }
         case assignmentsActions.editAssignment:
             return{

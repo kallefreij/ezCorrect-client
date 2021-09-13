@@ -1,20 +1,18 @@
-import * as React from "react";
+import * as React from 'react';
 import {
-  Button,
   Snackbar,
-  Icon,
   IconButton,
   makeStyles,
   Theme,
   Grid,
   SvgIcon,
-} from "@material-ui/core";
-import { snackbarActions, ISnackbarState } from "./snackbar.reducer";
-import { useDispatch, useSelector } from "react-redux";
-import { createSelector } from "reselect";
-import { IStateTree } from "../../redux/rootReducer";
-import CancelIcon from "@material-ui/icons/Cancel";
-import CheckIcon from "@material-ui/icons/Check";
+} from '@material-ui/core';
+import { snackbarActions, ISnackbarState } from './snackbar.reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+import { IStateTree } from '../../redux/rootReducer';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckIcon from '@material-ui/icons/Check';
 
 export interface ISnackbar {
   open: boolean;
@@ -31,13 +29,13 @@ const getSnackbar = createSelector<IStateTree, ISnackbarState, ISnackbar>(
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: "50%",
-    "& > * + *": {
+    width: '50%',
+    '& > * + *': {
       marginTop: theme.spacing(2),
     },
-    backgroundColor: "#789D4A",
-    borderRadius: "4px",
-    color: 'white'
+    backgroundColor: '#789D4A',
+    borderRadius: '4px',
+    color: 'white',
   },
 }));
 
@@ -64,7 +62,7 @@ const EzSnackbar: React.FC = () => {
             </IconButton>
           </Grid>
           <Grid item sm={9} lg={10}>
-            <p style={{ fontSize: "15px" }}>{snackbar.message}</p>
+            <p style={{ fontSize: '15px' }}>{snackbar.message}</p>
           </Grid>
           <Grid item sm={1} lg={1}>
             <IconButton
@@ -72,7 +70,7 @@ const EzSnackbar: React.FC = () => {
               onClick={() =>
                 dispatch({ type: snackbarActions.snackbarSuccessClear })
               }
-              style={{float:'right', marginRight: 10}}
+              style={{ float: 'right', marginRight: 10 }}
             >
               <SvgIcon>
                 <CancelIcon />
