@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import { NavLink, useHistory } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { Paper } from '@material-ui/core';
+import EzCorrectIcon from '../ezCorrectIcon';
 
 function Copyright() {
   return (
@@ -91,6 +92,7 @@ const Confirm: React.FC<IConfirmProps> = (props) => {
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
+            <EzCorrectIcon width={100} height={100}/>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
