@@ -25,16 +25,10 @@ import CreateIcon from '@material-ui/icons/Create';
 import PlanTestIcon from '@material-ui/icons/AccessTime';
 import { IAssignmentMetaData } from '../assignments.interfaces';
 import { useDispatch } from 'react-redux';
-import {
-  deleteAssignments,
-  getAssignment,
-  setSelectedAssignment,
-} from '../assignments.actions';
+import { deleteAssignments, getAssignment, setSelectedAssignment } from '../assignments.actions';
 import PlanAssignmentModal from './planAssignmentModal';
 import { useHistory } from 'react-router-dom';
-import {
-  showSnackbarError,
-} from '../../../common/ezSnackbar/snackbar.actions';
+import { showSnackbarError } from '../../../common/ezSnackbar/snackbar.actions';
 
 interface Data {
   datestamp: string;
@@ -57,10 +51,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
+): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
@@ -86,10 +77,7 @@ interface HeadCell {
 interface EnhancedTableProps {
   classes: ReturnType<typeof useStyles>;
   numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
@@ -107,19 +95,10 @@ const headCells: HeadCell[] = [
 type Order = 'asc' | 'desc';
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const {
-    classes,
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-  const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
+  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHead>
@@ -201,21 +180,11 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   return (
     <Toolbar className={classes.highlight}>
       {numSelected > 0 ? (
-        <Typography
-          className={classes.title}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
+        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography
-          className={classes.title}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
+        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
           Uppgifter
         </Typography>
       )}
@@ -293,10 +262,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [planAssignmentOpen, setPlanAssignmentOpen] = React.useState(false);
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => {
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -322,10 +288,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
 
     setSelected(newSelected);
@@ -335,9 +298,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -366,9 +327,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
       dispatch(showSnackbarError('Du kan bara schemalägga ett prov åt gången'));
     } else if (selected.length === 1) {
       dispatch(setSelectedAssignment(selected[0]));
-      planAssignmentOpen === true
-        ? setPlanAssignmentOpen(false)
-        : setPlanAssignmentOpen(true);
+      planAssignmentOpen === true ? setPlanAssignmentOpen(false) : setPlanAssignmentOpen(true);
     } else {
       dispatch(showSnackbarError('Välj ett prov att schemalägga'));
     }
@@ -376,8 +335,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
 
   return (
     <div style={{ padding: 20, paddingTop: 20 }}>
@@ -390,11 +348,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
             edit={handleEditAssignmentButtonClick}
           />
           <TableContainer>
-            <Table
-              className={classes.table}
-              aria-labelledby="tableTitle"
-              aria-label="enhanced table"
-            >
+            <Table className={classes.table} aria-labelledby="tableTitle" aria-label="enhanced table">
               <EnhancedTableHead
                 classes={classes}
                 numSelected={selected.length}
@@ -422,10 +376,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
                         selected={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            inputProps={{ 'aria-labelledby': labelId }}
-                          />
+                          <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
                         </TableCell>
                         {/* <TableCell component="th" id={labelId} scope="row" padding="none">
                                             {row.id}
@@ -456,10 +407,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
           />
         </Paper>
       </div>
-      <PlanAssignmentModal
-        handleClose={handleClickPlanAssignment}
-        open={planAssignmentOpen}
-      />
+      <PlanAssignmentModal handleClose={handleClickPlanAssignment} open={planAssignmentOpen} />
     </div>
   );
 };

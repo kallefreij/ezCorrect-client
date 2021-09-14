@@ -16,7 +16,6 @@ export interface IInputProps {
   deleteInput: (id: any) => void;
 }
 
-
 const CheckboxInput: React.FC<IInputProps> = (props) => {
   const [isCorrect, setSelected] = useState(false);
 
@@ -53,10 +52,7 @@ const CheckboxInput: React.FC<IInputProps> = (props) => {
         }
         endAdornment={
           <InputAdornment position="end">
-            <IconButton
-              onClick={() => props.deleteInput(props.id)}
-              color="secondary"
-            >
+            <IconButton onClick={() => props.deleteInput(props.id)} color="secondary">
               <ClearIcon />
             </IconButton>
           </InputAdornment>

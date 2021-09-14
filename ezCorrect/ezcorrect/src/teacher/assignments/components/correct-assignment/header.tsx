@@ -52,9 +52,7 @@ const Header: React.FC = () => {
               disableTooltip={true}
             />
           </div>
-          <h2 style={{ float: 'left', marginLeft: 10, marginTop: 5 }}>
-            Pelle Jonsson
-          </h2>
+          <h2 style={{ float: 'left', marginLeft: 10, marginTop: 5 }}>Pelle Jonsson</h2>
           <IconButton onClick={handleOpenStudentModal}>
             <ArrowDropDownIcon />
           </IconButton>

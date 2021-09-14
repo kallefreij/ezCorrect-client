@@ -1,9 +1,4 @@
-import {
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  makeStyles,
-} from '@material-ui/core';
+import { Checkbox, FormControlLabel, Grid, makeStyles } from '@material-ui/core';
 import * as React from 'react';
 import { IQuestionProps } from '../../../assignments.interfaces';
 
@@ -23,14 +18,7 @@ const MultiChoiceQuestion: React.FC<IQuestionProps> = (props) => {
       <Grid container direction="column">
         <Grid item>
           <FormControlLabel
-            control={
-              <Checkbox
-                checked={true}
-                name="checkedB"
-                color="primary"
-                style={{ color: 'white' }}
-              />
-            }
+            control={<Checkbox checked={true} name="checkedB" color="primary" style={{ color: 'white' }} />}
             style={{
               color: 'white',
               backgroundColor: '#A1D0A5',
@@ -42,27 +30,13 @@ const MultiChoiceQuestion: React.FC<IQuestionProps> = (props) => {
         </Grid>
         <Grid item>
           <FormControlLabel
-            control={
-              <Checkbox
-                checked={true}
-                name="checkedB"
-                color="primary"
-                style={{ color: 'red' }}
-              />
-            }
+            control={<Checkbox checked={true} name="checkedB" color="primary" style={{ color: 'red' }} />}
             label="Några strån"
           />
         </Grid>
         <Grid item>
           <FormControlLabel
-            control={
-              <Checkbox
-                checked={false}
-                name="checkedB"
-                color="primary"
-                style={{ color: 'white' }}
-              />
-            }
+            control={<Checkbox checked={false} name="checkedB" color="primary" style={{ color: 'white' }} />}
             style={{
               color: 'white',
               backgroundColor: '#A1D0A5',
@@ -73,12 +47,7 @@ const MultiChoiceQuestion: React.FC<IQuestionProps> = (props) => {
           />
         </Grid>
         <Grid item>
-          <FormControlLabel
-            control={
-              <Checkbox checked={false} name="checkedB" color="primary" />
-            }
-            label="Lite"
-          />
+          <FormControlLabel control={<Checkbox checked={false} name="checkedB" color="primary" />} label="Lite" />
         </Grid>
       </Grid>
     </div>

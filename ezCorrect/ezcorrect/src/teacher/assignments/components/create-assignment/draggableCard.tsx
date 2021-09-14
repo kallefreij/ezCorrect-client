@@ -22,12 +22,7 @@ const DraggableCard: React.FC<ParentCompProps> = (props) => {
   const { childComp } = props;
 
   return (
-    <Draggable
-      draggableId={props.id}
-      key={props.id}
-      index={props.index}
-      isDragDisabled={props.isDragDisabled}
-    >
+    <Draggable draggableId={props.id} key={props.id} index={props.index} isDragDisabled={props.isDragDisabled}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}

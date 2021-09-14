@@ -128,37 +128,21 @@ const CreateQuestionCard: React.FC<IInputProps> = (props) => {
                 </Grid>
                 <Hidden xsDown>
                   <Grid item sm={1} xs={1}>
-                    <IconButton
-                      className={classes.iconButton}
-                      edge="start"
-                      color="inherit"
-                      aria-label="menu"
-                    >
+                    <IconButton className={classes.iconButton} edge="start" color="inherit" aria-label="menu">
                       <ImageOutlinedIcon className={classes.icon} />
                     </IconButton>
                   </Grid>
                 </Hidden>
                 <Grid item sm={3} xs={6}>
-                  <FormControl
-                    variant="outlined"
-                    className={classes.formControl}
-                  >
+                  <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel>Svarstyp</InputLabel>
-                    <Select
-                      onChange={handleChange}
-                      label="Svarstyp"
-                      value={qType}
-                    >
+                    <Select onChange={handleChange} label="Svarstyp" value={qType}>
                       <MenuItem value={qType}>
                         <em>None</em>
                       </MenuItem>
                       <MenuItem value={'textAnswer'}>Fritextsvar</MenuItem>
-                      <MenuItem value={'multiChoiceAnswer'}>
-                        Flervalsalternativ
-                      </MenuItem>
-                      <MenuItem value={'singleChoceAnswer'}>
-                        Enkelvalsalternativ
-                      </MenuItem>
+                      <MenuItem value={'multiChoiceAnswer'}>Flervalsalternativ</MenuItem>
+                      <MenuItem value={'singleChoceAnswer'}>Enkelvalsalternativ</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>

@@ -28,11 +28,7 @@ export interface IInputProps {
   id: string;
 }
 
-const getSingleChoiceAlts = createSelector<
-  IStateTree,
-  IAssignmentState,
-  ISingleChoiceAlts[]
->(
+const getSingleChoiceAlts = createSelector<IStateTree, IAssignmentState, ISingleChoiceAlts[]>(
   (state) => state.assignments,
   (a) => a.singleChoiceAlts
 );
@@ -56,7 +52,7 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
         setAlts(singelChoiceAlt!.alts);
       }
     }
-  },[altsArray, props.id]);
+  }, [altsArray, props.id]);
 
   const updateReduxState = (alts: IAlt[]) => {
     if (altsArray.length !== 0) {
@@ -94,10 +90,7 @@ const SingleChoiceQuestion: React.FC<IInputProps> = (props) => {
       }
     });
     highestNumber++;
-    const newAlts = [
-      ...alts,
-      { id: highestNumber, value: '', isCorrect: false },
-    ];
+    const newAlts = [...alts, { id: highestNumber, value: '', isCorrect: false }];
     setAlts(newAlts);
     updateReduxState(newAlts);
   };

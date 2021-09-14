@@ -41,12 +41,7 @@ const NavbarMenu: React.FC = () => {
 
   return (
     <div>
-      <IconButton
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        className={classes.menuButton}
-        onClick={handleClick}
-      >
+      <IconButton aria-controls="simple-menu" aria-haspopup="true" className={classes.menuButton} onClick={handleClick}>
         <MenuIcon />
       </IconButton>
       <Menu

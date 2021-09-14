@@ -18,12 +18,7 @@ const Chat: React.FC = () => {
 
   return (
     <div>
-      <TextField
-        className={classes.input}
-        id="outlined-basic"
-        label="Meddelande"
-        variant="outlined"
-      />
+      <TextField className={classes.input} id="outlined-basic" label="Meddelande" variant="outlined" />
     </div>
   );
 };

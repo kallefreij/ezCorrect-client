@@ -57,25 +57,13 @@ const Group: React.FC = () => {
               <h2>Kommande aktiviteter</h2>
               <Grid container justify="space-between">
                 <Grid item>
-                  <ActivityBox
-                    numberOfTheMonth={20}
-                    month="Januari"
-                    activity="Glosor"
-                  />
+                  <ActivityBox numberOfTheMonth={20} month="Januari" activity="Glosor" />
                 </Grid>
                 <Grid item>
-                  <ActivityBox
-                    numberOfTheMonth={24}
-                    month="Januari"
-                    activity="Prov"
-                  />
+                  <ActivityBox numberOfTheMonth={24} month="Januari" activity="Prov" />
                 </Grid>
                 <Grid item>
-                  <ActivityBox
-                    numberOfTheMonth={5}
-                    month="Februari"
-                    activity="Inlämning"
-                  />
+                  <ActivityBox numberOfTheMonth={5} month="Februari" activity="Inlämning" />
                 </Grid>
               </Grid>
               <Students />

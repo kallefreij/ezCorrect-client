@@ -58,19 +58,13 @@ function getWindowDimensions() {
   };
 }
 
-const getSaveLoadingStatus = createSelector<
-  IStateTree,
-  IAssignmentState,
-  boolean
->(
+const getSaveLoadingStatus = createSelector<IStateTree, IAssignmentState, boolean>(
   (state) => state.assignments,
   (a) => a.saveLoadingStatus
 );
 
 const CardSidebarMenu: React.FC<IInputProps> = (props) => {
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  );
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const [isDraggableDisabled, setDisabled] = useState(false);
   const loading = useSelector(getSaveLoadingStatus);
   const classes = useStyles(windowDimensions);
@@ -112,17 +106,10 @@ const CardSidebarMenu: React.FC<IInputProps> = (props) => {
           >
             <SaveIcon />
             Spara prov
-            {loading && (
-              <CircularProgress size={24} className={classes.buttonProgress} />
-            )}
+            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
           </Button>
 
-          <Button
-            variant="contained"
-            onClick={handleClean}
-            className={classes.button}
-            color="secondary"
-          >
+          <Button variant="contained" onClick={handleClean} className={classes.button} color="secondary">
             <SaveIcon />
             Rensa
           </Button>
@@ -133,15 +120,7 @@ const CardSidebarMenu: React.FC<IInputProps> = (props) => {
             color={isDraggableDisabled ? 'secondary' : 'primary'}
             className={classes.button}
           >
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={isDraggableDisabled}
-                  onChange={handleDisable}
-                />
-              }
-              label=""
-            />
+            <FormControlLabel control={<Switch checked={isDraggableDisabled} onChange={handleDisable} />} label="" />
             {isDraggableDisabled ? 'Inaktivera kortdrag' : 'Aktivera kortdrag'}
           </Button>
         </CardContent>

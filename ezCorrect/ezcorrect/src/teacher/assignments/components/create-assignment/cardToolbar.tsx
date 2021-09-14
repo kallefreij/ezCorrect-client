@@ -64,19 +64,14 @@ export interface IInputProps {
   cardId: string;
 }
 
-const getCreateQuestions = createSelector<
-  IStateTree,
-  IAssignmentState,
-  ICreateTestQuestionCards[]
->(
+const getCreateQuestions = createSelector<IStateTree, IAssignmentState, ICreateTestQuestionCards[]>(
   (state) => state.assignments,
   (a) => a.createTestQuestionCards
 );
 
 const CardToolbar: React.FC<IInputProps> = (props) => {
   const classes = useStyles();
-  const questionCards: ICreateTestQuestionCards[] =
-    useSelector(getCreateQuestions);
+  const questionCards: ICreateTestQuestionCards[] = useSelector(getCreateQuestions);
   const dispatch = useDispatch();
 
   const getNewId = () => {
@@ -137,11 +132,7 @@ const CardToolbar: React.FC<IInputProps> = (props) => {
               </Button>
             </Grid>
             <Grid item>
-              <Button
-                className={classes.iconButton}
-                onClick={deleteQuestionCard}
-                disabled={props.cardId === '1'}
-              >
+              <Button className={classes.iconButton} onClick={deleteQuestionCard} disabled={props.cardId === '1'}>
                 <DeleteIcon />
               </Button>
             </Grid>

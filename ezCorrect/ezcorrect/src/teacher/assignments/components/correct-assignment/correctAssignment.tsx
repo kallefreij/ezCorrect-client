@@ -1,4 +1,4 @@
-import { makeStyles, Theme, createStyles, Grid} from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -39,20 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const getQuestionsFromState = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IQuestion[]
->(
+const getQuestionsFromState = createSelector<IStateTree, IAssignmentState, IQuestion[]>(
   (state) => state.assignments,
   (q) => q.questions
 );
 
-const getSelectedQuestionFromState = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IQuestion
->(
+const getSelectedQuestionFromState = createSelector<IStateTree, IAssignmentState, IQuestion>(
   (state) => state.assignments,
   (q) => q.selectedQuestion
 );

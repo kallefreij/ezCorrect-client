@@ -126,20 +126,12 @@ const Confirm: React.FC<IConfirmProps> = (props) => {
                   />
                 </Grid>
               </Grid>
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={onConfirm}
-                className={classes.submit}
-              >
+              <Button fullWidth variant="contained" color="primary" onClick={onConfirm} className={classes.submit}>
                 Bekfräfta
               </Button>
               <Grid container>
                 <Grid item>
-                  <NavLink to="/signin">
-                    Already have an account? Sign in
-                  </NavLink>
+                  <NavLink to="/signin">Already have an account? Sign in</NavLink>
                 </Grid>
               </Grid>
             </form>

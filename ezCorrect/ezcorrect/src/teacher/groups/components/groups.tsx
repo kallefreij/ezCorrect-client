@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  Grid,
-  Hidden,
-  makeStyles,
-  Theme,
-} from '@material-ui/core';
+import { createStyles, Grid, Hidden, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
 import ButtonCard from '../../../common/buttons/buttonCard';
 import GroupIcon from '@material-ui/icons/Group';
@@ -34,12 +28,7 @@ const Groups: React.FC = () => {
       <Grid container>
         <Grid item sm={4} xs={12}>
           <div>
-            <ButtonCard
-              text="Grupp"
-              icon={<GroupIcon />}
-              color="#D0A1A1"
-              to="/teacher/group"
-            />
+            <ButtonCard text="Grupp" icon={<GroupIcon />} color="#D0A1A1" to="/teacher/group" />
           </div>
         </Grid>
         <Grid item xs={8}>

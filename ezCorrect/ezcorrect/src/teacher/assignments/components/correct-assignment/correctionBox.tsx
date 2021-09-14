@@ -36,18 +36,12 @@ const CorrectionBox: React.FC<ICorrectionBox> = (props) => {
   const classes = useStyles();
 
   const renderPoints = () => {
-    const points =
-      props.question.points !== undefined
-        ? props.question.points
-        : props.question.status === 4
-        ? 1
-        : 0;
+    const points = props.question.points !== undefined ? props.question.points : props.question.status === 4 ? 1 : 0;
     return points;
   };
 
   const renderMaxPoint = () => {
-    const maxPoint =
-      props.question.maxPoint !== undefined ? props.question.maxPoint : 1;
+    const maxPoint = props.question.maxPoint !== undefined ? props.question.maxPoint : 1;
     return maxPoint;
   };
 

@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  IconButton,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { Card, CardContent, IconButton, makeStyles, Typography } from '@material-ui/core';
 import * as React from 'react';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import GroupIcon from '@material-ui/icons/PeopleOutline';
@@ -116,11 +110,7 @@ const Students: React.FC = () => {
         <div className={classes.header}>
           <Typography className={classes.title}>Studenter</Typography>
           <IconButton className={classes.iconButton} onClick={handleModeSwitch}>
-            {modeSwitch ? (
-              <ChatBubbleOutlineIcon className={classes.icon} />
-            ) : (
-              <GroupIcon className={classes.icon} />
-            )}
+            {modeSwitch ? <ChatBubbleOutlineIcon className={classes.icon} /> : <GroupIcon className={classes.icon} />}
           </IconButton>
         </div>
         {modeSwitch ? (

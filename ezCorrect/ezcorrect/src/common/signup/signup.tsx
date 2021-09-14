@@ -185,20 +185,12 @@ const SignUp: React.FC<ISignUpProps> = (props) => {
                   />
                 </Grid>
               </Grid>
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={onSubmit}
-                className={classes.submit}
-              >
+              <Button fullWidth variant="contained" color="primary" onClick={onSubmit} className={classes.submit}>
                 Sign Up
               </Button>
               <Grid container>
                 <Grid item>
-                  <NavLink to="/signin">
-                    Already have an account? Sign in
-                  </NavLink>
+                  <NavLink to="/signin">Already have an account? Sign in</NavLink>
                 </Grid>
               </Grid>
             </form>

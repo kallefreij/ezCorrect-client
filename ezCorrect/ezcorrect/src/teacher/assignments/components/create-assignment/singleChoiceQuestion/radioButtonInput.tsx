@@ -17,7 +17,6 @@ export interface IInputProps {
 }
 
 const RadioButtonInput: React.FC<IInputProps> = (props) => {
-
   const handleKeypress = (event: any) => {
     if (event.key === 'Enter') {
       props.handleKeyPress();
@@ -52,10 +51,7 @@ const RadioButtonInput: React.FC<IInputProps> = (props) => {
             }
             endAdornment={
               <InputAdornment position="end">
-                <IconButton
-                  onClick={() => props.deleteInput(props.buttonId)}
-                  color="secondary"
-                >
+                <IconButton onClick={() => props.deleteInput(props.buttonId)} color="secondary">
                   <ClearIcon />
                 </IconButton>
               </InputAdornment>

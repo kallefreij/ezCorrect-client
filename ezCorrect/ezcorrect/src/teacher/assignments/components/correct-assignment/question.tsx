@@ -1,9 +1,4 @@
-import {
-  makeStyles,
-  Card,
-  Grid,
-  darken,
-} from '@material-ui/core';
+import { makeStyles, Card, Grid, darken } from '@material-ui/core';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -35,11 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-const getSelectedQuestionFromState = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IQuestion
->(
+const getSelectedQuestionFromState = createSelector<IStateTree, IAssignmentState, IQuestion>(
   (state) => state.assignments,
   (q) => q.selectedQuestion
 );
@@ -70,18 +61,12 @@ const Question: React.FC<IQuestionProps> = (props) => {
   };
 
   const renderPoints = () => {
-    const points =
-      props.question.points !== undefined
-        ? props.question.points
-        : props.question.status === 4
-        ? 1
-        : 0;
+    const points = props.question.points !== undefined ? props.question.points : props.question.status === 4 ? 1 : 0;
     return points;
   };
 
   const renderMaxPoint = () => {
-    const maxPoint =
-      props.question.maxPoint !== undefined ? props.question.maxPoint : 1;
+    const maxPoint = props.question.maxPoint !== undefined ? props.question.maxPoint : 1;
     return maxPoint;
   };
 

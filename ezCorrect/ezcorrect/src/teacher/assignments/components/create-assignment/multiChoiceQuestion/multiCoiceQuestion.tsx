@@ -27,11 +27,7 @@ export interface IInputProps {
   id: string;
 }
 
-const getMultiChoiceAlts = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IMultiChoiceAlts[]
->(
+const getMultiChoiceAlts = createSelector<IStateTree, IAssignmentState, IMultiChoiceAlts[]>(
   (state) => state.assignments,
   (a) => a.multiChoiceAlts
 );
@@ -95,10 +91,7 @@ const MultiCoiceQuestion: React.FC<IInputProps> = (props) => {
       }
     });
     highestNumber++;
-    const newAlts = [
-      ...alts,
-      { id: highestNumber, value: '', isCorrect: false },
-    ];
+    const newAlts = [...alts, { id: highestNumber, value: '', isCorrect: false }];
     setAlts(newAlts);
     updateReduxState(newAlts);
   };

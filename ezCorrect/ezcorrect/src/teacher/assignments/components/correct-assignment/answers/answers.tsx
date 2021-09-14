@@ -36,19 +36,11 @@ const useStyles = makeStyles({
     borderTop: '0.01em solid',
   },
 });
-const getSelectedQuestionFromState = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IQuestion
->(
+const getSelectedQuestionFromState = createSelector<IStateTree, IAssignmentState, IQuestion>(
   (state) => state.assignments,
   (q) => q.selectedQuestion
 );
-const getQuestionsFromState = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IQuestion[]
->(
+const getQuestionsFromState = createSelector<IStateTree, IAssignmentState, IQuestion[]>(
   (state) => state.assignments,
   (q) => q.questions
 );
@@ -59,9 +51,7 @@ const Answers: React.FC = () => {
   const questions = useSelector(getQuestionsFromState);
   const dispatch = useDispatch();
   const [pointMenuOpen, setPointMenuOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const setAnswerStatus = (status: number, points?: number) => {
     const newQuestions = [...questions];
@@ -96,16 +86,9 @@ const Answers: React.FC = () => {
   };
   return (
     <div className={classes.testCard}>
-      <div style={{ position: 'relative' }}>
-        {renderQuestionType(selectedQuestion.questionType)}
-      </div>
+      <div style={{ position: 'relative' }}>{renderQuestionType(selectedQuestion.questionType)}</div>
       <div className={classes.actionBar}>
-        <Grid
-          container
-          justify="space-between"
-          alignItems="center"
-          style={{ height: 50 }}
-        >
+        <Grid container justify="space-between" alignItems="center" style={{ height: 50 }}>
           <Grid item>
             {/* <IconButton size="small">
                             <ChatBubbleOutlineIcon className={classes.icon}/>
@@ -113,10 +96,7 @@ const Answers: React.FC = () => {
           </Grid>
           <Grid item>
             <IconButton size="small" onClick={handlePointMenuClick}>
-              <CheckIcon
-                className={classes.icon}
-                style={{ color: green[800] }}
-              />
+              <CheckIcon className={classes.icon} style={{ color: green[800] }} />
             </IconButton>
             <PointSelectionMenu
               id={selectedQuestion.id}
@@ -128,11 +108,7 @@ const Answers: React.FC = () => {
               maxPoint={selectedQuestion.maxPoint}
               setStatus={setAnswerStatus}
             />
-            <IconButton
-              size="small"
-              onClick={() => setAnswerStatus(2)}
-              style={{ color: red[800] }}
-            >
+            <IconButton size="small" onClick={() => setAnswerStatus(2)} style={{ color: red[800] }}>
               <CloseIcon className={classes.icon} />
             </IconButton>
           </Grid>

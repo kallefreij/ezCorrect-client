@@ -7,14 +7,7 @@ export interface IIconProps {
 }
 
 const EzCorrectIcon: React.FC<IIconProps> = (props) => {
-  return (
-    <img
-      src={img}
-      width={props.width}
-      height={props.height}
-      alt="company logo"
-    />
-  );
+  return <img src={img} width={props.width} height={props.height} alt="company logo" />;
 };
 
 export default EzCorrectIcon;

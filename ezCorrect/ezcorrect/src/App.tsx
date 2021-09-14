@@ -2,12 +2,7 @@ import './App.css';
 import HomeTeacher from './teacher/home/components/home';
 import Navbar from './common/navbar/navbar';
 import Statistics from './teacher/statistics/components/statistics';
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Assignments from './teacher/assignments/components/assignments';
 import CreateAssignment from './teacher/assignments/components/create-assignment/createAssignment';
 import Groups from './teacher/groups/components/groups';
@@ -36,8 +31,6 @@ export interface ISignUpValues {
   lastName: string;
 }
 
-// TODO skapa din egen utloggningsknapp med hjälp av Auth.signOut();
-// TODO Om oinloggad visar vi en annan eller en modifierad navbar. Samt curvy sidan. Annars teacher ATM.
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
@@ -47,8 +40,9 @@ function App() {
   }, []);
 
   const AssessLoggedInState = async () => {
-    await Auth.currentAuthenticatedUser()
+      await Auth.currentAuthenticatedUser()
       .then(() => {
+        console.log(loggedIn)
         setLoggedIn(true);
         console.log('Logged in');
       })
@@ -84,34 +78,18 @@ function App() {
     <div>
       <EzSnackbar />
       <ErrorSnackbar />
-      {loggedIn ? (
-        <Router>
+      <Router>
+        {loggedIn ? (
           <Switch>
             <Route path="/teacher/">
               <Navbar onSignOut={onSignOut} />
               <Route exact path="/teacher/home" component={HomeTeacher}></Route>
-              <Route
-                exact
-                path="/teacher/assignments"
-                component={Assignments}
-              ></Route>
-              <Route
-                exact
-                path="/teacher/assignments/create"
-                component={CreateAssignment}
-              ></Route>
-              <Route
-                exact
-                path="/teacher/assignments/correct"
-                component={CorrectAssignment}
-              ></Route>
+              <Route exact path="/teacher/assignments" component={Assignments}></Route>
+              <Route exact path="/teacher/assignments/create" component={CreateAssignment}></Route>
+              <Route exact path="/teacher/assignments/correct" component={CorrectAssignment}></Route>
               <Route exact path="/teacher/groups" component={Groups}></Route>
               <Route exact path="/teacher/group" component={Group}></Route>
-              <Route
-                exact
-                path="/teacher/statistics"
-                component={Statistics}
-              ></Route>
+              <Route exact path="/teacher/statistics" component={Statistics}></Route>
               <Route exact path="/teacher/student" component={Student}></Route>
               <Route exact path="/teacher/profile" component={Student}></Route>
             </Route>
@@ -119,32 +97,18 @@ function App() {
               <Redirect to="/teacher/home" />
             </Route>
           </Switch>
-        </Router>
-      ) : (
-        <Router>
+        ) : (
           <Switch>
             <Route exact path="/home" component={StartHome}></Route>
-            <Route
-              exact
-              path="/signin"
-              render={() => <SignIn onSignIn={onSignIn} />}
-            ></Route>
-            <Route
-              exact
-              path="/signup"
-              render={() => <SignUp onSignUp={onSignUp} />}
-            ></Route>
-            <Route
-              exact
-              path="/confirm"
-              render={() => <Confirm email={userEmail} onConfirm={onConfirm} />}
-            ></Route>
+            <Route exact path="/signin" render={() => <SignIn onSignIn={onSignIn} />}></Route>
+            <Route exact path="/signup" render={() => <SignUp onSignUp={onSignUp} />}></Route>
+            <Route exact path="/confirm" render={() => <Confirm email={userEmail} onConfirm={onConfirm} />}></Route>
             <Route path="/">
               <Redirect to="/home" />
             </Route>
           </Switch>
-        </Router>
-      )}
+        )}
+      </Router>
 
       {/* <HomeTeacher/>
       <Statistics/> */}

@@ -31,11 +31,7 @@ interface IPlanAssignmentModalProps {
   handleClose: () => void;
 }
 
-const getSelectedAssignmentFromState = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IAssignmentMetaData
->(
+const getSelectedAssignmentFromState = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData>(
   (state) => state.assignments,
   (a) => a.selectedAssignment
 );
@@ -96,9 +92,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
     setPersonName(event.target.value as string[]);
   };
 
-  const handleChangeMultiple = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handleChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { options } = event.target as HTMLSelectElement;
     const value: string[] = [];
     for (let i = 0, l = options.length; i < l; i += 1) {
@@ -131,10 +125,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
         aria-labelledby="responsive-dialog-title"
         //className={classes.root}
       >
-        <DialogTitle
-          id="responsive-dialog-title"
-          className={classes.dialogActions}
-        >
+        <DialogTitle id="responsive-dialog-title" className={classes.dialogActions}>
           Schemalägg prov
         </DialogTitle>
         <DialogContent>
@@ -189,11 +180,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
             className={classes.formControlCombo}
             required
           />
-          <FormControl
-            variant="outlined"
-            fullWidth
-            className={classes.formControlCombo}
-          >
+          <FormControl variant="outlined" fullWidth className={classes.formControlCombo}>
             <InputLabel htmlFor="outlined-age-native-simple">Klass</InputLabel>
             <Select
               native
@@ -230,23 +217,13 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
                             ))}
                         </Select>
                     </FormControl> */}
-          <TextField
-            margin="dense"
-            id="name"
-            label="Hjälpmedel"
-            type="email"
-            variant="outlined"
-            fullWidth
-          />
+          <TextField margin="dense" id="name" label="Hjälpmedel" type="email" variant="outlined" fullWidth />
         </DialogContent>
         <DialogActions className={classes.dialogActionsBottom}>
           <Button className={classes.cancelButton} onClick={props.handleClose}>
             Avbryt
           </Button>
-          <Button
-            className={classes.scheduleButton}
-            onClick={props.handleClose}
-          >
+          <Button className={classes.scheduleButton} onClick={props.handleClose}>
             Schemalägg
           </Button>
         </DialogActions>

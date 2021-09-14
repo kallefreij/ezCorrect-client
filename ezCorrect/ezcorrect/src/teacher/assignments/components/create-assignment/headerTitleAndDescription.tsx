@@ -1,12 +1,5 @@
 import { Grid, Hidden, InputLabel, MenuItem, Select } from '@material-ui/core';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  FormControl,
-  makeStyles,
-  TextField,
-} from '@material-ui/core';
+import { Card, CardActions, CardContent, FormControl, makeStyles, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import CardToolbar from './cardToolbar';
 import { ThemeProvider } from '@material-ui/styles';
@@ -119,13 +112,9 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
 
   const classes = useStyles();
   const [categories, setCategories] = useState<string[]>(tmp_categories);
-  const [selectedCategories, setSelectedCategories] = useState<
-    string[] | undefined
-  >(props.categories);
+  const [selectedCategories, setSelectedCategories] = useState<string[] | undefined>(props.categories);
   const [subjects, setSubjects] = useState(tmp_subjects.sort());
-  const [selectedSubjects, setSelectedSubjects] = useState<
-    string[] | undefined
-  >(props.subjects);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[] | undefined>(props.subjects);
 
   const handleSubjecs = (event: React.ChangeEvent<{ value: any }>) => {
     const subjects = event.target.value as string[];
@@ -173,17 +162,9 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                 </Grid>
                 <Hidden xsDown>
                   <Grid item sm={4} xs={6}>
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
+                    <FormControl variant="outlined" className={classes.formControl}>
                       <InputLabel>Kategori</InputLabel>
-                      <Select
-                        value={selectedCategories}
-                        onChange={handleCategories}
-                        label="Kategori"
-                        multiple
-                      >
+                      <Select value={selectedCategories} onChange={handleCategories} label="Kategori" multiple>
                         {categories.map((category) => (
                           <MenuItem key={category} value={category}>
                             {category}
@@ -205,17 +186,9 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                     />
                   </Grid>
                   <Grid item sm={4} xs={6}>
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
+                    <FormControl variant="outlined" className={classes.formControl}>
                       <InputLabel>Ämne</InputLabel>
-                      <Select
-                        label="Ämne"
-                        value={selectedSubjects}
-                        onChange={handleSubjecs}
-                        multiple
-                      >
+                      <Select label="Ämne" value={selectedSubjects} onChange={handleSubjecs} multiple>
                         {subjects.map((subject) => (
                           <MenuItem key={subject} value={subject}>
                             {subject}
@@ -239,17 +212,9 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                     />
                   </Grid>
                   <Grid item sm={4} xs={6}>
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
+                    <FormControl variant="outlined" className={classes.formControl}>
                       <InputLabel>Kategori</InputLabel>
-                      <Select
-                        value={selectedCategories}
-                        onChange={handleCategories}
-                        label="Kategori"
-                        multiple
-                      >
+                      <Select value={selectedCategories} onChange={handleCategories} label="Kategori" multiple>
                         {categories.map((category) => (
                           <MenuItem key={category} value={category}>
                             {category}
@@ -257,17 +222,9 @@ const HeaderTitleAndDescription: React.FC<IInputProps> = (props) => {
                         ))}
                       </Select>
                     </FormControl>
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
+                    <FormControl variant="outlined" className={classes.formControl}>
                       <InputLabel>Ämne</InputLabel>
-                      <Select
-                        label="Ämne"
-                        value={selectedSubjects}
-                        onChange={handleSubjecs}
-                        multiple
-                      >
+                      <Select label="Ämne" value={selectedSubjects} onChange={handleSubjecs} multiple>
                         {subjects.map((subject) => (
                           <MenuItem key={subject} value={subject}>
                             {subject}

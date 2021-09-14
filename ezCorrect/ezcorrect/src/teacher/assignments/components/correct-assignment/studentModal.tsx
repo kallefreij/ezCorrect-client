@@ -53,10 +53,7 @@ const StudentModal: React.FC<StudentModalProps> = (props) => {
       onClose={props.handleClose}
       open={props.open}
     >
-      <DialogTitle
-        id="confirmation-dialog-title"
-        className={classes.dialogActions}
-      >
+      <DialogTitle id="confirmation-dialog-title" className={classes.dialogActions}>
         Matteprov Algebra
       </DialogTitle>
       <List className={classes.root}>

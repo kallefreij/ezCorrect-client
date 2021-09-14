@@ -1,13 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  createStyles,
-  Hidden,
-  makeStyles,
-  SvgIcon,
-  Theme,
-} from '@material-ui/core';
+import { Card, CardContent, CardMedia, createStyles, Hidden, makeStyles, SvgIcon, Theme } from '@material-ui/core';
 import * as React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,9 +72,7 @@ const InfoCard: React.FC<IInfoCardProps> = (props) => {
                 </div> */}
         <Hidden smDown>
           <div className={classes.circle}>
-            <SvgIcon style={{ fontSize: 50, marginTop: 50, marginLeft: 50 }}>
-              {props.icon}
-            </SvgIcon>
+            <SvgIcon style={{ fontSize: 50, marginTop: 50, marginLeft: 50 }}>{props.icon}</SvgIcon>
           </div>
         </Hidden>
       </div>

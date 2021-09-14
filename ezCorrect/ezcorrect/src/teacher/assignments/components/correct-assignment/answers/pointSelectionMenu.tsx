@@ -1,13 +1,4 @@
-import {
-  createStyles,
-  Grid,
-  makeStyles,
-  Popover,
-  Slider,
-  Theme,
-  ThemeProvider,
-  Typography,
-} from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Popover, Slider, Theme, ThemeProvider, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { theme } from '../../../../../common/ezTheme';
 
@@ -82,12 +73,7 @@ const PointSelectionMenu: React.FC<PointSelectionProps> = (props) => {
         horizontal: 'center',
       }}
     >
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.root}
-      >
+      <Grid container justify="center" alignItems="center" className={classes.root}>
         <Grid item>
           <Typography id="discrete-slider-always" gutterBottom>
             Antal poäng

@@ -66,12 +66,9 @@ export interface INavbarProps {
 
 const Navbar: React.FC<INavbarProps> = (props) => {
   const classes = useStyles();
-  const [anchorElProfileMenu, setAnchorElProfileMenu] =
-    React.useState<null | HTMLElement>(null);
+  const [anchorElProfileMenu, setAnchorElProfileMenu] = React.useState<null | HTMLElement>(null);
 
-  const handleClickProfileButton = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleClickProfileButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElProfileMenu(event.currentTarget);
   };
 
@@ -86,35 +83,23 @@ const Navbar: React.FC<INavbarProps> = (props) => {
           <NavbarMenu />
 
           <Typography className={classes.button}>
-            <NavLink
-              to="/teacher/home"
-              style={{ textDecoration: 'none', color: 'white' }}
-            >
+            <NavLink to="/teacher/home" style={{ textDecoration: 'none', color: 'white' }}>
               <Button color="inherit">Hem</Button>
             </NavLink>
           </Typography>
 
           <Typography className={classes.button}>
-            <NavLink
-              to="/teacher/assignments"
-              style={{ textDecoration: 'none', color: 'white' }}
-            >
+            <NavLink to="/teacher/assignments" style={{ textDecoration: 'none', color: 'white' }}>
               <Button color="inherit">Uppgifter</Button>
             </NavLink>
           </Typography>
           <Typography className={classes.button}>
-            <NavLink
-              to="/teacher/groups"
-              style={{ textDecoration: 'none', color: 'white' }}
-            >
+            <NavLink to="/teacher/groups" style={{ textDecoration: 'none', color: 'white' }}>
               <Button color="inherit">Klasser</Button>
             </NavLink>
           </Typography>
           <Typography className={classes.button}>
-            <NavLink
-              to="/teacher/statistics"
-              style={{ textDecoration: 'none', color: 'white' }}
-            >
+            <NavLink to="/teacher/statistics" style={{ textDecoration: 'none', color: 'white' }}>
               <Button color="inherit">Statistik</Button>
             </NavLink>
           </Typography>
@@ -124,12 +109,7 @@ const Navbar: React.FC<INavbarProps> = (props) => {
               Abdullah
             </Button>
           </Typography>
-          <UserAvatar
-            firstName="Test"
-            lastName="Lärare"
-            size={45}
-            image="https://www.fillmurray.com/g/200/300"
-          />
+          <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300" />
           <ProfileMenu
             handleClose={handleCloseProfileMenu}
             handleSignOut={props.onSignOut}

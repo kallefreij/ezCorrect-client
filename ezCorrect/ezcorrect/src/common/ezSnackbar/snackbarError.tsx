@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  Snackbar,
-  IconButton,
-  makeStyles,
-  Theme,
-  Grid,
-  SvgIcon,
-} from '@material-ui/core';
+import { Snackbar, IconButton, makeStyles, Theme, Grid, SvgIcon } from '@material-ui/core';
 import { snackbarActions, ISnackbarState } from './snackbar.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -67,9 +60,7 @@ const ErrorSnackbar: React.FC = () => {
           <Grid item sm={2} lg={1}>
             <IconButton
               size="small"
-              onClick={() =>
-                dispatch({ type: snackbarActions.snackbarErrorClear })
-              }
+              onClick={() => dispatch({ type: snackbarActions.snackbarErrorClear })}
               style={{ float: 'right', marginRight: 10 }}
             >
               <SvgIcon>

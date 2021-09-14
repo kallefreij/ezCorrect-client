@@ -10,10 +10,7 @@ import { IStateTree } from '../../../../redux/rootReducer';
 import { IAssignmentState } from '../../assignments.reducer';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setCreateTestQuestions,
-  saveAssignment,
-} from '../../assignments.actions';
+import { setCreateTestQuestions, saveAssignment } from '../../assignments.actions';
 import { ITextAnswer } from './textAnswer/textAnswer';
 import { IMultiChoiceAlts } from './multiChoiceQuestion/multiCoiceQuestion';
 import { ISingleChoiceAlts } from './singleChoiceQuestion/singleChoiceQuestion';
@@ -32,47 +29,29 @@ export interface ICreateTestQuestionCards {
   answer?: any;
 }
 
-const getCreateQuestions = createSelector<
-  IStateTree,
-  IAssignmentState,
-  ICreateTestQuestionCards[]
->(
+const getCreateQuestions = createSelector<IStateTree, IAssignmentState, ICreateTestQuestionCards[]>(
   (state) => state.assignments,
   (a) => a.createTestQuestionCards
 );
 
-const getSingleChoiceAlts = createSelector<
-  IStateTree,
-  IAssignmentState,
-  ISingleChoiceAlts[]
->(
+const getSingleChoiceAlts = createSelector<IStateTree, IAssignmentState, ISingleChoiceAlts[]>(
   (state) => state.assignments,
   (a) => a.singleChoiceAlts
 );
 
-const getMultiChoiceAlts = createSelector<
-  IStateTree,
-  IAssignmentState,
-  IMultiChoiceAlts[]
->(
+const getMultiChoiceAlts = createSelector<IStateTree, IAssignmentState, IMultiChoiceAlts[]>(
   (state) => state.assignments,
   (a) => a.multiChoiceAlts
 );
 
-const getTextAnswer = createSelector<
-  IStateTree,
-  IAssignmentState,
-  ITextAnswer[]
->(
+const getTextAnswer = createSelector<IStateTree, IAssignmentState, ITextAnswer[]>(
   (state) => state.assignments,
   (a) => a.textAnswer
 );
 
 const CreateAssignment: React.FC = () => {
-  const questionCards: ICreateTestQuestionCards[] =
-    useSelector(getCreateQuestions);
-  const singleChoiceAlts: ISingleChoiceAlts[] =
-    useSelector(getSingleChoiceAlts);
+  const questionCards: ICreateTestQuestionCards[] = useSelector(getCreateQuestions);
+  const singleChoiceAlts: ISingleChoiceAlts[] = useSelector(getSingleChoiceAlts);
   const multiChoiceAlts: IMultiChoiceAlts[] = useSelector(getMultiChoiceAlts);
   const textAnswers: ITextAnswer[] = useSelector(getTextAnswer);
 
@@ -90,11 +69,7 @@ const CreateAssignment: React.FC = () => {
   const onDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
     if (!destination) return;
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    )
-      return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
     let newCardsArr = [...questionCards];
     const draggedCard: any = questionCards.find((c) => c.id === draggableId);
     newCardsArr.splice(source.index, 1);
@@ -170,11 +145,7 @@ const CreateAssignment: React.FC = () => {
 
   const handleSave = () => {
     let answerArray: any[] = [];
-    answerArray = answerArray.concat(
-      textAnswers,
-      singleChoiceAlts,
-      multiChoiceAlts
-    );
+    answerArray = answerArray.concat(textAnswers, singleChoiceAlts, multiChoiceAlts);
 
     const cardsToSave = questionCards.map((qc) => {
       qc.answer = answerArray.find((a) => a.id === qc.id);
@@ -261,11 +232,7 @@ const CreateAssignment: React.FC = () => {
           </DragDropContext>
         </Grid>
         <Grid item md={2} lg={2}>
-          <CardSidebarMenu
-            handleDisable={handleIsDraggable}
-            handleSave={handleSave}
-            handleClean={handleClean}
-          />
+          <CardSidebarMenu handleDisable={handleIsDraggable} handleSave={handleSave} handleClean={handleClean} />
         </Grid>
       </Grid>
     </div>

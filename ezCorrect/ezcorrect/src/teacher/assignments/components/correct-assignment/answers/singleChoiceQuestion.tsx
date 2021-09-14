@@ -1,9 +1,4 @@
-import {
-  Radio,
-  FormControlLabel,
-  Grid,
-  makeStyles,
-} from '@material-ui/core';
+import { Radio, FormControlLabel, Grid, makeStyles } from '@material-ui/core';
 import * as React from 'react';
 import { IQuestionProps } from '../../../assignments.interfaces';
 
@@ -22,35 +17,17 @@ const SingleChoiceQuestion: React.FC<IQuestionProps> = (props) => {
     <div className={classes.answerField}>
       <Grid container direction="column">
         <Grid item>
-          <FormControlLabel
-            control={<Radio checked={false} name="checkedB" color="primary" />}
-            label="0"
-          />
+          <FormControlLabel control={<Radio checked={false} name="checkedB" color="primary" />} label="0" />
+        </Grid>
+        <Grid item>
+          <FormControlLabel control={<Radio checked={true} name="checkedB" style={{ color: 'red' }} />} label="1" />
+        </Grid>
+        <Grid item>
+          <FormControlLabel control={<Radio checked={false} name="checkedB" color="primary" />} label="3" />
         </Grid>
         <Grid item>
           <FormControlLabel
-            control={
-              <Radio checked={true} name="checkedB" style={{ color: 'red' }} />
-            }
-            label="1"
-          />
-        </Grid>
-        <Grid item>
-          <FormControlLabel
-            control={<Radio checked={false} name="checkedB" color="primary" />}
-            label="3"
-          />
-        </Grid>
-        <Grid item>
-          <FormControlLabel
-            control={
-              <Radio
-                checked={false}
-                name="checkedB"
-                color="secondary"
-                style={{ color: 'white' }}
-              />
-            }
+            control={<Radio checked={false} name="checkedB" color="secondary" style={{ color: 'white' }} />}
             style={{
               color: 'white',
               backgroundColor: '#A1D0A5',

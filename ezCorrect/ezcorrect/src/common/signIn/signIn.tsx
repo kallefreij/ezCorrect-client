@@ -131,17 +131,8 @@ const SignIn: React.FC<ISigninProps> = (props) => {
                 autoComplete="password"
                 onChange={(e) => handlePassword(e.target.value)}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                fullWidth
-                variant="contained"
-                onClick={handleSignIn}
-                className={classes.submit}
-                color="primary"
-              >
+              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+              <Button fullWidth variant="contained" onClick={handleSignIn} className={classes.submit} color="primary">
                 Sign In
               </Button>
               <Grid container>

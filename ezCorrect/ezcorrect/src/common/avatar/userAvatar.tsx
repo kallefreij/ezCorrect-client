@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  createStyles,
-  IconButton,
-  makeStyles,
-  Theme,
-  Tooltip,
-} from '@material-ui/core';
+import { Avatar, createStyles, IconButton, makeStyles, Theme, Tooltip } from '@material-ui/core';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import * as React from 'react';
 import { randomColor } from '../utility/utility';
@@ -43,11 +36,7 @@ const UserAvatar: React.FC<IUserAvatarProps> = (props) => {
 
   return (
     <IconButton size="small" onClick={props.onClick}>
-      <Tooltip
-        title={props.firstName + ' ' + props.lastName}
-        arrow
-        disableHoverListener={props.disableTooltip}
-      >
+      <Tooltip title={props.firstName + ' ' + props.lastName} arrow disableHoverListener={props.disableTooltip}>
         <Avatar
           src={props.image}
           style={{

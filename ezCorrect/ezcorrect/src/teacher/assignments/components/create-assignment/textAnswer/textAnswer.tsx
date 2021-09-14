@@ -21,11 +21,7 @@ export interface ITextAnswer {
   answer: string;
 }
 
-const getTextAnswer = createSelector<
-  IStateTree,
-  IAssignmentState,
-  ITextAnswer[]
->(
+const getTextAnswer = createSelector<IStateTree, IAssignmentState, ITextAnswer[]>(
   (state) => state.assignments,
   (a) => a.textAnswer
 );
@@ -44,7 +40,7 @@ const TextAnswer: React.FC<IInputProps> = (props) => {
         setTxtValue(textAnswer.answer);
       }
     }
-  },[props.id, textAnswers]);
+  }, [props.id, textAnswers]);
 
   const updateReduxState = (textAreaValue: string) => {
     if (textAnswers.length !== 0) {
