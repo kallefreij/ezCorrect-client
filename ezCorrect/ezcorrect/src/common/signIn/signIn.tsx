@@ -16,6 +16,9 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { Paper } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import EzCorrectIcon from '../ezCorrectIcon';
+import { useDispatch } from 'react-redux';
+import { setUserState } from '../user/user.actions';
+import { IUser } from '../user/user.reducer';
 
 const Copyright = () => {
   return (
@@ -72,6 +75,7 @@ const SignIn: React.FC<ISigninProps> = (props) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleUsername = (input: string) => {
     setUserName(input);
@@ -87,7 +91,13 @@ const SignIn: React.FC<ISigninProps> = (props) => {
 
   const handleSignIn = async () => {
     try {
-      await Auth.signIn(userName, password);
+      const authenticatedUser = await Auth.signIn(userName, password);
+      const user:IUser = { 
+        email: authenticatedUser.attributes.email, 
+        username: authenticatedUser.username
+      };
+
+      dispatch(setUserState(user));
       history.push('/home');
       onSignIn();
     } catch (error) {
