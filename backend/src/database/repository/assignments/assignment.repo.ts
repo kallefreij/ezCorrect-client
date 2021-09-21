@@ -5,8 +5,8 @@ import ISingleChoiceAnswer, { SingleChoiceAnswerModel } from "../../model/assign
 import ITextAnswer, { TextAnswerModel } from "../../model/assignments/textQuestion.model";
 
 export default class AssignmentRepo {
-    public static getAllAssignments(): Promise<IAssignment[]> {
-        return AssignmentModel.find({}).exec();
+    public static getAllAssignments(username:string): Promise<IAssignment[]> {
+        return AssignmentModel.find({user: username}).exec();
     }
 
     public static getAssignment(id: string): Promise<IAssignment|null> {

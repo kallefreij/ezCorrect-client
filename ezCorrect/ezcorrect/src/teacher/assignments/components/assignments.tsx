@@ -13,10 +13,15 @@ import { IStateTree } from '../../../redux/rootReducer';
 import { IAssignmentState } from '../assignments.reducer';
 import { IAssignmentMetaData } from '../assignments.interfaces';
 import EzCorrectIcon from '../../../common/ezCorrectIcon';
+import { IUserState, IUser } from '../../../common/user/user.reducer';
 
 const getAssignmentMetaData = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData[]>(
   (state) => state.assignments,
   (a) => a.assignmentMetadata
+);
+const getUserData = createSelector<IStateTree, IUserState, IUser>(
+  (state) => state.user,
+  (a) => a.loggedInUser
 );
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,11 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const Assignments: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const userData = useSelector(getUserData);
   const assignmentMetaData = useSelector(getAssignmentMetaData);
 
   React.useEffect(() => {
     console.log('FETCHING');
-    dispatch(fetchAssignmentsNow());
+    dispatch(fetchAssignmentsNow(userData.username));
   }, [dispatch]);
 
   return (

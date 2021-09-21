@@ -14,9 +14,11 @@ import { setCreateTestQuestions, saveAssignment } from '../../assignments.action
 import { ITextAnswer } from './textAnswer/textAnswer';
 import { IMultiChoiceAlts } from './multiChoiceQuestion/multiCoiceQuestion';
 import { ISingleChoiceAlts } from './singleChoiceQuestion/singleChoiceQuestion';
+import { IUserState, IUser } from '../../../../common/user/user.reducer';
 
 export interface ICreateTestQuestionCards {
   id: string;
+  user?: string;
   title?: string;
   description?: string;
   question?: string;
@@ -49,11 +51,17 @@ const getTextAnswer = createSelector<IStateTree, IAssignmentState, ITextAnswer[]
   (a) => a.textAnswer
 );
 
+const getUserData = createSelector<IStateTree, IUserState, IUser>(
+  (state) => state.user,
+  (a) => a.loggedInUser
+);
+
 const CreateAssignment: React.FC = () => {
   const questionCards: ICreateTestQuestionCards[] = useSelector(getCreateQuestions);
   const singleChoiceAlts: ISingleChoiceAlts[] = useSelector(getSingleChoiceAlts);
   const multiChoiceAlts: IMultiChoiceAlts[] = useSelector(getMultiChoiceAlts);
   const textAnswers: ITextAnswer[] = useSelector(getTextAnswer);
+  const userData = useSelector(getUserData);
 
   const dispatch = useDispatch();
 
@@ -63,6 +71,7 @@ const CreateAssignment: React.FC = () => {
       else card.isSelected = false;
       return card;
     });
+    qCards[0].user = userData.username;
     dispatch(setCreateTestQuestions(qCards));
   };
 

@@ -44,8 +44,9 @@ router.get('/single/:id', (req, res, next) => {
     })
 });
 
-router.get('/metadata', (req, res, next) => {
-    const promise = AssignmentRepo.getAllAssignments();
+router.get('/metadata/:username', (req, res, next) => {
+    console.log(req.params.username)
+    const promise = AssignmentRepo.getAllAssignments(req.params.username);
 
     promise.then((doc: IAssignment[]) => {
         const metadataList = doc.map(d => {

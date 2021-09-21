@@ -9,9 +9,9 @@ import { ITextAnswer } from "./components/create-assignment/textAnswer/textAnswe
  
 const axios = require('axios').default;
 
-export const fetchAssignmentsNow = () => async (dispatch: any) => {
+export const fetchAssignmentsNow = (user:string) => async (dispatch: any) => {
     dispatch({type: assignmentsActions.fetchAssignmentMetaData});    
-    const res = await axios.get('http://localhost:4000/api/assignments/metadata');
+    const res = await axios.get('http://localhost:4000/api/assignments/metadata/' + user);
 
     if(res.status === 200){
         console.log(res.data.assignments)
@@ -92,9 +92,6 @@ export const setSaveLoadingStatus = (loading: boolean) => async (dispatch:any) =
 }
 
 export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) => async (dispatch: any) => {
-
-    console.log(createTestQuestions)
-
     await axios.post('http://localhost:4000/api/assignments', {assignment: createTestQuestions})
         .then((res: any) => {
             console.log(res)
@@ -105,9 +102,8 @@ export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) 
         .catch((err: any) => {
             console.log(err)
             dispatch(setSaveLoadingStatus(false))
-            dispatch(showSnackbarError("Kunde spara prov")) 
+            dispatch(showSnackbarError("Kunde inte spara prov")) 
         })
-
 }
 
 export const setSelectedAssignment = (assignment: any) => async (dispatch: any) => {

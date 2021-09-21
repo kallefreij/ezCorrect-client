@@ -30,6 +30,7 @@ export class AssignmentUtil {
         if(element.cardType == 'header'){
             const assignmentModel = new AssignmentModel({
                 title: element.title,
+                user: element.user,
                 description: element.description,
                 subjects: element.subjects,
                 categories: element.categories
