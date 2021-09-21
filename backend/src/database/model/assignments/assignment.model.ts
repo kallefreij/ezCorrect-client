@@ -17,7 +17,7 @@ export default interface IAssignment extends Document {
 const schema = new Schema({
     user:{
         type:Schema.Types.String,
-        //required:true,
+        required:true,
     },
     title:{
         type:Schema.Types.String,
