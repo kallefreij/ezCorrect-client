@@ -9,6 +9,10 @@ import { NavLink } from 'react-router-dom';
 import NavbarMenu from './menu/menu';
 import UserAvatar from '../avatar/userAvatar';
 import ProfileMenu from './menu/profileMenu';
+import { createSelector } from 'reselect';
+import { IStateTree } from '../../redux/rootReducer';
+import { IUserState, IUser } from '../user/user.reducer';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,8 +68,14 @@ export interface INavbarProps {
   onSignOut: () => void;
 }
 
+const getUserData = createSelector<IStateTree, IUserState, IUser>(
+  (state) => state.user,
+  (a) => a.loggedInUser
+);
+
 const Navbar: React.FC<INavbarProps> = (props) => {
   const classes = useStyles();
+  const userData = useSelector(getUserData);
   const [anchorElProfileMenu, setAnchorElProfileMenu] = React.useState<null | HTMLElement>(null);
 
   const handleClickProfileButton = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -106,7 +116,7 @@ const Navbar: React.FC<INavbarProps> = (props) => {
           <Typography className={classes.flex}></Typography>
           <Typography className={classes.account}>
             <Button color="inherit" onClick={handleClickProfileButton}>
-              Abdullah
+              {userData.username}
             </Button>
           </Typography>
           <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300" />

@@ -22,7 +22,7 @@ const userReducer = (state = intitialState, action: any) => {
         case userActions.setUserReduxState:
             return{
                 ...state,
-                user: action.payload
+                loggedInUser: action.payload
             }
         default:
             return state;
