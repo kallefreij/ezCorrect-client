@@ -100,14 +100,67 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
   const [startTime, setStartTime] = React.useState<string>();
   const [endTime, setEndTime] = React.useState<string>();
   const [group, setGroup] = React.useState<string>();
+  //Validerings hooks
+  const [dateFieldError, setDateFieldError] = React.useState<boolean>(false);
+  const [dateFieldErrorText, setDateFieldErrorText] = React.useState<string>();
+  const [startTimeFieldError, setStartTimeFieldError] = React.useState<boolean>(false);
+  const [startTimeFieldErrorText, setStartTimeFieldErrorText] = React.useState<string>();
+  const [endTimeFieldError, setEndTimeFieldError] = React.useState<boolean>(false);
+  const [endTimeFieldErrorText, setEndTimeFieldErrorText] = React.useState<string>();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPersonName(event.target.value as string[]);
   };
 
+  const handleDateFieldChange = (input:string) => {
+    if(new Date(input) < new Date){
+      setDateFieldError(true)
+      setDateFieldErrorText("Datum får inte vara mindre än dagens datum")
+    }
+    else{
+      setDateFieldError(false)
+      setDateFieldErrorText("")
+      setDate(input)
+    }
+  }
+
+  const handleStartTimeFieldChange = (input:string) => {
+    if(endTime != undefined){
+      if(input > endTime){
+        setStartTimeFieldError(true)
+        setStartTimeFieldErrorText("Starttiden får inte vara efter sluttid")
+      }
+      else{
+        setStartTimeFieldError(false)
+        setStartTimeFieldErrorText("")
+        setStartTime(input)
+      }
+    }
+    else{
+      setStartTime(input)
+    }
+  }
+
+  const handleEndTimeFieldChange = (input:string) => {
+    if(startTime != undefined){
+      if(input < startTime){
+        setEndTimeFieldError(true)
+        setEndTimeFieldErrorText("Sluttiden får inte vara innan starttid")
+      }
+      else{
+        setEndTimeFieldError(false)
+        setEndTimeFieldErrorText("")
+        setEndTime(input)
+      }
+    }
+    else{
+      setEndTime(input)
+    }
+  }
+
   const handleSave = () => {
     const startDateAndTime = new Date(`${date} ${startTime}`);
-    const endDateAndTime = new Date(`${date} ${startTime}`);
+    const endDateAndTime = new Date(`${date} ${endTime}`);
     const scheduledAssignment:IScheduledAssignment = {creator: userData.username, title: selectedAssignment.title, assignedTo: "asdas", assignmentId: selectedAssignment._id, startTime: startDateAndTime, endTime: endDateAndTime} 
     dispatch(saveScheduledAssignment(scheduledAssignment));
   }
@@ -153,6 +206,8 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
           <h3>Frågor: {selectedAssignment.questions}</h3>
 
           <TextField
+            error={dateFieldError}
+            helperText={dateFieldErrorText}
             id="date"
             label="Datum"
             type="date"
@@ -164,10 +219,11 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
             variant="outlined"
             fullWidth
             required
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e) => handleDateFieldChange(e.target.value)}
             //autoFocus
           />
           <TextField
+            error={startTimeFieldError}
             id="time"
             label="När"
             type="time"
@@ -182,8 +238,9 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
               step: 300, // 5 min
             }}
             className={classes.formControlCombo}
-            onChange={(e) => setStartTime(e.target.value)}
+            onChange={(e) => handleStartTimeFieldChange(e.target.value)}
             required
+            helperText={startTimeFieldErrorText}
           />
           <TextField
             id="time"
@@ -200,8 +257,10 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
               step: 300, // 5 min
             }}
             className={classes.formControlCombo}
-            onChange={(e) => setEndTime(e.target.value)}
+            onChange={(e) => handleEndTimeFieldChange(e.target.value)}
             required
+            error={endTimeFieldError}
+            helperText={endTimeFieldErrorText}
           />
           <FormControl variant="outlined" fullWidth className={classes.formControlCombo}>
             <InputLabel htmlFor="outlined-age-native-simple">Klass</InputLabel>

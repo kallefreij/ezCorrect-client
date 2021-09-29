@@ -30,7 +30,6 @@ router.post('',(req, res, next) =>{
 })
 
 router.post('/scheduled',(req, res, next) =>{
-    console.log("kommer vi hit")
     const promise = AssignmentRepo.postScheduledAssignment(new ScheduledAssignmentModel(req.body.assignment));
     promise.then((doc) =>{
         res.status(200).json({
