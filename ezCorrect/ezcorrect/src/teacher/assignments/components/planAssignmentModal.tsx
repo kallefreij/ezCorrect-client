@@ -20,10 +20,12 @@ import {
   Select,
 } from '@material-ui/core';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
+import { IUserState, IUser } from '../../../common/user/user.reducer';
 import { IStateTree } from '../../../redux/rootReducer';
-import { IAssignmentMetaData } from '../assignments.interfaces';
+import { saveScheduledAssignment } from '../assignments.actions';
+import { IAssignmentMetaData, IScheduledAssignment } from '../assignments.interfaces';
 import { IAssignmentState } from '../assignments.reducer';
 
 interface IPlanAssignmentModalProps {
@@ -34,6 +36,11 @@ interface IPlanAssignmentModalProps {
 const getSelectedAssignmentFromState = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData>(
   (state) => state.assignments,
   (a) => a.selectedAssignment
+);
+
+const getUserData = createSelector<IStateTree, IUserState, IUser>(
+  (state) => state.user,
+  (a) => a.loggedInUser
 );
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -87,10 +94,23 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [personName, setPersonName] = React.useState<string[]>([]);
   const selectedAssignment = useSelector(getSelectedAssignmentFromState);
+  const userData = useSelector(getUserData);
+  const dispatch = useDispatch();
+  const [date, setDate] = React.useState<string>();
+  const [startTime, setStartTime] = React.useState<string>();
+  const [endTime, setEndTime] = React.useState<string>();
+  const [group, setGroup] = React.useState<string>();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPersonName(event.target.value as string[]);
   };
+
+  const handleSave = () => {
+    const startDateAndTime = new Date(`${date} ${startTime}`);
+    const endDateAndTime = new Date(`${date} ${startTime}`);
+    const scheduledAssignment:IScheduledAssignment = {creator: userData.username, title: selectedAssignment.title, assignedTo: "asdas", assignmentId: selectedAssignment._id, startTime: startDateAndTime, endTime: endDateAndTime} 
+    dispatch(saveScheduledAssignment(scheduledAssignment));
+  }
 
   const handleChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { options } = event.target as HTMLSelectElement;
@@ -144,6 +164,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
             variant="outlined"
             fullWidth
             required
+            onChange={(e) => setDate(e.target.value)}
             //autoFocus
           />
           <TextField
@@ -161,6 +182,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
               step: 300, // 5 min
             }}
             className={classes.formControlCombo}
+            onChange={(e) => setStartTime(e.target.value)}
             required
           />
           <TextField
@@ -178,6 +200,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
               step: 300, // 5 min
             }}
             className={classes.formControlCombo}
+            onChange={(e) => setEndTime(e.target.value)}
             required
           />
           <FormControl variant="outlined" fullWidth className={classes.formControlCombo}>
@@ -223,7 +246,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
           <Button className={classes.cancelButton} onClick={props.handleClose}>
             Avbryt
           </Button>
-          <Button className={classes.scheduleButton} onClick={props.handleClose}>
+          <Button className={classes.scheduleButton} onClick={handleSave}>
             Schemalägg
           </Button>
         </DialogActions>
