@@ -133,6 +133,8 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
       else{
         setStartTimeFieldError(false)
         setStartTimeFieldErrorText("")
+        setEndTimeFieldError(false)
+        setEndTimeFieldErrorText("")
         setStartTime(input)
       }
     }
@@ -150,6 +152,8 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
       else{
         setEndTimeFieldError(false)
         setEndTimeFieldErrorText("")
+        setStartTimeFieldError(false)
+        setStartTimeFieldErrorText("")
         setEndTime(input)
       }
     }
