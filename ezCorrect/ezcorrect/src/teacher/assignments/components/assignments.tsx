@@ -7,7 +7,7 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import AssignmentTable from './assignmentTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAssignmentsNow } from '../assignments.actions';
+import { fetchAssignmentsNow, fetchScheduledAssignmentsNow } from '../assignments.actions';
 import { createSelector } from 'reselect';
 import { IStateTree } from '../../../redux/rootReducer';
 import { IAssignmentState } from '../assignments.reducer';
@@ -44,6 +44,7 @@ const Assignments: React.FC = () => {
   React.useEffect(() => {
     console.log('FETCHING');
     dispatch(fetchAssignmentsNow(userData.username));
+    dispatch(fetchScheduledAssignmentsNow(userData.username));
   }, [dispatch]);
 
   return (

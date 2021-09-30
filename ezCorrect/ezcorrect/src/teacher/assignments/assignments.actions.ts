@@ -12,13 +12,23 @@ const axios = require('axios').default;
 export const fetchAssignmentsNow = (user:string) => async (dispatch: any) => {
     dispatch({type: assignmentsActions.fetchAssignmentMetaData});    
     const res = await axios.get('http://localhost:4000/api/assignments/metadata/' + user);
-
     if(res.status === 200){
-        console.log(res.data.assignments)
         dispatch({type: assignmentsActions.fetchAssignmentMetaDataSuccessful, payload: res.data.assignments});
     }  
     else 
         dispatch({type: assignmentsActions.fetchAssignmentMetaDataFailed});
+}
+
+export const fetchScheduledAssignmentsNow = (user:string) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.fetchScheduledAssignment});    
+    const res = await axios.get('http://localhost:4000/api/assignments/scheduled/' + user);
+    if(res.status === 200){
+        console.log(res.data)
+        dispatch({type: assignmentsActions.fetchScheduledAssignmentSuccessful, payload: res.data.assignments});
+    }  
+    else {
+        dispatch({type: assignmentsActions.fetchScheduledAssignmentFailed});
+    }       
 }
 
 export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {

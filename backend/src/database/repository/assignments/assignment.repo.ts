@@ -11,7 +11,7 @@ export default class AssignmentRepo {
     }
 
     public static getAllScheduledAssignments(username:string): Promise<IScheduledAssignment[]> {
-        return ScheduledAssignmentModel.find({user: 'kallefreij'}).exec();
+        return ScheduledAssignmentModel.find({creator: username}).exec();
     }
 
     public static getAssignment(id: string): Promise<IAssignment|null> {

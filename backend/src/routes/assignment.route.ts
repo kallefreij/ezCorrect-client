@@ -88,7 +88,6 @@ router.get('/metadata/:username', (req, res, next) => {
 });
 
 router.get('/scheduled/:username', (req, res, next) => {
-    console.log(req.params.username)
     const promise = AssignmentRepo.getAllScheduledAssignments(req.params.username);
 
     promise.then((doc: IScheduledAssignment[]) => {

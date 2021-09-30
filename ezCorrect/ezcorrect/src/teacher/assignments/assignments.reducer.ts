@@ -1,4 +1,4 @@
-import { IAssignmentMetaData, IQuestion } from "./assignments.interfaces";
+import { IAssignmentMetaData, IQuestion, IScheduledAssignment } from "./assignments.interfaces";
 import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
 import { ISingleChoiceAlts } from "./components/create-assignment/singleChoiceQuestion/singleChoiceQuestion";
@@ -8,6 +8,9 @@ export const assignmentsActions = {
     fetchAssignmentMetaData: "AssignmentAction/fetchAssignmentMetaData",
     fetchAssignmentMetaDataSuccessful: "AssignmentAction/fetchAssignmentMetaDataSuccessful",
     fetchAssignmentMetaDataFailed: "AssignmentAction/fetchAssignmentMetaDataFailed",
+    fetchScheduledAssignment: "AssignmentAction/fetchScheduledAssignment",
+    fetchScheduledAssignmentSuccessful: "AssignmentAction/fetchScheduledAssignmentSuccessful",
+    fetchScheduledAssignmentFailed: "AssignmentAction/fetchScheduledAssignmentFailed",
     deleteAssignments: "AssignmentAction/deleteAssignments",
     deleteAssignmentsSuccessful: "AssignmentAction/deleteAssignmentsSuccessful",
     deleteAssignmentsFailed: "AssignmentAction/deleteAssignmentsFailed",
@@ -29,6 +32,9 @@ export interface IAssignmentState {
     fetchingAssignmentMetaData: boolean;
     fetchingAssignmentMetaDataSuccessful: boolean;
     fetchingAssignmentMetaDataFailed: boolean;
+    fetchingScheduledAssignment: boolean;
+    fetchingScheduledAssignmentSuccessful: boolean;
+    fetchingScheduledAssignmentFailed: boolean;
     fetchAssignment: boolean,
     fetchAssignmentFailed: boolean,
     fetchAssignmentSuccessful: boolean;
@@ -44,6 +50,7 @@ export interface IAssignmentState {
     createTestQuestionCards: ICreateTestQuestionCards[];
     saveLoadingStatus: boolean;
     selectedAssignment: IAssignmentMetaData;
+    scheduledAssignments: IScheduledAssignment[];
     //selectedAssignment: any;
 }
 
@@ -51,6 +58,9 @@ const intitialState: IAssignmentState = {
     fetchingAssignmentMetaData: false,
     fetchingAssignmentMetaDataSuccessful: false,
     fetchingAssignmentMetaDataFailed: false,
+    fetchingScheduledAssignment: false,
+    fetchingScheduledAssignmentSuccessful: false,
+    fetchingScheduledAssignmentFailed: false,
     fetchAssignment: false,
     fetchAssignmentFailed: false,
     fetchAssignmentSuccessful: false,
@@ -78,6 +88,7 @@ const intitialState: IAssignmentState = {
     ],
     saveLoadingStatus: false,
     selectedAssignment: {_id: "0", datestamp: "0", title: "", questions: 0, subject: ""},
+    scheduledAssignments: []
 }
 
 const assignmentReducer = (state = intitialState, action: any) => {
@@ -192,6 +203,28 @@ const assignmentReducer = (state = intitialState, action: any) => {
             return{
                 ...state,
                 createTestQuestionCards: action.payload
+            }
+        case assignmentsActions.fetchScheduledAssignment:
+            return{
+                ...state,
+                fetchingScheduledAssignment: true,
+                fetchingScheduledAssignmentSuccessful: false,
+                fetchingScheduledAssignmentFailed: false,
+        }
+        case assignmentsActions.fetchScheduledAssignmentSuccessful:
+            return{
+                ...state,
+                fetchingScheduledAssignment: false,
+                fetchingScheduledAssignmentSuccessful: true,
+                fetchingScheduledAssignmentFailed: false,
+                scheduledAssignments: action.payload,
+            }
+        case assignmentsActions.fetchScheduledAssignmentFailed:
+            return{
+                ...state,
+                fetchingScheduledAssignment: true,
+                fetchingScheduledAssignmentSuccessful: false,
+                fetchingScheduledAssignmentFailed: true,
             }
         default:
             return state;
