@@ -11,13 +11,18 @@ import { fetchAssignmentsNow, fetchScheduledAssignmentsNow } from '../assignment
 import { createSelector } from 'reselect';
 import { IStateTree } from '../../../redux/rootReducer';
 import { IAssignmentState } from '../assignments.reducer';
-import { IAssignmentMetaData } from '../assignments.interfaces';
+import { IAssignmentMetaData, IScheduledAssignment } from '../assignments.interfaces';
 import EzCorrectIcon from '../../../common/ezCorrectIcon';
 import { IUserState, IUser } from '../../../common/user/user.reducer';
+import ScheduledAssignmentTable from './scheduledAssignmentTable';
 
 const getAssignmentMetaData = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData[]>(
   (state) => state.assignments,
   (a) => a.assignmentMetadata
+);
+const getScheduledAssignmentMetaData = createSelector<IStateTree, IAssignmentState, IScheduledAssignment[]>(
+  (state) => state.assignments,
+  (a) => a.scheduledAssignments
 );
 const getUserData = createSelector<IStateTree, IUserState, IUser>(
   (state) => state.user,
@@ -54,6 +59,7 @@ const Assignments: React.FC = () => {
   const classes = useStyles();
   const userData = useSelector(getUserData);
   const assignmentMetaData = useSelector(getAssignmentMetaData);
+  const scheduledassignmentMetaData = useSelector(getScheduledAssignmentMetaData);
   const [assignmentTableHidden, setAssignmentTableHidden] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -85,7 +91,10 @@ const Assignments: React.FC = () => {
             <Button key="one" variant="contained" className={assignmentTableHidden ? classes.notActiveButton : classes.activeButton} onClick={handleChangeTableClick}>Uppgifter</Button>
             <Button key="two" variant="contained" className={assignmentTableHidden ? classes.activeButton : classes.notActiveButton} onClick={handleChangeTableClick}>Schemalagda uppgifter</Button>
           </ButtonGroup>
-          <div>{assignmentMetaData !== undefined ? <AssignmentTable data={assignmentMetaData} hidden={assignmentTableHidden}/> : ''}</div>
+          <div style={{ padding: 20, paddingTop: 20 }}> 
+            {assignmentMetaData !== undefined ? <AssignmentTable data={assignmentMetaData} hidden={assignmentTableHidden}/> : ''}
+            {scheduledassignmentMetaData !== undefined ? <ScheduledAssignmentTable data={scheduledassignmentMetaData} hidden={!assignmentTableHidden}/> : ''}
+          </div>
         </Grid>
       </Grid>
     </div>

@@ -25,7 +25,7 @@ import { createSelector } from 'reselect';
 import { IUserState, IUser } from '../../../common/user/user.reducer';
 import { IStateTree } from '../../../redux/rootReducer';
 import { saveScheduledAssignment } from '../assignments.actions';
-import { IAssignmentMetaData, IScheduledAssignment } from '../assignments.interfaces';
+import { IAssignmentMetaData, ICreateScheduledAssignment, IScheduledAssignment } from '../assignments.interfaces';
 import { IAssignmentState } from '../assignments.reducer';
 
 interface IPlanAssignmentModalProps {
@@ -165,7 +165,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
   const handleSave = () => {
     const startDateAndTime = new Date(`${date} ${startTime}`);
     const endDateAndTime = new Date(`${date} ${endTime}`);
-    const scheduledAssignment:IScheduledAssignment = {creator: userData.username, title: selectedAssignment.title, assignedTo: "asdas", assignmentId: selectedAssignment._id, startTime: startDateAndTime, endTime: endDateAndTime} 
+    const scheduledAssignment:ICreateScheduledAssignment = {creator: userData.username, title: selectedAssignment.title, assignedTo: "asdas", assignmentId: selectedAssignment._id, startTime: startDateAndTime, endTime: endDateAndTime} 
     dispatch(saveScheduledAssignment(scheduledAssignment));
   }
 
