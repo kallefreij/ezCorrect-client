@@ -118,6 +118,22 @@ router.delete('', (req, res, next) => {
     })
 
 })
+
+router.delete('/scheduledAssignment', (req, res, next) => {
+
+    const promise = AssignmentRepo.deleteScheduledAssignment(req.body.id);
+
+    promise.then((doc: IAssignment) => {
+        res.status(200).json({
+            message: 'Scheduled assignment removed'
+        })
+    }).catch((error) => {
+        res.status(400).json({
+            message: 'Remove assignment failed due to '
+        })
+    })
+
+})
 router.put('/:id', (req, res, next) => {
     
 })

@@ -50,6 +50,25 @@ export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
 
 }
 
+export const deleteScheduledAssignments = (ids: string[]) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.deleteScheduledAssignments});
+
+    await axios.delete('http://localhost:4000/api/assignments/scheduledAssignment', {
+            data: {
+                id: ids
+            }
+        })
+        .then((res: any) => {
+            console.log(res)
+            dispatch({type: assignmentsActions.deleteScheduledAssignmentsSuccessful, payload: ids})
+        })
+        .catch((err: any) => {
+            console.log(err.message)
+            dispatch({type: assignmentsActions.deleteScheduledAssignmentsFailed})
+        })
+
+}
+
 export const getAssignment = (id: string) => async (dispatch: any) => {
     dispatch({type: assignmentsActions.fetchAssignment});
     await axios.get('http://localhost:4000/api/assignments/single/' + id)

@@ -25,7 +25,7 @@ import {
   import PlanTestIcon from '@material-ui/icons/AccessTime';
   import { IAssignmentMetaData, IScheduledAssignment} from '../assignments.interfaces';
   import { useDispatch } from 'react-redux';
-  import { deleteAssignments, getAssignment, setSelectedAssignment } from '../assignments.actions';
+  import { deleteAssignments, deleteScheduledAssignments, getAssignment, setSelectedAssignment } from '../assignments.actions';
   import PlanAssignmentModal from './planAssignmentModal';
   import { useHistory } from 'react-router-dom';
   import { showSnackbarError } from '../../../common/ezSnackbar/snackbar.actions';
@@ -307,7 +307,7 @@ import {
   
     const handleRemoveItem = () => {
       console.log(selected);
-      dispatch(deleteAssignments(selected));
+      dispatch(deleteScheduledAssignments(selected));
       setSelected([]);
     };
   
