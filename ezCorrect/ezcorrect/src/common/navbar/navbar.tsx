@@ -5,10 +5,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import '../common.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import NavbarMenu from './menu/menu';
 import UserAvatar from '../avatar/userAvatar';
 import ProfileMenu from './menu/profileMenu';
+import { Auth } from 'aws-amplify';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,6 +68,7 @@ export interface INavbarProps {
 const Navbar: React.FC<INavbarProps> = (props) => {
   const classes = useStyles();
   const [anchorElProfileMenu, setAnchorElProfileMenu] = React.useState<null | HTMLElement>(null);
+  const history = useHistory();
 
   const handleClickProfileButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElProfileMenu(event.currentTarget);
@@ -75,6 +77,16 @@ const Navbar: React.FC<INavbarProps> = (props) => {
   const handleCloseProfileMenu = () => {
     setAnchorElProfileMenu(null);
   };
+
+  const onSignOut = async () => {
+    try {
+      await Auth.signOut();
+      props.onSignOut();
+      history.push('/home');
+    } catch (error) {
+      console.log('Error logging out', error);
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -112,7 +124,7 @@ const Navbar: React.FC<INavbarProps> = (props) => {
           <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300" />
           <ProfileMenu
             handleClose={handleCloseProfileMenu}
-            handleSignOut={props.onSignOut}
+            handleSignOut={onSignOut}
             anchorEl={anchorElProfileMenu}
           />
         </Toolbar>
