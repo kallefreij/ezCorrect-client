@@ -29,6 +29,7 @@ import {
   import PlanAssignmentModal from './planAssignmentModal';
   import { useHistory } from 'react-router-dom';
   import { showSnackbarError } from '../../../common/ezSnackbar/snackbar.actions';
+  import dayjs from 'dayjs';
   
   interface Data {
     _id: string;
@@ -87,11 +88,9 @@ import {
   }
   
   const headCells: HeadCell[] = [
-    //{ id: '_id', numeric: false, disablePadding: true, label: 'Id' },
     { id: 'title', numeric: false, disablePadding: false, label: 'Titel' },
     { id: 'startTime', numeric: false, disablePadding: false, label: 'Börjar' },
     { id: 'endTime', numeric: false, disablePadding: false, label: 'Slutar' },
-    // { id: 'datestamp', numeric: false, disablePadding: false, label: 'Skapad' },
   ];
   
   type Order = 'asc' | 'desc';
@@ -259,7 +258,7 @@ import {
     const history = useHistory();
     const dispatch = useDispatch();
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('title');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('startTime');
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -381,13 +380,11 @@ import {
                           <TableCell padding="checkbox">
                             <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
                           </TableCell>
-                          {/* <TableCell component="th" id={labelId} scope="row" padding="none">
-                                              {row.id}
-                                          </TableCell> */}
                           <TableCell>{row.title}</TableCell>
-                          <TableCell>{row.startTime}</TableCell>
-                          <TableCell>{row.endTime}</TableCell>
-
+                          {/* <TableCell>{dayjs(row.startTime).format('YYYY-MM-DD HH:mm') + ' - ' + dayjs(row.endTime).format('HH:mm')}</TableCell> */}
+                          {/* <TableCell>{dayjs(row.endTime).format('YYYY-MM-DD')}<div style={{fontWeight:'bold'}}>{dayjs(row.startTime).format('HH:mm')+ ' - ' + dayjs(row.endTime).format('HH:mm')}</div></TableCell> */}
+                          <TableCell>{dayjs(row.startTime).format('YYYY-MM-DD HH:mm')}</TableCell>
+                          <TableCell>{dayjs(row.endTime).format('YYYY-MM-DD HH:mm')}</TableCell>                   
                         </StyledTableRow>
                       );
                     })}
