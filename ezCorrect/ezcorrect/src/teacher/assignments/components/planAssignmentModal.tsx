@@ -20,10 +20,12 @@ import {
   Select,
 } from '@material-ui/core';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
+import { IUserState, IUser } from '../../../common/user/user.reducer';
 import { IStateTree } from '../../../redux/rootReducer';
-import { IAssignmentMetaData } from '../assignments.interfaces';
+import { saveScheduledAssignment } from '../assignments.actions';
+import { IAssignmentMetaData, IScheduledAssignment } from '../assignments.interfaces';
 import { IAssignmentState } from '../assignments.reducer';
 
 interface IPlanAssignmentModalProps {
@@ -34,6 +36,11 @@ interface IPlanAssignmentModalProps {
 const getSelectedAssignmentFromState = createSelector<IStateTree, IAssignmentState, IAssignmentMetaData>(
   (state) => state.assignments,
   (a) => a.selectedAssignment
+);
+
+const getUserData = createSelector<IStateTree, IUserState, IUser>(
+  (state) => state.user,
+  (a) => a.loggedInUser
 );
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -87,10 +94,80 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [personName, setPersonName] = React.useState<string[]>([]);
   const selectedAssignment = useSelector(getSelectedAssignmentFromState);
+  const userData = useSelector(getUserData);
+  const dispatch = useDispatch();
+  const [date, setDate] = React.useState<string>();
+  const [startTime, setStartTime] = React.useState<string>();
+  const [endTime, setEndTime] = React.useState<string>();
+  const [group, setGroup] = React.useState<string>();
+  //Validerings hooks
+  const [dateFieldError, setDateFieldError] = React.useState<boolean>(false);
+  const [dateFieldErrorText, setDateFieldErrorText] = React.useState<string>();
+  const [startTimeFieldError, setStartTimeFieldError] = React.useState<boolean>(false);
+  const [startTimeFieldErrorText, setStartTimeFieldErrorText] = React.useState<string>();
+  const [endTimeFieldError, setEndTimeFieldError] = React.useState<boolean>(false);
+  const [endTimeFieldErrorText, setEndTimeFieldErrorText] = React.useState<string>();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPersonName(event.target.value as string[]);
   };
+
+  const handleDateFieldChange = (input:string) => {
+    if(new Date(input) < new Date){
+      setDateFieldError(true)
+      setDateFieldErrorText("Datum får inte vara mindre än dagens datum")
+    }
+    else{
+      setDateFieldError(false)
+      setDateFieldErrorText("")
+      setDate(input)
+    }
+  }
+
+  const handleStartTimeFieldChange = (input:string) => {
+    if(endTime != undefined){
+      if(input > endTime){
+        setStartTimeFieldError(true)
+        setStartTimeFieldErrorText("Starttiden får inte vara efter sluttid")
+      }
+      else{
+        setStartTimeFieldError(false)
+        setStartTimeFieldErrorText("")
+        setEndTimeFieldError(false)
+        setEndTimeFieldErrorText("")
+        setStartTime(input)
+      }
+    }
+    else{
+      setStartTime(input)
+    }
+  }
+
+  const handleEndTimeFieldChange = (input:string) => {
+    if(startTime != undefined){
+      if(input < startTime){
+        setEndTimeFieldError(true)
+        setEndTimeFieldErrorText("Sluttiden får inte vara innan starttid")
+      }
+      else{
+        setEndTimeFieldError(false)
+        setEndTimeFieldErrorText("")
+        setStartTimeFieldError(false)
+        setStartTimeFieldErrorText("")
+        setEndTime(input)
+      }
+    }
+    else{
+      setEndTime(input)
+    }
+  }
+
+  const handleSave = () => {
+    const startDateAndTime = new Date(`${date} ${startTime}`);
+    const endDateAndTime = new Date(`${date} ${endTime}`);
+    const scheduledAssignment:IScheduledAssignment = {creator: userData.username, title: selectedAssignment.title, assignedTo: "asdas", assignmentId: selectedAssignment._id, startTime: startDateAndTime, endTime: endDateAndTime} 
+    dispatch(saveScheduledAssignment(scheduledAssignment));
+  }
 
   const handleChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { options } = event.target as HTMLSelectElement;
@@ -133,6 +210,8 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
           <h3>Frågor: {selectedAssignment.questions}</h3>
 
           <TextField
+            error={dateFieldError}
+            helperText={dateFieldErrorText}
             id="date"
             label="Datum"
             type="date"
@@ -144,9 +223,11 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
             variant="outlined"
             fullWidth
             required
+            onChange={(e) => handleDateFieldChange(e.target.value)}
             //autoFocus
           />
           <TextField
+            error={startTimeFieldError}
             id="time"
             label="När"
             type="time"
@@ -161,7 +242,9 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
               step: 300, // 5 min
             }}
             className={classes.formControlCombo}
+            onChange={(e) => handleStartTimeFieldChange(e.target.value)}
             required
+            helperText={startTimeFieldErrorText}
           />
           <TextField
             id="time"
@@ -178,7 +261,10 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
               step: 300, // 5 min
             }}
             className={classes.formControlCombo}
+            onChange={(e) => handleEndTimeFieldChange(e.target.value)}
             required
+            error={endTimeFieldError}
+            helperText={endTimeFieldErrorText}
           />
           <FormControl variant="outlined" fullWidth className={classes.formControlCombo}>
             <InputLabel htmlFor="outlined-age-native-simple">Klass</InputLabel>
@@ -223,7 +309,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
           <Button className={classes.cancelButton} onClick={props.handleClose}>
             Avbryt
           </Button>
-          <Button className={classes.scheduleButton} onClick={props.handleClose}>
+          <Button className={classes.scheduleButton} onClick={handleSave}>
             Schemalägg
           </Button>
         </DialogActions>

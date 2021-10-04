@@ -1,5 +1,5 @@
 import { showSnackbar, showSnackbarError } from "../../common/ezSnackbar/snackbar.actions";
-import { IQuestion } from "./assignments.interfaces";
+import { IQuestion, IScheduledAssignment } from "./assignments.interfaces";
 import { assignmentsActions } from "./assignments.reducer"
 import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
@@ -9,16 +9,26 @@ import { ITextAnswer } from "./components/create-assignment/textAnswer/textAnswe
  
 const axios = require('axios').default;
 
-export const fetchAssignmentsNow = () => async (dispatch: any) => {
+export const fetchAssignmentsNow = (user:string) => async (dispatch: any) => {
     dispatch({type: assignmentsActions.fetchAssignmentMetaData});    
-    const res = await axios.get('http://localhost:4000/api/assignments/metadata');
-
+    const res = await axios.get('http://localhost:4000/api/assignments/metadata/' + user);
     if(res.status === 200){
-        console.log(res.data.assignments)
         dispatch({type: assignmentsActions.fetchAssignmentMetaDataSuccessful, payload: res.data.assignments});
     }  
     else 
         dispatch({type: assignmentsActions.fetchAssignmentMetaDataFailed});
+}
+
+export const fetchScheduledAssignmentsNow = (user:string) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.fetchScheduledAssignment});    
+    const res = await axios.get('http://localhost:4000/api/assignments/scheduled/' + user);
+    if(res.status === 200){
+        console.log(res.data)
+        dispatch({type: assignmentsActions.fetchScheduledAssignmentSuccessful, payload: res.data.assignments});
+    }  
+    else {
+        dispatch({type: assignmentsActions.fetchScheduledAssignmentFailed});
+    }       
 }
 
 export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
@@ -92,9 +102,6 @@ export const setSaveLoadingStatus = (loading: boolean) => async (dispatch:any) =
 }
 
 export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) => async (dispatch: any) => {
-
-    console.log(createTestQuestions)
-
     await axios.post('http://localhost:4000/api/assignments', {assignment: createTestQuestions})
         .then((res: any) => {
             console.log(res)
@@ -105,9 +112,23 @@ export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) 
         .catch((err: any) => {
             console.log(err)
             dispatch(setSaveLoadingStatus(false))
-            dispatch(showSnackbarError("Kunde spara prov")) 
+            dispatch(showSnackbarError("Kunde inte spara prov")) 
         })
+}
 
+export const saveScheduledAssignment = (scheduledAssignment:IScheduledAssignment) => async (dispatch: any) => {
+    await axios.post('http://localhost:4000/api/assignments/scheduled', {assignment: scheduledAssignment})
+        .then((res: any) => {
+            console.log(res)
+            console.log("Successful post to database")
+            dispatch(setSaveLoadingStatus(false))
+            dispatch(showSnackbar("Provet är sparat")) 
+        })
+        .catch((err: any) => {
+            console.log(err)
+            dispatch(setSaveLoadingStatus(false))
+            dispatch(showSnackbarError("Kunde inte spara prov")) 
+        })
 }
 
 export const setSelectedAssignment = (assignment: any) => async (dispatch: any) => {

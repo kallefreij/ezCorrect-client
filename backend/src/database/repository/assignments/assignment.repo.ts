@@ -3,10 +3,15 @@ import IAlternatives, { AlternativesModel } from "../../model/assignments/altern
 import IMultiChoiceAnswer, { MultiChoiceAnswerModel } from "../../model/assignments/multichoiceQuestion.model";
 import ISingleChoiceAnswer, { SingleChoiceAnswerModel } from "../../model/assignments/singlechoiceQuestion.model";
 import ITextAnswer, { TextAnswerModel } from "../../model/assignments/textQuestion.model";
+import IScheduledAssignment, { ScheduledAssignmentModel } from "../../model/assignments/scheduledAssignment.model";
 
 export default class AssignmentRepo {
-    public static getAllAssignments(): Promise<IAssignment[]> {
-        return AssignmentModel.find({}).exec();
+    public static getAllAssignments(username:string): Promise<IAssignment[]> {
+        return AssignmentModel.find({user: username}).exec();
+    }
+
+    public static getAllScheduledAssignments(username:string): Promise<IScheduledAssignment[]> {
+        return ScheduledAssignmentModel.find({creator: username}).exec();
     }
 
     public static getAssignment(id: string): Promise<IAssignment|null> {
@@ -27,6 +32,10 @@ export default class AssignmentRepo {
 
     public static postAssignment(assignmentModel: IAssignment): Promise<any> {
         return assignmentModel.save();
+    }
+
+    public static postScheduledAssignment(scheduledAssignmentModel: IScheduledAssignment): Promise<any> { 
+        return scheduledAssignmentModel.save();
     }
     public static deleteAssignment(ids: string): Promise<any>{
         return AssignmentModel.deleteMany({_id: ids}).exec();

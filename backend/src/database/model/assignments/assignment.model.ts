@@ -4,6 +4,7 @@ export const DOCUMENT_NAME = "Assignment";
 export const COLLECTION_NAME = "Assignment";
 
 export default interface IAssignment extends Document {
+    user: string,
     title: string,
     description: string, 
     subjects: string[],
@@ -14,6 +15,10 @@ export default interface IAssignment extends Document {
 
 
 const schema = new Schema({
+    user:{
+        type:Schema.Types.String,
+        required:true,
+    },
     title:{
         type:Schema.Types.String,
         required:true,

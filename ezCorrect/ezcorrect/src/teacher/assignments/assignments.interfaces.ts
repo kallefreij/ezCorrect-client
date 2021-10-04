@@ -22,3 +22,12 @@ export interface IQuestion{
 export interface IQuestionProps{
     question: IQuestion;
 }
+
+export interface IScheduledAssignment{
+    creator: string,
+    title: string,
+    assignmentId: string
+    assignedTo: string,
+    startTime: Date,
+    endTime: Date,
+}

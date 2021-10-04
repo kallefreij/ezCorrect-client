@@ -7,6 +7,7 @@ import { SingleChoiceAnswerModel } from "../database/model/assignments/singlecho
 import { TextAnswerModel } from "../database/model/assignments/textQuestion.model";
 import AssignmentRepo from "../database/repository/assignments/assignment.repo";
 import { AssignmentUtil } from "../helpers/assignment.util";
+import IScheduledAssignment, { ScheduledAssignmentModel } from "../database/model/assignments/scheduledAssignment.model";
 
 const router = express.Router();
 
@@ -15,6 +16,21 @@ router.post('',(req, res, next) =>{
     const assignment = AssignmentUtil.createModels(req.body);
     const promise = AssignmentRepo.postAssignment(assignment);
 
+    promise.then((doc) =>{
+        res.status(200).json({
+            savedData: doc,
+            message: 'Data is saved successfully'
+        })
+    }).catch((e) => {
+        console.log(e);
+        res.status(400).json({
+            message: e._message
+        })
+    })
+})
+
+router.post('/scheduled',(req, res, next) =>{
+    const promise = AssignmentRepo.postScheduledAssignment(new ScheduledAssignmentModel(req.body.assignment));
     promise.then((doc) =>{
         res.status(200).json({
             savedData: doc,
@@ -44,8 +60,9 @@ router.get('/single/:id', (req, res, next) => {
     })
 });
 
-router.get('/metadata', (req, res, next) => {
-    const promise = AssignmentRepo.getAllAssignments();
+router.get('/metadata/:username', (req, res, next) => {
+    console.log(req.params.username)
+    const promise = AssignmentRepo.getAllAssignments(req.params.username);
 
     promise.then((doc: IAssignment[]) => {
         const metadataList = doc.map(d => {
@@ -69,6 +86,23 @@ router.get('/metadata', (req, res, next) => {
         })
     })
 });
+
+router.get('/scheduled/:username', (req, res, next) => {
+    const promise = AssignmentRepo.getAllScheduledAssignments(req.params.username);
+
+    promise.then((doc: IScheduledAssignment[]) => {
+        res.status(200).json({
+            assignments: doc,
+            message: 'Fetching data successfull'
+        })
+    }).catch((e) => {
+        console.log(e.error)
+        res.status(400).json({
+            message: e._message
+        })
+    })
+});
+
 router.delete('', (req, res, next) => {
 
     const promise = AssignmentRepo.deleteAssignment(req.body.id);

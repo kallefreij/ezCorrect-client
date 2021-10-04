@@ -250,6 +250,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
 
 interface AssignmentTableProps {
   data: IAssignmentMetaData[];
+  hidden: boolean;
 }
 const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
   const classes = useStyles();
@@ -340,7 +341,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = (props) => {
   return (
     <div style={{ padding: 20, paddingTop: 20 }}>
       <div className={classes.root}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} hidden={props.hidden}>
           <EnhancedTableToolbar
             numSelected={selected.length}
             delete={handleRemoveItem}

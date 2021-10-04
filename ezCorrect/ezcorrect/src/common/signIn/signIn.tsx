@@ -16,6 +16,10 @@ import Container from '@material-ui/core/Container';
 import { NavLink, useHistory } from 'react-router-dom';
 import { Paper } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
+import EzCorrectIcon from '../ezCorrectIcon';
+import { useDispatch } from 'react-redux';
+import { setUserState } from '../user/user.actions';
+import { IUser } from '../user/user.reducer';
 
 const Copyright = () => {
   return (
@@ -77,6 +81,7 @@ const SignIn: React.FC<ISigninProps> = (props) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleUsername = (input: string) => {
     setUserName(input);
@@ -92,9 +97,14 @@ const SignIn: React.FC<ISigninProps> = (props) => {
 
   const handleSignIn = async () => {
     try {
-      await Auth.signIn(userName, password);
-      history.push('/teacher/home');
-      console.log(history)
+      const authenticatedUser = await Auth.signIn(userName, password);
+      const user:IUser = { 
+        email: authenticatedUser.attributes.email, 
+        username: authenticatedUser.username
+      };
+
+      dispatch(setUserState(user));
+      history.push('/home');
       onSignIn();
     } catch (error) {
       console.log('Unable to log in due to: ', error);
@@ -108,15 +118,15 @@ const SignIn: React.FC<ISigninProps> = (props) => {
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
+              <EzCorrectIcon width={100} height={100}/>
               <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component="h1" variant="h5" color="primary">
+              <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
               <form className={classes.form}>
                 <TextField
-                  inputProps={{ className: classes.input }}
                   variant="outlined"
                   required
                   margin="normal"
@@ -129,7 +139,6 @@ const SignIn: React.FC<ISigninProps> = (props) => {
                   onChange={(e) => handleUsername(e.target.value)}
                 />
                 <TextField
-                  inputProps={{ className: classes.input }}
                   variant="outlined"
                   margin="normal"
                   fullWidth
@@ -145,7 +154,6 @@ const SignIn: React.FC<ISigninProps> = (props) => {
                 <Button fullWidth variant="contained" onClick={handleSignIn} className={classes.submit} color="primary">
                   Sign In
                 </Button>
-                <Grid container>
                   <Grid item xs>
                     <NavLink to="#" className={classes.link}>
                       Forgot password?
@@ -156,14 +164,13 @@ const SignIn: React.FC<ISigninProps> = (props) => {
                       {"Don't have an account? Sign Up"}
                     </NavLink>
                   </Grid>
-                </Grid>
-              </form>
-            </div>
-            <Box mt={8}>
-              <Copyright />
-            </Box>
-          </Container>
-        </Paper>
+                </form>
+              </div>
+              <Box mt={8}>
+                <Copyright />
+              </Box>
+            </Container>
+          </Paper>
       </ThemeProvider>
     </div>
   );
