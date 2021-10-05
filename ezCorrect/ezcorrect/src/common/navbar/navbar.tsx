@@ -92,7 +92,7 @@ const Navbar: React.FC<INavbarProps> = (props) => {
     try {
       await Auth.signOut();
       props.onSignOut();
-      history.push('/home');
+      history.replace('/home');
     } catch (error) {
       console.log('Error logging out', error);
     }
