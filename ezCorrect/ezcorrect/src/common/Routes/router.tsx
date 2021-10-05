@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProtectedRoute from './protectedRoute';
 import HomeTeacher from '../../teacher/home/components/home';
 import Statistics from '../../teacher/statistics/components/statistics';
-import { HashRouter, Switch, Route, Redirect} from 'react-router-dom';
+import { HashRouter, Switch, Route, Redirect, BrowserRouter} from 'react-router-dom';
 import Assignments from '../../teacher/assignments/components/assignments';
 import CreateAssignment from '../../teacher/assignments/components/create-assignment/createAssignment';
 import Groups from '../../teacher/groups/components/groups';
@@ -31,7 +31,7 @@ const Router: React.FC<RouterProps> = (props) => {
     }, [props.loggedIn]);
 
     return (
-        <HashRouter>
+        <BrowserRouter >
             {props.loggedIn && <Navbar onSignOut={props.onSignOut}/> }
             <Switch>
                 <ProtectedRoute exact path="/teacher/home" isAuthenticated={props.loggedIn} component={HomeTeacher}/>
@@ -43,12 +43,12 @@ const Router: React.FC<RouterProps> = (props) => {
                 <ProtectedRoute exact path="/teacher/statistics" isAuthenticated={props.loggedIn} component={Statistics}/>
                 <ProtectedRoute exact path="/teacher/student" isAuthenticated={props.loggedIn} component={Student}/>
                 <ProtectedRoute exact path="/teacher/profile" isAuthenticated={props.loggedIn} component={Student}/>
-                <Route exact path="/home" render={() => <StartHome />} component={StartHome}/>
+                <Route exact path="/home" render={() => <StartHome />}/>
                 <Route exact path="/signin" render={() => <SignIn onSignIn={props.onSignIn} />}/>
                 <Route exact path="/signup" render={() => <SignUp onSignUp={props.onSignUp} />}/>
                 <Route exact path="/confirm" render={() => <Confirm email={props.userEmail} onConfirm={props.onConfirm} />}/>
             </Switch>
-        </HashRouter>
+        </BrowserRouter>
     );
 };
 

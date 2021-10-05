@@ -45,6 +45,7 @@ function App() {
   };
 
   const onSignIn = () => {
+    setLoggedIn(true); // Eftersom inloggningen lyckas sätts den redan här just nu. Detta för att hindra när vi hamnar på /home
     AssessLoggedInState();
   };
 

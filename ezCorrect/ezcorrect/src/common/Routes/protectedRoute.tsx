@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import {
     Route,
     Redirect,
@@ -12,6 +13,10 @@ interface ProtectedRouteProps extends RouteProps {
 
 const ProtectedRoute = (props: ProtectedRouteProps) => {
     const { component: Component, isAuthenticated, ...rest } = props;
+
+    useEffect(() => {
+        console.log(props.isAuthenticated);
+    }, [props.isAuthenticated]);
 
     return (
         <Route

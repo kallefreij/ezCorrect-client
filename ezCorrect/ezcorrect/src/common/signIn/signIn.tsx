@@ -102,10 +102,9 @@ const SignIn: React.FC<ISigninProps> = (props) => {
         email: authenticatedUser.attributes.email, 
         username: authenticatedUser.username
       };
-
       dispatch(setUserState(user));
-      history.push('/home');
       onSignIn();
+      history.push('/teacher/home');
     } catch (error) {
       console.log('Unable to log in due to: ', error);
     }
