@@ -31,6 +31,7 @@ export interface IScheduledAssignment{
     assignedTo: string,
     startTime: Date,
     endTime: Date,
+    studentUser: string,
 }
 
 export interface ICreateScheduledAssignment{
@@ -40,4 +41,5 @@ export interface ICreateScheduledAssignment{
     assignedTo: string,
     startTime: Date,
     endTime: Date,
+    studentUser: string,
 }

@@ -11,6 +11,7 @@ export default interface IScheduledAssignment extends Document {
     startTime: Date,
     endTime: Date,
     dateCreated: Date,
+    studentUser: string
 }
 
 
@@ -42,7 +43,11 @@ const schema = new Schema({
         type:Schema.Types.Date,
         default: Date.now,
         // required: true
-    }
+    },
+    studentUser:{
+        type:Schema.Types.String,
+        required:true,
+    },
 })
 
 export const ScheduledAssignmentModel = model<IScheduledAssignment>(DOCUMENT_NAME, schema, COLLECTION_NAME);

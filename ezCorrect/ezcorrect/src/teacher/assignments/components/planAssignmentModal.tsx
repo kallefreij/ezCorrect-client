@@ -165,7 +165,7 @@ const PlanAssignmentModal: React.FC<IPlanAssignmentModalProps> = (props) => {
   const handleSave = () => {
     const startDateAndTime = new Date(`${date} ${startTime}`);
     const endDateAndTime = new Date(`${date} ${endTime}`);
-    const scheduledAssignment:ICreateScheduledAssignment = {creator: userData.username, title: selectedAssignment.title, assignedTo: "asdas", assignmentId: selectedAssignment._id, startTime: startDateAndTime, endTime: endDateAndTime} 
+    const scheduledAssignment:ICreateScheduledAssignment = {creator: userData.username, title: selectedAssignment.title, assignedTo: "asdas", assignmentId: selectedAssignment._id, startTime: startDateAndTime, endTime: endDateAndTime, studentUser: 'teststudent'} 
     dispatch(saveScheduledAssignment(scheduledAssignment));
   }
 
