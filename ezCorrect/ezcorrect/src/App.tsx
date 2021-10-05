@@ -39,7 +39,6 @@ function App() {
     debugger;
     await Auth.currentAuthenticatedUser()
       .then((authUser) => {
-        debugger;
         setLoggedIn(true);
         const user:IUser = { 
           email: authUser.attributes.email, 
@@ -49,7 +48,6 @@ function App() {
         console.log('Logged in');
       })
       .catch(() => {
-        debugger;
         setLoggedIn(false);
         console.log('Not logged in');
       });  
