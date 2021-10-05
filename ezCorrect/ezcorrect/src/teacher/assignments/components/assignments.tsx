@@ -61,15 +61,34 @@ const Assignments: React.FC = () => {
   const assignmentMetaData = useSelector(getAssignmentMetaData);
   const scheduledassignmentMetaData = useSelector(getScheduledAssignmentMetaData);
   const [assignmentTableHidden, setAssignmentTableHidden] = React.useState<boolean>(false);
+  const [scheduledAssignmentTableHidden, setScheduledAssignmentTableHidden] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     console.log('FETCHING');
     dispatch(fetchAssignmentsNow(userData.username));
     dispatch(fetchScheduledAssignmentsNow(userData.username));
   }, [dispatch]);
-  const handleChangeTableClick = () => {
-    assignmentTableHidden ? setAssignmentTableHidden(false) : setAssignmentTableHidden(true);
+
+  const handleAssignmentTableButtonClickClick = () => {
+    if(!assignmentTableHidden){
+      return;
+    }
+    else{
+      setAssignmentTableHidden(false);
+      setScheduledAssignmentTableHidden(true);
+    }
   }
+
+  const handleScheduledAssignmentTableButtonClick = () => {
+    if(!scheduledAssignmentTableHidden){
+      return;
+    }
+    else{
+      setAssignmentTableHidden(true);
+      setScheduledAssignmentTableHidden(false);
+    }
+  }
+
   return (
     <div>
       <div className={classes.topDiv} />
@@ -88,12 +107,12 @@ const Assignments: React.FC = () => {
         </Grid>
         <Grid item sm={8} xs={12}>
           <ButtonGroup size="small" aria-label="small button group" style={{ padding: 20, paddingTop: 20 }}>
-            <Button key="one" variant="contained" className={assignmentTableHidden ? classes.notActiveButton : classes.activeButton} onClick={handleChangeTableClick}>Uppgifter</Button>
-            <Button key="two" variant="contained" className={assignmentTableHidden ? classes.activeButton : classes.notActiveButton} onClick={handleChangeTableClick}>Schemalagda uppgifter</Button>
+            <Button key="one" variant="contained" className={assignmentTableHidden ? classes.notActiveButton : classes.activeButton} onClick={handleAssignmentTableButtonClickClick}>Uppgifter</Button>
+            <Button key="two" variant="contained" className={assignmentTableHidden ? classes.activeButton : classes.notActiveButton} onClick={handleScheduledAssignmentTableButtonClick}>Schemalagda uppgifter</Button>
           </ButtonGroup>
           <div style={{ padding: 20, paddingTop: 20 }}> 
             {assignmentMetaData !== undefined ? <AssignmentTable data={assignmentMetaData} hidden={assignmentTableHidden}/> : ''}
-            {scheduledassignmentMetaData !== undefined ? <ScheduledAssignmentTable data={scheduledassignmentMetaData} hidden={!assignmentTableHidden}/> : ''}
+            {scheduledassignmentMetaData !== undefined ? <ScheduledAssignmentTable data={scheduledassignmentMetaData} hidden={scheduledAssignmentTableHidden}/> : ''}
           </div>
         </Grid>
       </Grid>
