@@ -128,7 +128,7 @@ const Navbar: React.FC<INavbarProps> = (props) => {
           <Typography className={classes.flex}></Typography>
           <Typography className={classes.account}>
             <Button color="inherit" onClick={handleClickProfileButton}>
-              {userData.username}
+              {userData.firstName}
             </Button>
           </Typography>
           <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300" />

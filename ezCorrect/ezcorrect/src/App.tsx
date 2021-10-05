@@ -38,10 +38,14 @@ function App() {
   const AssessLoggedInState = async () => {
     await Auth.currentAuthenticatedUser()
       .then((authUser) => {
+        debugger;
         setLoggedIn(true);
         const user:IUser = { 
           email: authUser.attributes.email, 
-          username: authUser.username
+          username: authUser.username,
+          firstName: authUser.attributes["custom:firstName"],
+          lastName: authUser.attributes["custom:lastName"],
+          roles: authUser.signInUserSession.accessToken.payload['cognito:groups']
         };
         dispatch(setUserState(user));
         console.log('Logged in');

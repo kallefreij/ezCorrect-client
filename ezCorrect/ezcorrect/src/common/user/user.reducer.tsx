@@ -4,9 +4,10 @@ export const userActions = {
 
 export interface IUser {
     username: string;
-    // firstName: string;
-    // lastName: string;
+    firstName: string;
+    lastName: string;
     email: string;
+    roles: string[]
 }
 
 export interface IUserState {
@@ -14,7 +15,7 @@ export interface IUserState {
 }
 
 const intitialState: IUserState = {
-    loggedInUser: {username: "", email: ""}
+    loggedInUser: {username: "", email: "", firstName: "", lastName:"", roles:[]}
 }
 
 const userReducer = (state = intitialState, action: any) => {
