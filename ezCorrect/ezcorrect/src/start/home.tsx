@@ -1,5 +1,5 @@
 import * as React from 'react';
-import InfoCard from '../teacher/home/components/infoCard';
+import InfoCard from '../common/cards/infoCard';
 import './home.css';
 import img from '../resources/cardPhoto.jpeg';
 import img2 from '../resources/cardPhoto2.jpeg';

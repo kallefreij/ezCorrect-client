@@ -38,7 +38,6 @@ function App() {
   const AssessLoggedInState = async () => {
     await Auth.currentAuthenticatedUser()
       .then((authUser) => {
-        debugger;
         setLoggedIn(true);
         const user:IUser = { 
           email: authUser.attributes.email, 
