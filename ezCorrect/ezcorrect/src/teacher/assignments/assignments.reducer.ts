@@ -14,6 +14,9 @@ export const assignmentsActions = {
     deleteAssignments: "AssignmentAction/deleteAssignments",
     deleteAssignmentsSuccessful: "AssignmentAction/deleteAssignmentsSuccessful",
     deleteAssignmentsFailed: "AssignmentAction/deleteAssignmentsFailed",
+    deleteScheduledAssignments: "AssignmentAction/deleteScheduledAssignments",
+    deleteScheduledAssignmentsSuccessful: "AssignmentAction/deleteScheduledAssignmentsSuccessful",
+    deleteScheduledAssignmentsFailed: "AssignmentAction/deleteScheduledAssignmentsFailed",
     setSelectedQuestion: "AssignmentAction/setSelectedQuestion",
     setMultiChoiceAlts: 'AssignmentAction/setMultiChoiceAlts',
     setSingleChoiceAlts: 'AssignmentAction/setSingleChoiceAlts',
@@ -41,6 +44,9 @@ export interface IAssignmentState {
     deleteAssignments: boolean;
     deleteAssignmentsSuccessful: boolean;
     deleteAssignmentsFailed: boolean;
+    deleteScheduledAssignments: boolean;
+    deleteScheduledAssignmentsSuccessful: boolean;
+    deleteScheduledAssignmentsFailed: boolean;
     assignmentMetadata: any[];
     questions: IQuestion[];
     selectedQuestion: IQuestion;
@@ -67,6 +73,9 @@ const intitialState: IAssignmentState = {
     deleteAssignments: false,
     deleteAssignmentsSuccessful: false,
     deleteAssignmentsFailed: false,
+    deleteScheduledAssignments: false,
+    deleteScheduledAssignmentsSuccessful: false,
+    deleteScheduledAssignmentsFailed: false,
     assignmentMetadata: [],
     questions: [
         {id: "1", question: "Hur mycket hår har Roger?", answer: "", correctAnswer: "", number: 1, color: "#D0A1A1", status: 4, questionType: "flerval", points: 0, maxPoint: 2},
@@ -157,6 +166,28 @@ const assignmentReducer = (state = intitialState, action: any) => {
                 deleteAssignments: false,
                 deleteAssignmentsSuccessful: false,
                 deleteAssignmentsFailed: true
+            };
+        case assignmentsActions.deleteScheduledAssignments:
+            return{
+                ...state,
+                deleteScheduledAssignments: true,
+                deleteScheduledAssignmentsSuccessful: false,
+                deleteScheduledAssignmentsFailed: false
+            };
+        case assignmentsActions.deleteScheduledAssignmentsSuccessful:
+            return{
+                ...state,
+                deleteScheduledAssignments: false,
+                deleteScheduledAssignmentsSuccessful: true,
+                deleteScheduledAssignmentsFailed: false,
+                scheduledAssignments: [...state.scheduledAssignments.filter(x => !action.payload.includes(x._id))]
+            };
+        case assignmentsActions.deleteScheduledAssignmentsFailed:
+            return{
+                ...state,
+                deleteScheduledAssignments: false,
+                deleteScheduledAssignmentsSuccessful: false,
+                deleteScheduledAssignmentsFailed: true
             };
         case assignmentsActions.setSelectedQuestion:
             return{

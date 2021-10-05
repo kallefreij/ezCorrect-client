@@ -1,5 +1,5 @@
 import { showSnackbar, showSnackbarError } from "../../common/ezSnackbar/snackbar.actions";
-import { IQuestion, IScheduledAssignment } from "./assignments.interfaces";
+import { ICreateScheduledAssignment, IQuestion, IScheduledAssignment } from "./assignments.interfaces";
 import { assignmentsActions } from "./assignments.reducer"
 import { ICreateTestQuestionCards } from "./components/create-assignment/createAssignment";
 import { IMultiChoiceAlts } from "./components/create-assignment/multiChoiceQuestion/multiCoiceQuestion";
@@ -46,6 +46,25 @@ export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
         .catch((err: any) => {
             console.log(err.message)
             dispatch({type: assignmentsActions.deleteAssignmentsFailed})
+        })
+
+}
+
+export const deleteScheduledAssignments = (ids: string[]) => async (dispatch: any) => {
+    dispatch({type: assignmentsActions.deleteScheduledAssignments});
+
+    await axios.delete('http://localhost:4000/api/assignments/scheduledAssignment', {
+            data: {
+                id: ids
+            }
+        })
+        .then((res: any) => {
+            console.log(res)
+            dispatch({type: assignmentsActions.deleteScheduledAssignmentsSuccessful, payload: ids})
+        })
+        .catch((err: any) => {
+            console.log(err.message)
+            dispatch({type: assignmentsActions.deleteScheduledAssignmentsFailed})
         })
 
 }
@@ -116,7 +135,7 @@ export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) 
         })
 }
 
-export const saveScheduledAssignment = (scheduledAssignment:IScheduledAssignment) => async (dispatch: any) => {
+export const saveScheduledAssignment = (scheduledAssignment:ICreateScheduledAssignment) => async (dispatch: any) => {
     await axios.post('http://localhost:4000/api/assignments/scheduled', {assignment: scheduledAssignment})
         .then((res: any) => {
             console.log(res)

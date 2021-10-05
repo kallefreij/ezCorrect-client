@@ -40,4 +40,7 @@ export default class AssignmentRepo {
     public static deleteAssignment(ids: string): Promise<any>{
         return AssignmentModel.deleteMany({_id: ids}).exec();
     }
+    public static deleteScheduledAssignment(ids: string): Promise<any>{
+        return ScheduledAssignmentModel.deleteMany({_id: ids}).exec();
+    }
 }

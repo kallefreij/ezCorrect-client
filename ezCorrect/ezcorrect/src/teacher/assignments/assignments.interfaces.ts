@@ -24,6 +24,16 @@ export interface IQuestionProps{
 }
 
 export interface IScheduledAssignment{
+    _id: string;
+    creator: string,
+    title: string,
+    assignmentId: string
+    assignedTo: string,
+    startTime: Date,
+    endTime: Date,
+}
+
+export interface ICreateScheduledAssignment{
     creator: string,
     title: string,
     assignmentId: string
