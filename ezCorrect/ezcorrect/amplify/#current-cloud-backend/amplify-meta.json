@@ -43,12 +43,39 @@
         "IdentityPoolName": "ezcorrect29702702_identitypool_29702702__ezcorrect",
         "UserPoolName": "ezcorrect29702702_userpool_29702702"
       },
-      "lastPushTimeStamp": "2021-09-02T14:30:05.453Z",
+      "lastPushTimeStamp": "2021-09-14T18:56:26.102Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-ezcorrect-ezcorrect-200519-deployment/amplify-cfn-templates/auth/ezcorrect29702702-cloudformation-template.yml",
         "logicalId": "authezcorrect29702702"
+      }
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "ezcorrect29702702",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ],
+      "lastPushTimeStamp": "2021-09-14T18:56:26.110Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ezcorrect-ezcorrect-200519-deployment/amplify-cfn-templates/auth/template.json",
+        "logicalId": "authuserPoolGroups"
       },
-      "lastPushDirHash": "H0YtnsPHNsocSnUmIewfxOTpgdA="
+      "output": {
+        "teachersGroupRole": "arn:aws:iam::495618268261:role/eu-west-1_f8F2XPlJ2-teachersGroupRole",
+        "principalsGroupRole": "arn:aws:iam::495618268261:role/eu-west-1_f8F2XPlJ2-principalsGroupRole",
+        "adminsGroupRole": "arn:aws:iam::495618268261:role/eu-west-1_f8F2XPlJ2-adminsGroupRole",
+        "studentsGroupRole": "arn:aws:iam::495618268261:role/eu-west-1_f8F2XPlJ2-studentsGroupRole"
+      },
+      "lastPushDirHash": "CMsm7W5KoY/alntCopGnp+uG4W4="
     }
   }
 }
