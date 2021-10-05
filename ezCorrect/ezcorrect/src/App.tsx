@@ -36,7 +36,6 @@ function App() {
   }, []);
 
   const AssessLoggedInState = async () => {
-    debugger;
     await Auth.currentAuthenticatedUser()
       .then((authUser) => {
         setLoggedIn(true);
@@ -60,7 +59,6 @@ function App() {
   };
 
   const onSignOut = async () => {
-    debugger;
     AssessLoggedInState();
   };
 
