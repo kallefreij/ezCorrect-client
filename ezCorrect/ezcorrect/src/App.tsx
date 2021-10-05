@@ -8,6 +8,9 @@ import { useEffect } from 'react';
 import ErrorSnackbar from './common/ezSnackbar/snackbarError';
 import Amplify, { Auth, Hub, API } from 'aws-amplify';
 import awsconfig from './aws-exports';
+import { setUserState } from './common/user/user.actions';
+import { IUser } from './common/user/user.reducer';
+import { useDispatch } from 'react-redux';
 
 Amplify.configure(awsconfig);
 
@@ -24,6 +27,7 @@ function App() {
   const [isAuthenticating, setAuthenticating] = useState(true);
   const [user, setUser] = useState({});
   const [userEmail, setUserEmail] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("App: init");
@@ -32,15 +36,23 @@ function App() {
   }, []);
 
   const AssessLoggedInState = async () => {
+    debugger;
     await Auth.currentAuthenticatedUser()
-      .then(() => {
+      .then((authUser) => {
+        debugger;
         setLoggedIn(true);
+        const user:IUser = { 
+          email: authUser.attributes.email, 
+          username: authUser.username
+        };
+        dispatch(setUserState(user));
         console.log('Logged in');
       })
       .catch(() => {
+        debugger;
         setLoggedIn(false);
         console.log('Not logged in');
-      });
+      });  
     setAuthenticating(false);
   };
 
@@ -50,6 +62,7 @@ function App() {
   };
 
   const onSignOut = async () => {
+    debugger;
     AssessLoggedInState();
   };
 

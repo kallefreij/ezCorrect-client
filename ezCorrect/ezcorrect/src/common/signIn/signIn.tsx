@@ -97,12 +97,13 @@ const SignIn: React.FC<ISigninProps> = (props) => {
 
   const handleSignIn = async () => {
     try {
-      const authenticatedUser = await Auth.signIn(userName, password);
-      const user:IUser = { 
-        email: authenticatedUser.attributes.email, 
-        username: authenticatedUser.username
-      };
-      dispatch(setUserState(user));
+      //const authenticatedUser = 
+      await Auth.signIn(userName, password);
+      // const user:IUser = { 
+      //   email: authenticatedUser.attributes.email, 
+      //   username: authenticatedUser.username
+      // };
+      //dispatch(setUserState(user));
       onSignIn();
       history.push('/teacher/home');
     } catch (error) {
