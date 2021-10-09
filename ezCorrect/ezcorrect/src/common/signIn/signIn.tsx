@@ -110,7 +110,9 @@ const SignIn: React.FC<ISigninProps> = (props) => {
 
   const setRoute = (roles: string[]) => {
     roles.find((role) => {
-      if (role === 'Teacher') {
+      if (role === 'Admin') {
+        history.push('teacher/home');
+      } else if (role === 'Teacher') {
         history.push('/teacher/home');
         return role;
       } else if (role === 'Student') {
