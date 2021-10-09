@@ -24,13 +24,15 @@ export interface ISignUpValues {
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [teacherAuth, setTeacherAuth] = useState(false);
+  const [studentAuth, setStudentAuth] = useState(false);
+
   const [isAuthenticating, setAuthenticating] = useState(true);
-  const [user, setUser] = useState({});
   const [userEmail, setUserEmail] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("App: init");
+    console.log('App: init');
     setAuthenticating(true);
     AssessLoggedInState();
   }, []);
@@ -39,21 +41,42 @@ function App() {
     await Auth.currentAuthenticatedUser()
       .then((authUser) => {
         setLoggedIn(true);
-        const user:IUser = { 
-          email: authUser.attributes.email, 
+        const user: IUser = {
+          email: authUser.attributes.email,
           username: authUser.username,
-          firstName: authUser.attributes["custom:firstName"],
-          lastName: authUser.attributes["custom:lastName"],
-          roles: authUser.signInUserSession.accessToken.payload['cognito:groups']
+          firstName: authUser.attributes['custom:firstName'],
+          lastName: authUser.attributes['custom:lastName'],
+          roles: authUser.signInUserSession.accessToken.payload['cognito:groups'],
         };
+        setRoles(user);
         dispatch(setUserState(user));
         console.log('Logged in');
       })
       .catch(() => {
         setLoggedIn(false);
         console.log('Not logged in');
-      });  
+      });
     setAuthenticating(false);
+  };
+
+  const setRoles = (user: IUser) => {
+    const roles = user.roles;
+    if (roles === undefined) {
+      setTeacherAuth(false);
+      setStudentAuth(false);
+    } else {
+      roles.forEach((role) => {
+        console.log(role);
+        switch (role) {
+          case 'Teacher':
+            setTeacherAuth(true);
+            break;
+          case 'Student':
+            setStudentAuth(true);
+            break;
+        }
+      });
+    }
   };
 
   const onSignIn = () => {
@@ -78,9 +101,18 @@ function App() {
     <div>
       <EzSnackbar />
       <ErrorSnackbar />
-      {!isAuthenticating && 
-        <Router onSignIn={onSignIn} onSignOut={onSignOut} onSignUp={onSignUp} onConfirm={onConfirm} loggedIn={loggedIn} userEmail={userEmail}/>
-      }
+      {!isAuthenticating && (
+        <Router
+          onSignIn={onSignIn}
+          onSignOut={onSignOut}
+          onSignUp={onSignUp}
+          onConfirm={onConfirm}
+          loggedIn={loggedIn}
+          teacherAuth={teacherAuth}
+          studentAuth={studentAuth}
+          userEmail={userEmail}
+        />
+      )}
     </div>
   );
 }

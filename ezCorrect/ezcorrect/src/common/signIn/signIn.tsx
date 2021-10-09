@@ -97,12 +97,30 @@ const SignIn: React.FC<ISigninProps> = (props) => {
 
   const handleSignIn = async () => {
     try {
-      await Auth.signIn(userName, password);
+      const authenticatedUser = await Auth.signIn(userName, password);
+      const roles = authenticatedUser.signInUserSession.accessToken.payload['cognito:groups'];
       onSignIn();
-      history.push('/teacher/home');
+      if (roles != undefined) {
+        setRoute(roles);
+      }
     } catch (error) {
       console.log('Unable to log in due to: ', error);
     }
+  };
+
+  const setRoute = (roles: string[]) => {
+    roles.find((role) => {
+      if (role === 'Teacher') {
+        history.push('/teacher/home');
+        return role;
+      } else if (role === 'Student') {
+        history.push('/student/home');
+        return role;
+      } else {
+        history.push('/home');
+        return role;
+      }
+    });
   };
 
   return (
@@ -112,7 +130,7 @@ const SignIn: React.FC<ISigninProps> = (props) => {
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-              <EzCorrectIcon width={100} height={100}/>
+              <EzCorrectIcon width={100} height={100} />
               <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
               </Avatar>
@@ -148,23 +166,23 @@ const SignIn: React.FC<ISigninProps> = (props) => {
                 <Button fullWidth variant="contained" onClick={handleSignIn} className={classes.submit} color="primary">
                   Sign In
                 </Button>
-                  <Grid item xs>
-                    <NavLink to="#" className={classes.link}>
-                      Forgot password?
-                    </NavLink>
-                  </Grid>
-                  <Grid item>
-                    <NavLink to="/signup" className={classes.link}>
-                      {"Don't have an account? Sign Up"}
-                    </NavLink>
-                  </Grid>
-                </form>
-              </div>
-              <Box mt={8}>
-                <Copyright />
-              </Box>
-            </Container>
-          </Paper>
+                <Grid item xs>
+                  <NavLink to="#" className={classes.link}>
+                    Forgot password?
+                  </NavLink>
+                </Grid>
+                <Grid item>
+                  <NavLink to="/signup" className={classes.link}>
+                    {"Don't have an account? Sign Up"}
+                  </NavLink>
+                </Grid>
+              </form>
+            </div>
+            <Box mt={8}>
+              <Copyright />
+            </Box>
+          </Container>
+        </Paper>
       </ThemeProvider>
     </div>
   );
