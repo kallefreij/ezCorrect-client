@@ -39,6 +39,7 @@ import {
     assignedTo: string,
     startTime: Date,
     endTime: Date,
+    studentUser: string,
   }
   
   function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
