@@ -15,6 +15,7 @@ import Confirm from '../signup/confirm';
 import StartHome from '../../start/home';
 import Navbar from '../navbar/navbar';
 import StudentHome from '../../student/home/components/home';
+import StudentAssignments from '../../student/assignments/assignments';
 
 interface RouterProps {
   loggedIn: boolean;
@@ -56,7 +57,14 @@ const Router: React.FC<RouterProps> = (props) => {
         <ProtectedRoute exact path="/teacher/statistics" isAuthenticated={props.loggedIn && props.teacherAuth} component={Statistics} />
         <ProtectedRoute exact path="/teacher/student" isAuthenticated={props.loggedIn && props.teacherAuth} component={Student} />
         <ProtectedRoute exact path="/teacher/profile" isAuthenticated={props.loggedIn && props.teacherAuth} component={Student} />
+
         <ProtectedRoute exact path="/student/home" isAuthenticated={props.loggedIn && props.studentAuth} component={StudentHome} />
+        <ProtectedRoute
+          exact
+          path="/student/assignments"
+          isAuthenticated={props.loggedIn && props.studentAuth}
+          component={StudentAssignments}
+        />
         <Route exact path="/home" render={() => <StartHome />} />
         <Route exact path="/signin" render={() => <SignIn onSignIn={props.onSignIn} />} />
         <Route exact path="/signup" render={() => <SignUp onSignUp={props.onSignUp} />} />

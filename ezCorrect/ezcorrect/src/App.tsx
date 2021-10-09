@@ -74,6 +74,9 @@ function App() {
           case 'Student':
             setStudentAuth(true);
             break;
+          case 'Admin':
+            setTeacherAuth(true);
+            setStudentAuth(true);
         }
       });
     }
