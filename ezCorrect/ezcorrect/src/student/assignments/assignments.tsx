@@ -1,6 +1,8 @@
 import { Button, Grid, makeStyles } from '@material-ui/core';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import AssignmentTable from './components/assignmentTable/assignmentTable';
+import { fetchStudentAssignmentsMetaData } from './student.assignments.actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,8 +17,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const Assignments: React.FC = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log('FETCHING');
+    dispatch(fetchStudentAssignmentsMetaData('teststudent'));
+  }, [dispatch]);
+  
   return (
     <div className={classes.root}>
       <Grid container>

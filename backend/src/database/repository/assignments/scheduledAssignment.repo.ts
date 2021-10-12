@@ -9,6 +9,9 @@ export default class ScheduledAssignmentRepo {
     public static getAllScheduledAssignments(username:string): Promise<IScheduledAssignment[]> {
         return ScheduledAssignmentModel.find({creator: username}).exec();
     }
+    public static getAllStudentAssignmentsMetaData(username:string): Promise<IScheduledAssignment[]> {
+        return ScheduledAssignmentModel.find({studentUser: username}).exec();
+    }
     public static postScheduledAssignment(scheduledAssignmentModel: IScheduledAssignment): Promise<any> { 
         return scheduledAssignmentModel.save();
     }

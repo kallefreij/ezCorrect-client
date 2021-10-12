@@ -20,7 +20,7 @@ export const fetchAssignmentsNow = (user:string) => async (dispatch: any) => {
 }
 
 export const fetchScheduledAssignmentsNow = (user:string) => async (dispatch: any) => {
-    dispatch({type: assignmentsActions.fetchScheduledAssignment});    
+    dispatch({type: assignmentsActions.fetchScheduledAssignment});
     const res = await axios.get('http://localhost:4000/api/scheduledAssignments/' + user);
     if(res.status === 200){
         console.log(res.data)

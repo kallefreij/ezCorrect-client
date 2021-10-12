@@ -36,6 +36,22 @@ router.get('/:username', (req, res, next) => {
     })
 });
 
+router.get('/studentAssignmentsMetaData/:username', (req, res, next) => {
+    const promise = ScheduledAssignmentRepo.getAllStudentAssignmentsMetaData(req.params.username);
+
+    promise.then((doc: IScheduledAssignment[]) => {
+        res.status(200).json({
+            assignments: doc,
+            message: 'Fetching data successfull'
+        })
+    }).catch((e) => {
+        console.log(e.error)
+        res.status(400).json({
+            message: e._message
+        })
+    })
+});
+
 router.delete('', (req, res, next) => {
 
     const promise = ScheduledAssignmentRepo.deleteScheduledAssignment(req.body.id);
