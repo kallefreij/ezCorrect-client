@@ -15,6 +15,7 @@ import Confirm from '../signup/confirm';
 import StartHome from '../../start/home';
 import Navbar from '../navbar/navbar';
 import StudentHome from '../../student/home/components/home';
+import StartAssignment from '../../student/assignments/components/startAssignment';
 import StudentAssignments from '../../student/assignments/assignments';
 
 interface RouterProps {
@@ -29,12 +30,6 @@ interface RouterProps {
 }
 
 const Router: React.FC<RouterProps> = (props) => {
-  useEffect(() => {
-    console.log(props.loggedIn);
-    console.log(props.teacherAuth);
-    console.log(props.studentAuth);
-  }, [props.loggedIn, props.teacherAuth, props.studentAuth]);
-
   return (
     <BrowserRouter>
       {props.loggedIn && <Navbar onSignOut={props.onSignOut} />}
@@ -65,6 +60,12 @@ const Router: React.FC<RouterProps> = (props) => {
         <ProtectedRoute exact path="/teacher/profile" isAuthenticated={props.loggedIn && props.teacherAuth} component={Student} />
 
         <ProtectedRoute exact path="/student/home" isAuthenticated={props.loggedIn && props.studentAuth} component={StudentHome} />
+        <ProtectedRoute
+          exact
+          path="/student/assignment/start"
+          isAuthenticated={props.loggedIn && props.studentAuth}
+          component={StartAssignment}
+        />
         <ProtectedRoute
           exact
           path="/student/assignments"
