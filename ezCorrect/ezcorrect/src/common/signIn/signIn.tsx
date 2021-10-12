@@ -100,7 +100,7 @@ const SignIn: React.FC<ISigninProps> = (props) => {
       const authenticatedUser = await Auth.signIn(userName, password);
       const roles = authenticatedUser.signInUserSession.accessToken.payload['cognito:groups'];
       onSignIn();
-      if (roles != undefined) {
+      if (roles !== undefined) {
         setRoute(roles);
       }
     } catch (error) {
