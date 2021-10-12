@@ -21,7 +21,7 @@ export const fetchAssignmentsNow = (user:string) => async (dispatch: any) => {
 
 export const fetchScheduledAssignmentsNow = (user:string) => async (dispatch: any) => {
     dispatch({type: assignmentsActions.fetchScheduledAssignment});    
-    const res = await axios.get('http://localhost:4000/api/assignments/scheduled/' + user);
+    const res = await axios.get('http://localhost:4000/api/scheduledAssignments/' + user);
     if(res.status === 200){
         console.log(res.data)
         dispatch({type: assignmentsActions.fetchScheduledAssignmentSuccessful, payload: res.data.assignments});
@@ -53,7 +53,7 @@ export const deleteAssignments = (ids: string[]) => async (dispatch: any) => {
 export const deleteScheduledAssignments = (ids: string[]) => async (dispatch: any) => {
     dispatch({type: assignmentsActions.deleteScheduledAssignments});
 
-    await axios.delete('http://localhost:4000/api/assignments/scheduledAssignment', {
+    await axios.delete('http://localhost:4000/api/scheduledAssignments', {
             data: {
                 id: ids
             }
@@ -136,7 +136,7 @@ export const saveAssignment = (createTestQuestions: ICreateTestQuestionCards[]) 
 }
 
 export const saveScheduledAssignment = (scheduledAssignment:ICreateScheduledAssignment) => async (dispatch: any) => {
-    await axios.post('http://localhost:4000/api/assignments/scheduled', {assignment: scheduledAssignment})
+    await axios.post('http://localhost:4000/api/scheduledAssignments', {assignment: scheduledAssignment})
         .then((res: any) => {
             console.log(res)
             console.log("Successful post to database")

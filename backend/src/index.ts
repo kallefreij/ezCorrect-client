@@ -1,6 +1,7 @@
 import express from "express"; 
 import mongoose from "mongoose";
 import assignmentRoutes from './routes/assignment.route';
+import scheduledAssignmentRoutes from './routes/scheduledAssignment.route';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/assignments', assignmentRoutes);
+app.use('/api/scheduledAssignments', scheduledAssignmentRoutes);
 
 
 app.listen(4000, () => {
