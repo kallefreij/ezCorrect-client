@@ -10,10 +10,6 @@ export default class AssignmentRepo {
         return AssignmentModel.find({user: username}).exec();
     }
 
-    public static getAllScheduledAssignments(username:string): Promise<IScheduledAssignment[]> {
-        return ScheduledAssignmentModel.find({creator: username}).exec();
-    }
-
     public static getAssignment(id: string): Promise<IAssignment|null> {
         return AssignmentModel.findById(id).exec();
     }
@@ -34,13 +30,7 @@ export default class AssignmentRepo {
         return assignmentModel.save();
     }
 
-    public static postScheduledAssignment(scheduledAssignmentModel: IScheduledAssignment): Promise<any> { 
-        return scheduledAssignmentModel.save();
-    }
     public static deleteAssignment(ids: string): Promise<any>{
         return AssignmentModel.deleteMany({_id: ids}).exec();
-    }
-    public static deleteScheduledAssignment(ids: string): Promise<any>{
-        return ScheduledAssignmentModel.deleteMany({_id: ids}).exec();
     }
 }
