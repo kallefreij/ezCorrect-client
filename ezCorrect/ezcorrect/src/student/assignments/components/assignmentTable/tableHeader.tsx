@@ -1,34 +1,78 @@
-import { ButtonGroup, Grid, makeStyles } from '@material-ui/core';
-import React from 'react';
-import TableButton from './tableButton';
+import { TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core';
+import React, { FC } from 'react';
+import { tableData } from './tableBody';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: '100px',
-    margin: '0',
-    padding: '0',
-    listStyle: 'none',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: '100px',
-    borderRadius: '15px 15px 0px 0px',
-    overflow: 'hidden',
-    display: 'flex',
+type Order = 'asc' | 'desc';
+
+interface IAssignmentTableHeader {
+  numSelected: number;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof tableData) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
+}
+
+interface HeadCell {
+  disablePadding: boolean;
+  id: keyof tableData;
+  label: string;
+  numeric: boolean;
+}
+
+const headCells: readonly HeadCell[] = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Uppgift',
   },
-}));
+  {
+    id: 'startDate',
+    numeric: false,
+    disablePadding: false,
+    label: 'StartDatum',
+  },
+  {
+    id: 'dueDate',
+    numeric: false,
+    disablePadding: false,
+    label: 'Sista inlämningsdatum',
+  },
+  {
+    id: 'status',
+    numeric: false,
+    disablePadding: false,
+    label: 'Status',
+  },
+];
 
-const TableHeader: React.FC = () => {
-  const classes = useStyles();
+const AssignmentTableHeader: FC<IAssignmentTableHeader> = (props) => {
+  const { order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const createSortHandler = (property: keyof tableData) => (event: React.MouseEvent<unknown>) => {
+    onRequestSort(event, property);
+  };
+
   return (
-    <ButtonGroup className={classes.root}>
-      <TableButton name="Alla" color="#FBF5F3" />
-      <TableButton name="Pågående" color="#FDE5DD" />
-      <TableButton name="Kommande" color="#FACEBF" />
-      <TableButton name="Rättat" color="#FAA68A" />
-      <TableButton name="Inlämnat" color="#A1D0A5" />
-      <TableButton name="Sent" color="#D08383" />
-    </ButtonGroup>
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell, i) => (
+          <TableCell
+            key={headCell.id}
+            align={i === 0 ? 'left' : 'right'}
+            sortDirection={props.orderBy === headCell.id ? props.order : false}
+          >
+            <TableSortLabel
+              active={props.orderBy === headCell.id}
+              direction={props.orderBy === headCell.id ? props.order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
   );
 };
 
-export default TableHeader;
+export default AssignmentTableHeader;

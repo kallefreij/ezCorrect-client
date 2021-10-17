@@ -1,7 +1,8 @@
 import { makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
-import TableHeader from './tableHeader';
+import TableButtonMenu from './tableButtonMenu';
 import TableBody from './tableBody';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '100px',
@@ -18,7 +19,7 @@ const AssignmentTable: React.FC = () => {
   const classes = useStyles();
   return (
     <Paper elevation={0} className={classes.root}>
-      <TableHeader />
+      <TableButtonMenu />
       <TableBody />
     </Paper>
   );

@@ -11,11 +11,6 @@ const useStyles = makeStyles((theme) => ({
     outline: 'none',
     padding: '42px 20px',
     transition: '0.3s',
-    WebkitTouchCallout: 'none',
-    WebkitUserSelect: 'none',
-    MozUserSelect: 'none',
-    msUserSelect: 'none',
-    userSelect: 'none',
     '&:hover': {
       backgroundColor: (props: ITableButtonProps) => props.color,
       fontSize: '20px',
