@@ -27,15 +27,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface ITableButtonProps {
+  onClick: (status: string) => void;
   name: string;
   color: string;
+  status: string;
 }
 
 const TableButton: React.FC<ITableButtonProps> = (props) => {
   const classes = useStyles(props);
 
+  const onClick = () => {
+    props.onClick(props.status);
+  };
+
   return (
-    <Button className={classes.root}>
+    <Button className={classes.root} onClick={onClick}>
       <h3 className={classes.text}>{props.name}</h3>
     </Button>
   );

@@ -1,7 +1,12 @@
 import { makeStyles, Paper } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TableButtonMenu from './tableButtonMenu';
-import TableBody from './tableBody';
+import TableBody, { tableData } from './tableBody';
+import { IStateTree } from '../../../../redux/rootReducer';
+import { IStudentAssignmentState } from '../../student.assignments.reducer';
+import { IStudentAssignmentMetaData } from '../../student.assignment.interfaces';
+import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,14 +20,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AssignmentTable: React.FC = () => {
+const getAssignmentMetaData = createSelector<IStateTree, IStudentAssignmentState, IStudentAssignmentMetaData[]>(
+  (state) => state.studentAssignments,
+  (a) => a.assignmentMetadata
+);
+
+const transform = (array: IStudentAssignmentMetaData[]): tableData[] => {
+  let data: tableData[] = [];
+  array.forEach((rowData) => {
+    let status: string;
+    if (rowData.status === undefined) status = 'coming';
+    else status = rowData.status;
+
+    data.push({ id: rowData.id, name: rowData.title, startDate: rowData.startTime, dueDate: rowData.endTime, status: status });
+  });
+  return data;
+};
+
+function AssignmentTable() {
+  const assignmentMetaData = useSelector(getAssignmentMetaData);
+  const [data, setData] = useState(transform(assignmentMetaData));
+
+  const setDataFilteredOnStatus = (status: string) => {
+    const filteredData: IStudentAssignmentMetaData[] = [];
+
+    assignmentMetaData.forEach((rowData) => {
+      if (rowData.status === 'All') {
+        filteredData.push(rowData);
+      } else if (rowData.status === status) {
+        filteredData.push(rowData);
+      }
+    });
+
+    const newData = transform(filteredData);
+    setData(newData);
+  };
+
+  useEffect(() => {
+    console.log(assignmentMetaData);
+  }, []);
+
   const classes = useStyles();
   return (
     <Paper elevation={0} className={classes.root}>
-      <TableButtonMenu />
-      <TableBody />
+      <TableButtonMenu setFilteredStatus={setDataFilteredOnStatus} />
+      <TableBody data={data} />
     </Paper>
   );
-};
+}
 
 export default AssignmentTable;

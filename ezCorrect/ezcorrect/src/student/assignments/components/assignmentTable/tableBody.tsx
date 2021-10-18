@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -37,24 +37,25 @@ interface IAssignmentCopyStudent {
 }
 
 export interface tableData {
+  id: string;
   name: string;
-  startDate: Date;
-  dueDate: Date;
+  startDate: string;
+  dueDate: string;
   status: string;
 }
 
-function createData(name: string, startDate: string, dueDate: string, status: string) {
-  return { name, startDate, dueDate, status };
-}
+// function createData(name: string, startDate: string, dueDate: string, status: string) {
+//   return { name, startDate, dueDate, status };
+// }
 
-const rows = [
-  createData('Matteprov', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'ongoing'),
-  createData('Engelska', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'late'),
-  createData('Biologi', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'corrected'),
-  createData('Annat', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'submitted'),
-  createData('Matteprov2', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'coming'),
-  createData('Matteprov3', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'coming'),
-];
+// const rows = [
+//   createData('Matteprov', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'ongoing'),
+//   createData('Engelska', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'late'),
+//   createData('Biologi', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'corrected'),
+//   createData('Annat', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'submitted'),
+//   createData('Matteprov2', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'coming'),
+//   createData('Matteprov3', dayjs(new Date()).format('YYYY-MM-DD HH:mm'), dayjs(new Date()).format('YYYY-MM-DD HH:mm'), 'coming'),
+// ];
 
 function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
@@ -87,11 +88,20 @@ function getComparator<Key extends keyof any>(
 
 type Order = 'asc' | 'desc';
 
-const AssignmentTableBody: FC = () => {
+interface IAssignmentTableBodyProps {
+  data: tableData[];
+}
+
+const AssignmentTableBody: FC<IAssignmentTableBodyProps> = (props) => {
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof tableData>('name');
   const [selected, setSelected] = useState<readonly string[]>([]);
+  const [rows, setRows] = useState(props.data);
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log(rows);
+  }, []);
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof tableData) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -170,8 +180,7 @@ const AssignmentTableBody: FC = () => {
                 onClick={(event) => handleClick(event, row.name)}
                 role="checkbox"
                 aria-checked={isItemSelected}
-                tabIndex={-1}
-                key={row.name}
+                key={row.id}
                 selected={isItemSelected}
               >
                 <TableCell align="left">{row.name}</TableCell>

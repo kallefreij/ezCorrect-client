@@ -16,38 +16,33 @@ interface HeadCell {
   disablePadding: boolean;
   id: keyof tableData;
   label: string;
-  numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
   {
     id: 'name',
-    numeric: false,
     disablePadding: true,
     label: 'Uppgift',
   },
   {
     id: 'startDate',
-    numeric: false,
     disablePadding: false,
     label: 'StartDatum',
   },
   {
     id: 'dueDate',
-    numeric: false,
     disablePadding: false,
     label: 'Sista inlämningsdatum',
   },
   {
     id: 'status',
-    numeric: false,
     disablePadding: false,
     label: 'Status',
   },
 ];
 
 const AssignmentTableHeader: FC<IAssignmentTableHeader> = (props) => {
-  const { order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { onRequestSort } = props;
   const createSortHandler = (property: keyof tableData) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
   };
