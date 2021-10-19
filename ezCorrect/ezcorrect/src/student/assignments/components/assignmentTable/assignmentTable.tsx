@@ -28,11 +28,7 @@ const getAssignmentMetaData = createSelector<IStateTree, IStudentAssignmentState
 const transform = (array: IStudentAssignmentMetaData[]): tableData[] => {
   let data: tableData[] = [];
   array.forEach((rowData) => {
-    let status: string;
-    if (rowData.status === undefined) status = 'coming';
-    else status = rowData.status;
-
-    data.push({ id: rowData.id, name: rowData.title, startDate: rowData.startTime, dueDate: rowData.endTime, status: status });
+    data.push({ id: rowData._id, name: rowData.title, startDate: rowData.startTime, dueDate: rowData.endTime, status: rowData.status });
   });
   return data;
 };
@@ -43,16 +39,16 @@ function AssignmentTable() {
 
   const setDataFilteredOnStatus = (status: string) => {
     const filteredData: IStudentAssignmentMetaData[] = [];
-
     assignmentMetaData.forEach((rowData) => {
-      if (rowData.status === 'All') {
+      if (status === 'all') {
+        console.log('hihi');
         filteredData.push(rowData);
       } else if (rowData.status === status) {
         filteredData.push(rowData);
       }
     });
-
     const newData = transform(filteredData);
+
     setData(newData);
   };
 

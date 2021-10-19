@@ -1,5 +1,5 @@
 export interface IStudentAssignmentMetaData{
-    id: string;
+    _id: string;
     title: string;
     startTime: string;
     endTime: string;

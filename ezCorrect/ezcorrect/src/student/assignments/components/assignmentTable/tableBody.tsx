@@ -100,8 +100,8 @@ const AssignmentTableBody: FC<IAssignmentTableBodyProps> = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log(rows);
-  }, []);
+    setRows(props.data);
+  }, [props.data]);
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof tableData) => {
     const isAsc = orderBy === property && order === 'asc';
