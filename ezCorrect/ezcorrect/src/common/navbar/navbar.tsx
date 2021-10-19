@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#A1D0A5',
       [theme.breakpoints.up(775)]: {
         marginLeft: '5%',
-        width: '650px',
+        width: 'auto',
         borderBottomLeftRadius: '10px',
         borderBottomRightRadius: '10px',
         backgroundColor: '#A1D0A5',
@@ -69,6 +69,11 @@ export interface INavbarProps {
   onSignOut: () => void;
 }
 
+export interface INavModules{
+  path:string;
+  name:string;
+}
+
 const getUserData = createSelector<IStateTree, IUserState, IUser>(
   (state) => state.user,
   (a) => a.loggedInUser
@@ -79,6 +84,11 @@ const Navbar: React.FC<INavbarProps> = (props) => {
   const userData = useSelector(getUserData);
   const [anchorElProfileMenu, setAnchorElProfileMenu] = React.useState<null | HTMLElement>(null);
   const history = useHistory();
+  const [modules, setModules] = useState<INavModules[]>([]);
+  
+  const teacherModules:INavModules[] = [{path: '/teacher/home', name: 'Hem'}, {path: '/teacher/assignments', name: 'Uppgifter'}, {path: '/teacher/groups', name: 'Klasser'}, {path: '/teacher/statistics', name: 'Statistik'}];
+  const studentModules:INavModules[] = [{path: '/student/home', name: 'Hem'}, {path: '/student/assignments', name: 'Uppgifter'}];
+  
 
   const handleClickProfileButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElProfileMenu(event.currentTarget);
@@ -98,40 +108,44 @@ const Navbar: React.FC<INavbarProps> = (props) => {
     }
   }
 
+  const setNavModules = () => {
+    switch (userData.roles[0]) {
+      case 'Teacher':
+        setModules(teacherModules)
+        break;
+      case 'Student':
+        setModules(studentModules)
+        break;
+      default:
+    }
+  }
+
+  useEffect(() => {
+    setNavModules()
+  }, [userData]);
+
   return (
     <div className={classes.root}>
       <AppBar position="sticky" className={classes.bar}>
         <Toolbar>
           <NavbarMenu />
-
-          <Typography className={classes.button}>
-            <NavLink to="/teacher/home" style={{ textDecoration: 'none', color: 'white' }}>
-              <Button color="inherit">Hem</Button>
-            </NavLink>
-          </Typography>
-
-          <Typography className={classes.button}>
-            <NavLink to="/teacher/assignments" style={{ textDecoration: 'none', color: 'white' }}>
-              <Button color="inherit">Uppgifter</Button>
-            </NavLink>
-          </Typography>
-          <Typography className={classes.button}>
-            <NavLink to="/teacher/groups" style={{ textDecoration: 'none', color: 'white' }}>
-              <Button color="inherit">Klasser</Button>
-            </NavLink>
-          </Typography>
-          <Typography className={classes.button}>
-            <NavLink to="/teacher/statistics" style={{ textDecoration: 'none', color: 'white' }}>
-              <Button color="inherit">Statistik</Button>
-            </NavLink>
-          </Typography>
-          <Typography className={classes.flex}></Typography>
-          <Typography className={classes.account}>
+          {
+            modules.map(x => 
+                <Typography className={classes.button}>
+                  <NavLink to={x.path} style={{ textDecoration: 'none', color: 'white' }}>
+                    <Button color="inherit">{x.name}</Button>
+                  </NavLink>
+                </Typography>
+            )
+          }
+          <Typography>
             <Button color="inherit" onClick={handleClickProfileButton}>
               {userData.firstName}
             </Button>
           </Typography>
-          <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300" />
+          <div style={{marginRight: 20}}>
+            <UserAvatar firstName="Test" lastName="Lärare" size={45} image="https://www.fillmurray.com/g/200/300" />
+          </div>
           <ProfileMenu
             handleClose={handleCloseProfileMenu}
             handleSignOut={onSignOut}

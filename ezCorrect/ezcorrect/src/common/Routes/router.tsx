@@ -29,10 +29,12 @@ interface RouterProps {
   onConfirm(): void;
 }
 
+
+
 const Router: React.FC<RouterProps> = (props) => {
   return (
     <BrowserRouter>
-      {props.loggedIn && <Navbar onSignOut={props.onSignOut} />}
+      {props.loggedIn && <Navbar onSignOut={props.onSignOut}/>}
       <Switch>
         <ProtectedRoute exact path="/teacher/home" isAuthenticated={props.loggedIn && props.teacherAuth} component={HomeTeacher} />
         <ProtectedRoute
