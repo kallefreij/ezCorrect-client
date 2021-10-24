@@ -10,6 +10,7 @@ export interface ISnackbarState {
   snackbarSuccessMessage: string;
   snackbarErrorOpen: boolean;
   snackbarErrorMessage: string;
+  notificationSnackbarOpen: boolean;
 }
 
 const intialState: ISnackbarState = {
@@ -17,6 +18,7 @@ const intialState: ISnackbarState = {
   snackbarSuccessMessage: "",
   snackbarErrorOpen: false,
   snackbarErrorMessage: "",
+  notificationSnackbarOpen: false
 };
 
 const snackbarReducer = (state: ISnackbarState = intialState, action: any) => {

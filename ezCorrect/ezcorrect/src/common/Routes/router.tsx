@@ -17,6 +17,7 @@ import Navbar from '../navbar/navbar';
 import StudentHome from '../../student/home/components/home';
 import StartAssignment from '../../student/assignments/components/startAssignment';
 import StudentAssignments from '../../student/assignments/assignments';
+import NotificationSnackbar from '../ezSnackbar/notificationSnackbar';
 
 interface RouterProps {
   loggedIn: boolean;
@@ -34,6 +35,7 @@ interface RouterProps {
 const Router: React.FC<RouterProps> = (props) => {
   return (
     <BrowserRouter>
+      <NotificationSnackbar />
       {props.loggedIn && <Navbar onSignOut={props.onSignOut}/>}
       <Switch>
         <ProtectedRoute exact path="/teacher/home" isAuthenticated={props.loggedIn && props.teacherAuth} component={HomeTeacher} />

@@ -1,6 +1,4 @@
 import './App.css';
-
-import Navbar from './common/navbar/navbar';
 import Router from './common/Routes/router';
 import EzSnackbar from './common/ezSnackbar/ezSnackbar';
 import { useState } from 'react';

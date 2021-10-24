@@ -14,6 +14,7 @@ import { createSelector } from 'reselect';
 import { IStateTree } from '../../redux/rootReducer';
 import { IUserState, IUser } from '../user/user.reducer';
 import { useSelector } from 'react-redux';
+import EzCorrectIcon from '../ezCorrectIcon';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -127,7 +128,7 @@ const Navbar: React.FC<INavbarProps> = (props) => {
   return (
     <div className={classes.root}>
       <AppBar position="sticky" className={classes.bar}>
-        <Toolbar>
+        <Toolbar>          
           <NavbarMenu />
           {
             modules.map(x => 
